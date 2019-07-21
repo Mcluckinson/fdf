@@ -1,0 +1,2 @@
+gcc draw_line.c  -lmlx -framework OpenGL -framework AppKit minilibx_macos/libmlx.a read_map.c buttons.c attune_lines.c draw_map.c window_works.c fdf.c libft/libft.a get_lines.c -g
+

@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:17:22 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/14 17:47:13 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/19 18:50:51 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,75 @@ t_coords	*new_coords(t_coords *coords)
 {
 	t_coords	*new;
 
-	new = (t_coords*)malloc(sizeof(t_coords));
-	if (!coords)
-		new->next = NULL;
-	else
+	if (!(new = (t_coords*)malloc(sizeof(t_coords))))
+		return (NULL);
+	new->x0 = 0;
+	new->x1 = 0;
+	new->y0 = 0;
+	new->y1 = 0;
+	new->z0 = 0;
+	new->z1 = 0;
+	if (coords != NULL)
+		coords->next = new;
+	new->next = NULL;
+	return (new);
+}
+
+t_coords	*new_coords_from_above(t_coords *coords)
+{
+	t_coords	*new;
+
+	if (!(new = (t_coords*)malloc(sizeof(t_coords))))
+		return (NULL);
+	new->x0 = 0;
+	new->x1 = 0;
+	new->y0 = 0;
+	new->y1 = 0;
+	new->z0 = 0;
+	new->z1 = 0;
+	if (coords != NULL)
 		new->next = coords;
+	else
+		new->next = NULL;
 	return (new);
 }
 
 t_coords	*get_lines(t_map *map)
 {
 	t_coords	*line;
+	t_coords	*start;
 
 	line = NULL;
 	line = get_horisontal(line, map);
-	line = get_vertical(line, map);
-	fix_orig(line);
+	start = line;
+	if (!(line = get_vertical(line, map)))
+		del_coords(start);
+	if (line)
+		line = fix_orig(line, 20);
 	return (line);
 }
 
 t_coords	*get_horisontal(t_coords *line, t_map *map)
 {
-//	t_coords	*new;
 	int rows;
 	int cols;
+	t_coords	*result;
 
-///	new = line;
+	result = NULL;
 	rows = 0;
 	while (rows < map->y)
 	{
 		cols = 0;
 		while (cols < map->x - 1)
 		{
-			line = new_coords(line);
+			if (!(line = new_coords(line)))
+			{
+				if (result)
+					del_coords(result);
+				return (NULL);
+			}
+			if (cols == 0 && rows == 0)
+				result = line;
 			line->x0 = cols;
 			line->x1 = cols + 1;
 			line->z0 = map->z[rows][cols];
@@ -56,18 +92,17 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 			line->y0 = rows;
 			line->y1 = rows;
 			cols++;
-
 		}
 		rows++;
 	}
-	return (line);
+	return (result);
 }
 
 t_coords		*get_vertical(t_coords *line, t_map *map)
 {
-//	t_coords	*new;
 	int rows;
 	int cols;
+	t_coords *prev;
 
 	cols = 0;
 	while (cols < map->x)
@@ -75,7 +110,14 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 		rows = 0;
 		while (rows < map->y - 1)
 		{
-			line = new_coords(line);
+			if (line)
+				prev = line;
+			if (!(line = new_coords_from_above(line)))
+			{
+				if (prev)
+					del_coords(prev);
+				return (NULL);
+			}
 			line->y0 = rows;
 			line->y1 = rows + 1;
 			line->x0 = cols;
@@ -87,4 +129,11 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 		cols++;
 	}
 	return (line);
+}
+
+void	del_coords(t_coords *lines)
+{
+	while (lines->next != NULL)
+		del_coords(lines->next);
+	free(lines);
 }

@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 13:59:02 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/15 13:16:42 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/19 18:42:37 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,10 @@ t_map	*read_map(t_lines *start)
 
 	if (!(map = (t_map*)malloc(sizeof(t_map))))
 		return (NULL);
+	map->x_max = 0;
+	map->y_max = 0;
+	map->x_min = 0;
+	map->y_min = 0;
 	map->y = find_y(start);
 	map->x = find_x(start);
 	map->z = find_z(start, map->x, map->y);
