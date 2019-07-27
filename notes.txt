@@ -1,2 +1,10 @@
 gcc draw_line.c  -lmlx -framework OpenGL -framework AppKit minilibx_macos/libmlx.a read_map.c buttons.c attune_lines.c draw_map.c window_works.c fdf.c libft/libft.a get_lines.c -g
 
+gcc draw_line.c  -lmlx -framework OpenGL -framework AppKit minilibx_macos/libmlx.a read_map.c buttons.c attune_lines.c draw_map.c window_works.c fdf.c libft/libft.a get_lines.c -g -fsanitize=address  - покажет источник наебнутой памяти
+управление:
+ESC (53) - выход
+1 - параллельная
+2 - изометрия
+мышь - верчение
+стрелки - перемещение карты
+колесо мыши - зум
