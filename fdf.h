@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/21 15:35:30 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/27 14:04:05 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "libft/libft.h"
 #include <math.h>
 #define UNIQ_BPP 4
+#define MAP_H 1300
+#define MAP_W 2000
 
 typedef	struct		s_lines
 {
@@ -53,6 +55,7 @@ typedef	struct		s_window
 	void	*win_ptr;
 	void	*img_ptr;
 	char 	*img_data;
+//	int 	*img_data;
 	int 	*endian;
 	int 	*linesize;
 	int 	*depth;
@@ -81,10 +84,10 @@ t_coords	*new_coords(t_coords *coords);
 t_coords	*get_horisontal(t_coords *line, t_map *map);
 t_coords	*get_vertical(t_coords *line, t_map *map);
 t_coords	*fix_orig(t_coords *start, float ratio);
-void	draw_map(t_coords *lines, t_window *window);
-char *put_color(char *img_data, int i, int color);
+int	draw_map(t_coords *lines, t_window *window);
+void put_color(char *img_data, int i, unsigned int color);
 int 	steep_check(int *x0, int *x1, int *y0, int *y1);
-void	set_up_window(t_map *map, t_window *window);
+int	set_up_window(t_window *window, char *map_name);
 int 	find_i(int x, int y, t_window *window ,int steep);
 t_coords	*iso(t_coords *start, t_map *map);
 void	find_max_min(t_coords *turned, t_map *map);
@@ -94,5 +97,10 @@ void	del_coords(t_coords *lines);
 t_coords	*new_coords_from_above(t_coords *coords);
 int close_window(t_window *window);
 int key_press(int key, t_window *window);
+void	del_win(t_window *window);
+void	draw_parallel(t_window *window);
+t_coords	*parallel(t_coords *start, t_map *map);
+void 	draw_iso(t_window *window);
+void	print_controls(t_window *window);
 
 #endif

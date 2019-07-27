@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 13:59:02 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/19 18:42:37 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/25 15:28:03 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ t_lines		*read_lines(int fd)
 void		del_lines(t_lines *start)
 {
 	while (start->next != NULL)
+	{
 		del_lines(start->next);
+		start->next = NULL;
+	}
 	free(start->line);
 	free(start);
 }
@@ -92,7 +95,7 @@ int 	**find_z(t_lines *start, int x, int y)
 
 	temp = start;
 	yy = 0;
-	if (!(z = (int**)malloc(sizeof(int*) * y)))
+	if (!(z = (int**)malloc(sizeof(int*) * (y + 1))))
 		return (NULL);
 	while (yy < y)
 	{
@@ -119,7 +122,7 @@ void	del_map(t_map *map)
 	i = 0;
 	if (map->z != NULL)
 	{
-		while (map->z[i])
+		while (i < map->y)
 		{
 			free(map->z[i]);
 			i++;

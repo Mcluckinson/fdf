@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/19 18:42:37 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/25 15:25:42 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_line(t_coords *line, t_window *window)
 	int x;
 	int y;
 	int ystep;
-	int 	color;
+	unsigned int 	color;
 	int 	i;
 	int 	steep;
 
@@ -73,8 +73,11 @@ void	draw_line(t_coords *line, t_window *window)
 	x = *x0;
 	while (x <= *x1)
 	{
-		i = find_i(x, y, window, steep);
-		window->img_data = put_color(window->img_data, i, color);
+		if (x >= 0 && x <= MAP_W && y > 0 && y <= MAP_H - 300)
+		{
+			i = find_i(x, y, window, steep);
+			put_color(window->img_data, i, color);
+		}
 		error -= dy;
 		if (error < 0)
 		{
@@ -90,53 +93,16 @@ int 	find_i(int x, int y, t_window *window ,int steep)
 	int i;
 
 	if (steep == 0)
-		i = (x * (*window->depth / 8)) + (y * (*window->linesize));
+		i = (x  * (*window->depth / 8)) + (y * (*window->linesize));
 	else
 		i = (y * (*window->depth / 8)) + (x * (*window->linesize));
 	return (i);
 }
 
-char *put_color(char *img_data, int i, int color)
+void	put_color(char *img_data, int i, unsigned int color)
 {
 	img_data[i] = color; // B — Blue
 	img_data[++i] = color >> 8; // G — Green
 	img_data[++i] = color >> 16; // R — Red
-	img_data[++i] = 0; // Alpha channel
-	return (img_data);
+//	img_data[++i] = 0; // Alpha channel
 }
-/*
-int main ()
-{
-	t_window	*window;
-
-	window = (t_window*)malloc(sizeof(t_window));
-	int 	x0[1];
-	int 	x1[1];
-	int 	y0[1];
-	int 	y1[1];
-
-	window->img_ptr = mlx_new_image(window->mlx_ptr, 800, 800);
-	window->linesize = (int*)malloc(sizeof(int));
-	window->linesize = 800 * UNIQ_BPP;
-	window->depth = (int*)malloc(sizeof(int));
-	window->depth = UNIQ_BPP * 8;
-	window->endian = 0;
-	window->mlx_ptr = mlx_init();
-	window->img_data = mlx_get_data_addr(window->img_ptr, window->depth, window->linesize, window->linesize);
-	window->win_ptr = mlx_new_window(window->mlx_ptr, 800, 800, "FDF");
-	*x0 = 0;
-	*y0 = 10;
-	*x1 = 50;
-	*y1 = 70;
-	draw_line(x0, x1,y0,y1, img_data, depth,linesize);
-	*x0 = 100;
-	*y0 = 10;
-	*x1 = 350;
-	*y1 = 10;
-	draw_line(x0, x1,y0,y1, img_data, depth,linesize);
-
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 100, 400);
-	mlx_loop(mlx_ptr);
-	return (0);
-}
-*/

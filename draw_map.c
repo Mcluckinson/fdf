@@ -6,17 +6,22 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 15:37:42 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/13 18:23:11 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/25 17:25:20 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_map(t_coords *lines, t_window *window)
+int	draw_map(t_coords *lines, t_window *window)
 {
-	while (lines != NULL)
+	t_coords	*go;
+
+	go = lines;
+	while (go != NULL)
 	{
-		draw_line(lines, window);
-		lines = lines->next;
+		draw_line(go, window);
+		go = go->next;
 	}
+	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, window->img_ptr, 0, 0);
+	return (0);
 }

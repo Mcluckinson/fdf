@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/20 14:56:52 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/25 15:25:42 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,37 @@ t_coords	*iso(t_coords *start, t_map *map)
 	return (result);
 }
 
+t_coords	*parallel(t_coords *start, t_map *map)
+{
+	t_coords	*fixed;
+	t_coords	*result;
+
+	fixed = NULL;
+	result = fixed;
+	while (start != NULL)
+	{
+		if (!(fixed = new_coords(fixed)))
+		{
+			if (result != NULL)
+				del_coords(result);
+			return (NULL);
+		}
+		if (result == NULL)
+			result = fixed;
+		fixed->x0 = start->x0;
+		fixed->x1 = start->x1;
+		fixed->y0 = start->y0;
+		fixed->y1 = start->y1;
+		fixed->z0 = start->z0;
+		fixed->z1 = start->z1;
+		find_max_min(fixed, map);
+		start = start->next;
+	}
+	result = resize_all(result, map);
+	result = move_position(result, map);
+	return (result);
+}
+
 void	find_max_min(t_coords *turned, t_map *map)
 {
 	if (turned->x0 > map->x_max)
@@ -104,9 +135,9 @@ t_coords	*resize_all(t_coords *start, t_map *map)
 
 	ratiox = 1;
 	ratioy = 1;
-	if (map->x_max - map->x_min + 1 > 2000)
+	if (map->x_max - map->x_min > 2000)
 		ratiox = 2000 / (float)(map->x_max - map->x_min);
-	if (map->y_max - map->y_min + 1 > 1000)
+	if (map->y_max - map->y_min > 1000)
 		ratioy = 1000 / (float)(map->y_max - map->y_min);
 	ratio = fminf(ratiox, ratioy);
 	if (ratio != 1)
