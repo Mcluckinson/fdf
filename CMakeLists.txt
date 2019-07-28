@@ -81,7 +81,8 @@ add_executable(fdf
         fdf.h
         get_lines.c
         read_map.c
-        window_works.c)
+        window_works.c
+        arrows.c)
 target_link_libraries(fdf
         "-framework AppKit"
         "-framework OpenGL"

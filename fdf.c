@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 14:28:37 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/27 16:56:54 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/27 19:46:26 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int		main(int argc, char **argv)
 		return (0);
 	draw_map(window->turned, window);
 	mlx_hook(window->win_ptr, 17, 1L<<2, close_window, window);
-	mlx_key_hook(window->win_ptr, key_press, window);
+	mlx_hook(window->win_ptr, 3, 1L<<0, key_press, window);
+//	mlx_key_hook(window->win_ptr, key_press, window);
 	mlx_loop(window->mlx_ptr);
 	return (0);
 }

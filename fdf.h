@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/27 14:04:05 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/27 19:08:56 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,9 @@ void	draw_parallel(t_window *window);
 t_coords	*parallel(t_coords *start, t_map *map);
 void 	draw_iso(t_window *window);
 void	print_controls(t_window *window);
+void 	move_right(t_window *window);
+void 	move_left(t_window *window);
+void 	move_down(t_window *window);
+void 	move_up(t_window *window);
 
 #endif

@@ -14,6 +14,7 @@
 
 int	draw_map(t_coords *lines, t_window *window)
 {
+
 	t_coords	*go;
 
 	go = lines;

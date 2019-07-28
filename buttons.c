@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/25 19:07:54 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/28 17:50:42 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,18 @@ int key_press(int key, t_window *window)
 		draw_parallel(window);
 	if (key == 19)
 		draw_iso(window);
-/*	if (key >= 123 && key <= 126)
-		move_it;
-	if (key == 4 || key == 5)
+	if (key >= 123 && key <= 126)
+	{
+		if (key == 124)
+			move_right(window);
+		if (key == 123)
+			move_left(window);
+		if (key == 126)
+			move_up(window);
+		if (key == 125)
+			move_down(window);
+	}
+/*	if (key == 4 || key == 5)
 		zoom;*/
 	return (0);
 }
