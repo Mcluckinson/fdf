@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/25 15:25:42 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/28 18:57:58 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	draw_line(t_coords *line, t_window *window)
 	x = *x0;
 	while (x <= *x1)
 	{
-		if (x >= 0 && x <= MAP_W && y > 0 && y <= MAP_H - 300)
+		if ((x >= 0 && x <= MAP_W && y > 0 && y <= MAP_H - 300 && steep == 0) ||
+				(y >= 0 && y <= MAP_W && x > 0 && x <= MAP_H - 300 && steep == 1))
 		{
 			i = find_i(x, y, window, steep);
 			put_color(window->img_data, i, color);

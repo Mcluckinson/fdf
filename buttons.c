@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/28 17:50:42 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/28 18:19:36 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int key_press(int key, t_window *window)
 {
+//	mlx_do_key_autorepeaton(window->mlx_ptr);
 	if (key == 53)
 		close_window(window);
 	if (key == 18)
