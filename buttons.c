@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/28 18:19:36 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/31 14:45:31 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,17 @@ int key_press(int key, t_window *window)
 		if (key == 123)
 			move_left(window);
 		if (key == 126)
+		{
 			move_up(window);
+			window->current = init_current(window);
+		}
 		if (key == 125)
 			move_down(window);
 	}
-/*	if (key == 4 || key == 5)
-		zoom;*/
+	if (key == 69)
+		zoom_in(window);
+	if (key == 78)
+		zoom_out(window);
 	return (0);
 }
 
@@ -45,6 +50,7 @@ int close_window(t_window *window)
 
 void	draw_parallel(t_window *window)
 {
+	window->cur_zoom = 1;
 	window->map->x_max = 0;
 	window->map->x_min = 0;
 	window->map->y_max = 0;
@@ -57,6 +63,7 @@ void	draw_parallel(t_window *window)
 
 void 	draw_iso(t_window *window)
 {
+	window->cur_zoom = 1;
 	window->map->x_max = 0;
 	window->map->x_min = 0;
 	window->map->y_max = 0;

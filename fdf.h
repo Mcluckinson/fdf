@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/27 19:08:56 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/31 15:47:41 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef	struct		s_window
 	t_lines	*start;
 	t_coords	*lines;
 	t_coords	*turned;
+	t_coords	*current;
+	float 		cur_zoom;
 }					t_window;
 
 
@@ -106,5 +108,10 @@ void 	move_right(t_window *window);
 void 	move_left(t_window *window);
 void 	move_down(t_window *window);
 void 	move_up(t_window *window);
+void	zoom_in(t_window *window);
+void	zoom_out(t_window *window);
+void	copy_to_current(t_coords *start, t_window *window);
+void	fix_current(t_coords *start, t_window *window, float ratio);
+t_coords	*init_current(t_window *window);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/25 15:25:42 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/31 18:27:20 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	find_max_min(t_coords *turned, t_map *map)
 	if (turned->x1 > map->x_max)
 		map->x_max = turned->x1;
 	if (turned->y0 > map->y_max)
-		map->x_max = turned->x0;
+		map->y_max = turned->y0;
 	if (turned->y1 > map->y_max)
 		map->y_max = turned->y1;
 	if (turned->x0 < map->x_min && turned->x0 < 0)
@@ -107,7 +107,7 @@ void	find_max_min(t_coords *turned, t_map *map)
 	if (turned->x1 < map->x_min && turned->x1 < 0)
 		map->x_min = turned->x1;
 	if (turned->y0 < map->y_min && turned->y0 < 0)
-		map->x_min = turned->x0;
+		map->y_min = turned->y0;
 	if (turned->y1 < map->y_min && turned->y1 < 0)
 		map->y_min = turned->y1;
 }
@@ -116,12 +116,17 @@ t_coords	*move_position(t_coords *start, t_map *map)
 {
 	t_coords	*result;
 	result = start;
+	int width_mod;
+	int height_mod;
+
+	width_mod = (MAP_W - (map->x_max - map->x_min)) / 2;
+	height_mod = (MAP_H - 300 - (map->y_max - map->y_min)) / 2;
 	while (start != NULL)
 	{
-		start->x0 = (start->x0 - map->x_min);
-		start->x1 = (start->x1 - map->x_min);
-		start->y0 = (start->y0 - map->y_min);
-		start->y1 = (start->y1 - map->y_min);
+		start->x0 = (start->x0 - map->x_min + width_mod + 1);
+		start->x1 = (start->x1 - map->x_min + width_mod + 1);
+		start->y0 = (start->y0 - map->y_min + height_mod + 1);
+		start->y1 = (start->y1 - map->y_min + height_mod + 1);
 		start = start->next;
 	}
 	return (result);
@@ -136,9 +141,9 @@ t_coords	*resize_all(t_coords *start, t_map *map)
 	ratiox = 1;
 	ratioy = 1;
 	if (map->x_max - map->x_min > 2000)
-		ratiox = 2000 / (float)(map->x_max - map->x_min);
+		ratiox = MAP_W / (float)(map->x_max - map->x_min);
 	if (map->y_max - map->y_min > 1000)
-		ratioy = 1000 / (float)(map->y_max - map->y_min);
+		ratioy = (MAP_H - 300) / (float)(map->y_max - map->y_min);
 	ratio = fminf(ratiox, ratioy);
 	if (ratio != 1)
 	{

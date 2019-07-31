@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:24:17 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/27 16:47:07 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/07/31 18:27:20 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	set_up_window(t_window *window, char *map_name)
 	window->mlx_ptr = mlx_init();
 	window->win_ptr = mlx_new_window(window->mlx_ptr, MAP_W, MAP_H, name);
 	free(name);
-//	window->img_ptr = mlx_new_image(window->mlx_ptr, map->x_max - map->x_min + 1, map->y_max - map->y_min + 1);
+	window->cur_zoom = 1;
+	window->current = NULL;
 	window->img_ptr = mlx_new_image(window->mlx_ptr, MAP_W, MAP_H - 300);
 	if (!(window->linesize = (int*)malloc(sizeof(int))) || !(window->depth = (int*)malloc(sizeof(int))) ||
 		!(window->endian = (int*)malloc(sizeof(int))))
@@ -28,12 +29,10 @@ int	set_up_window(t_window *window, char *map_name)
 		del_win(window);
 		return (-1);
 	}
-//	*window->linesize = (map->x_max - map->x_min + 1) * UNIQ_BPP;
 	*window->linesize = MAP_W * UNIQ_BPP;
 	*window->depth = UNIQ_BPP * 8;
 	*window->endian = 0;
 	window->img_data = mlx_get_data_addr(window->img_ptr, window->depth, window->linesize, window->endian);
-//	window->img_data = (int*)mlx_get_data_addr(window->img_ptr, window->depth, window->linesize, window->endian);
 	print_controls(window);
 	return (0);
 }
