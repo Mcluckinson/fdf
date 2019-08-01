@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:24:17 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/31 18:27:20 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/01 18:02:33 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	set_up_window(t_window *window, char *map_name)
 	*window->endian = 0;
 	window->img_data = mlx_get_data_addr(window->img_ptr, window->depth, window->linesize, window->endian);
 	print_controls(window);
+	window->cur_x = 0;
+	window->cur_y = 0;
 	return (0);
 }
 

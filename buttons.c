@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/31 14:45:31 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/01 18:21:51 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int key_press(int key, t_window *window)
 {
-//	mlx_do_key_autorepeaton(window->mlx_ptr);
 	if (key == 53)
 		close_window(window);
 	if (key == 18)
@@ -22,22 +21,10 @@ int key_press(int key, t_window *window)
 	if (key == 19)
 		draw_iso(window);
 	if (key >= 123 && key <= 126)
-	{
-		if (key == 124)
-			move_right(window);
-		if (key == 123)
-			move_left(window);
-		if (key == 126)
-		{
-			move_up(window);
-			window->current = init_current(window);
-		}
-		if (key == 125)
-			move_down(window);
-	}
-	if (key == 69)
-		zoom_in(window);
+		move(key, window);
 	if (key == 78)
+		zoom_in(window);
+	if (key == 69)
 		zoom_out(window);
 	return (0);
 }
@@ -57,8 +44,12 @@ void	draw_parallel(t_window *window)
 	window->map->y_min = 0;
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	del_coords(window->turned);
+	del_coords(window->current);
 	window->turned = parallel(window->lines, window->map);
-	draw_map(window->turned, window);
+	window->current = parallel(window->lines, window->map);
+	draw_map(window->current, window);
+	window->cur_x = 0;
+	window->cur_y = 0;
 }
 
 void 	draw_iso(t_window *window)
@@ -70,6 +61,22 @@ void 	draw_iso(t_window *window)
 	window->map->y_min = 0;
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	del_coords(window->turned);
+	del_coords(window->current);
+	window->current = iso(window->lines, window->map);
 	window->turned = iso(window->lines, window->map);
-	draw_map(window->turned, window);
+	draw_map(window->current, window);
+	window->cur_x = 0;
+	window->cur_y = 0;
+}
+
+void	move(int key, t_window *window)
+{
+	if (key == 124)
+		move_right(window);
+	if (key == 123)
+		move_left(window);
+	if (key == 126)
+		move_up(window);
+	if (key == 125)
+		move_down(window);
 }

@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 19:34:49 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/31 18:30:49 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/01 18:40:35 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void 	move_right(t_window *window)
 	int 	flag;
 
 	flag = 0;
-	go = window->turned;
+	window->cur_x++;
+	go = window->current;
 	while (go != NULL)
 	{
 		go->x0+=5;
@@ -33,7 +34,7 @@ void 	move_right(t_window *window)
 		return ;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
-	draw_map(window->turned, window);
+	draw_map(window->current, window);
 }
 
 void 	move_left(t_window *window)
@@ -42,7 +43,8 @@ void 	move_left(t_window *window)
 	int 	flag;
 
 	flag = 0;
-	go = window->turned;
+	window->cur_x--;
+	go = window->current;
 	while (go != NULL)
 	{
 		go->x0-=5;
@@ -57,7 +59,7 @@ void 	move_left(t_window *window)
 		return;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
-	draw_map(window->turned, window);
+	draw_map(window->current, window);
 }
 
 void 	move_up(t_window *window)
@@ -66,7 +68,8 @@ void 	move_up(t_window *window)
 	int 	flag;
 
 	flag = 0;
-	go = window->turned;
+	go = window->current;
+	window->cur_y--;
 	while (go != NULL)
 	{
 		go->y0-=5;
@@ -81,7 +84,7 @@ void 	move_up(t_window *window)
 		return;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
-	draw_map(window->turned, window);
+	draw_map(window->current, window);
 }
 
 void 	move_down(t_window *window)
@@ -90,7 +93,8 @@ void 	move_down(t_window *window)
 	int 	flag;
 
 	flag = 0;
-	go = window->turned;
+	go = window->current;
+	window->cur_y++;
 	while (go != NULL)
 	{
 		go->y0+=5;
@@ -105,7 +109,7 @@ void 	move_down(t_window *window)
 		return;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
-	draw_map(window->turned, window);
+	draw_map(window->current, window);
 }
 
 void	zoom_in(t_window *window)
@@ -114,9 +118,7 @@ void	zoom_in(t_window *window)
 		window->cur_zoom -= 0.1;
 	else
 		return ;
-//	copy_to_current(window->turned, window);
-	fix_current(window->turned, window, window->cur_zoom);
-//	go = fix_orig(window->turned, 0.9);
+	fix_current(window->turned, window->current, window->cur_zoom, window);
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
@@ -124,30 +126,24 @@ void	zoom_in(t_window *window)
 void	zoom_out(t_window *window)
 {
 	window->cur_zoom += 0.1;
-//	copy_to_current(window->turned, window);
-	fix_current(window->turned, window, window->cur_zoom);
+	fix_current(window->turned, window->current, window->cur_zoom, window);
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
 
-void	fix_current(t_coords *start, t_window *window, float ratio)
+void	fix_current(t_coords *start, t_coords *target, float ratio, t_window *window)
 {
-	t_coords *go;
-	t_coords *result;
-
-	go = start;
-	result = window->current;
-	while (go!= NULL)
+	if (start != NULL)
 	{
-		result->x0 = go->x0 * ratio;
-		result->x1 = go->x1 * ratio;
-		result->y0 = go->y0 * ratio;
-		result->y1 = go->y1 * ratio;
-		result->z0 = go->z0 * ratio;
-		result->z1 = go->z1 * ratio;
-		result = result->next;
-		go = go->next;
+		fix_current(start->next, target->next, ratio, window);
+		target->x0 = (start->x0 * ratio) + (5 * window->cur_x);
+		target->x1 = (start->x1 * ratio) + (5 * window->cur_x);
+		target->y0 = (start->y0 * ratio) + (5 * window->cur_y);
+		target->y1 = (start->y1 * ratio) + (5 * window->cur_y);
+		target->z0 = start->z0 * ratio;
+		target->z1 = start->z1 * ratio;
 	}
+	return ;
 }
 
 t_coords	*init_current(t_window *window)
@@ -156,6 +152,7 @@ t_coords	*init_current(t_window *window)
 	t_coords	*go;
 
 	go = window->turned;
+	result = window->current;
 	while (go != NULL)
 	{
 		result = new_coords_from_above(result);
@@ -164,13 +161,13 @@ t_coords	*init_current(t_window *window)
 	return (result);
 }
 
-void	copy_to_current(t_coords *start, t_window *window)
+void	copy_to_current(t_coords *origin, t_coords *target)
 {
 	t_coords *go;
 	t_coords *change;
 
-	go = start;
-	change = window->current;
+	go = origin;
+	change = target;
 	while (go != NULL)
 	{
 		change->x0 = go->x0;

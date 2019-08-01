@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/31 15:47:41 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/01 18:15:21 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef	struct		s_window
 	void	*win_ptr;
 	void	*img_ptr;
 	char 	*img_data;
-//	int 	*img_data;
 	int 	*endian;
 	int 	*linesize;
 	int 	*depth;
@@ -66,6 +65,8 @@ typedef	struct		s_window
 	t_coords	*turned;
 	t_coords	*current;
 	float 		cur_zoom;
+	int 		cur_x;
+	int 		cur_y;
 }					t_window;
 
 
@@ -110,8 +111,9 @@ void 	move_down(t_window *window);
 void 	move_up(t_window *window);
 void	zoom_in(t_window *window);
 void	zoom_out(t_window *window);
-void	copy_to_current(t_coords *start, t_window *window);
-void	fix_current(t_coords *start, t_window *window, float ratio);
+void	copy_to_current(t_coords *origin, t_coords *target);
+void	fix_current(t_coords *start, t_coords *target, float ratio, t_window *window);
 t_coords	*init_current(t_window *window);
+void	move(int key, t_window *window);
 
 #endif

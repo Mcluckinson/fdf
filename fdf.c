@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 14:28:37 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/31 16:26:29 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/01 18:02:24 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	del_win(t_window *window)
 		free(window->depth);
 	if (window->img_data)
 		free(window->img_data);
+	if (window->current)
+		del_coords(window->current);
 	if (window->map)
 		del_map(window->map);
 	free(window);
@@ -61,6 +63,7 @@ int		main(int argc, char **argv)
 	if (set_up_window(window, argv[argc]) == -1)
 		return (0);
 	window->current = init_current(window);
+	copy_to_current(window->turned, window->current);
 	draw_map(window->turned, window);
 	mlx_hook(window->win_ptr, 17, 1L<<17, close_window, window);
 	mlx_hook(window->win_ptr, 2, 1L<<0, key_press, window);

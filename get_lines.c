@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:17:22 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/07/31 13:36:59 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/01 18:02:24 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,5 @@ void	del_coords(t_coords *lines)
 		lines->next = NULL;
 	}
 	free(lines);
-	lines = NULL;
+//	lines = NULL;
 }
