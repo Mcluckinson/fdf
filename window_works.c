@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:24:17 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/01 18:02:33 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/13 13:31:43 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	set_up_window(t_window *window, char *map_name)
 	print_controls(window);
 	window->cur_x = 0;
 	window->cur_y = 0;
+	window->block = 1;
+	window->height_mod = 0;
 	return (0);
 }
 
@@ -49,6 +51,14 @@ void	print_controls(t_window *window)
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 50, 1150, 0x00ffffff, instr);
 	instr = "arrows to move, LMB + mouse move to turn around";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 50, 1200, 0x00ffffff, instr);
-	instr = "mouse wheel for zoom";
+	instr = "NUM +/-  or MOUSE WHEEL for zoom";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 50, 1250, 0x00ffffff, instr);
+	instr = "W & S to change altitude";
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 900, 1100, 0x00ffffff, instr);
+	instr = "NUM 1-9 for turning";
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 900, 1150, 0x00ffffff, instr);
+	instr = "SPACE blocks movement";
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 900, 1200, 0x00ffffff, instr);
+	instr = "press 0 to go mad";
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 900, 1250, 0x00ffffff, instr);
 }

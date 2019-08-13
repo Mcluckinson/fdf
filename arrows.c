@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 19:34:49 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/01 18:40:35 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/12 19:08:37 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void 	move_right(t_window *window)
 			flag = 1;
 		go = go->next;
 	}
-	if (flag == 1)
+/*	if (flag == 1)
 	{
 		move_left(window);
 		return ;
-	}
+	}*/
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
@@ -53,11 +53,11 @@ void 	move_left(t_window *window)
 			flag = 1;
 		go = go->next;
 	}
-	if (flag == 1)
+/*	if (flag == 1)
 	{
 		move_right(window);
 		return;
-	}
+	}*/
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
@@ -78,11 +78,11 @@ void 	move_up(t_window *window)
 			flag = 1;
 		go = go->next;
 	}
-	if (flag == 1)
+/*	if (flag == 1)
 	{
 		move_down(window);
 		return;
-	}
+	}*/
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
@@ -103,30 +103,32 @@ void 	move_down(t_window *window)
 			flag = 1;
 		go = go->next;
 	}
-	if (flag == 1)
+/*	if (flag == 1)
 	{
 		move_up(window);
 		return;
-	}
+	}*/
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
 
 void	zoom_in(t_window *window)
 {
-	if (window->cur_zoom > 0.5)
-		window->cur_zoom -= 0.1;
-	else
-		return ;
+	window->cur_zoom += 0.1;
 	fix_current(window->turned, window->current, window->cur_zoom, window);
+	move_position(window->current, window->map);
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
 
 void	zoom_out(t_window *window)
 {
-	window->cur_zoom += 0.1;
+	if (window->cur_zoom > 0.5)
+		window->cur_zoom -= 0.1;
+	else
+		return ;
 	fix_current(window->turned, window->current, window->cur_zoom, window);
+	move_position(window->current, window->map);
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
@@ -136,10 +138,10 @@ void	fix_current(t_coords *start, t_coords *target, float ratio, t_window *windo
 	if (start != NULL)
 	{
 		fix_current(start->next, target->next, ratio, window);
-		target->x0 = (start->x0 * ratio) + (5 * window->cur_x);
-		target->x1 = (start->x1 * ratio) + (5 * window->cur_x);
-		target->y0 = (start->y0 * ratio) + (5 * window->cur_y);
-		target->y1 = (start->y1 * ratio) + (5 * window->cur_y);
+		target->x0 = (start->x0 * ratio + (5 * window->cur_x)) ;
+		target->x1 = (start->x1 * ratio + (5 * window->cur_x));
+		target->y0 = (start->y0 * ratio + (5 * window->cur_y));
+		target->y1 = (start->y1 * ratio + (5 * window->cur_y));
 		target->z0 = start->z0 * ratio;
 		target->z1 = start->z1 * ratio;
 	}
@@ -176,6 +178,8 @@ void	copy_to_current(t_coords *origin, t_coords *target)
 		change->y1 = go->y1;
 		change->z0 = go->z0;
 		change->z1 = go->z1;
+		change->color_start = go->color_start;
+		change->color_finish = go->color_finish;
 		go = go->next;
 		change = change->next;
 	}

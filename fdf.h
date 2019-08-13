@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/01 18:15:21 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/13 13:46:54 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef	struct		s_coords
 	int				z0;
 	int 			z1;
 	struct s_coords	*next;
+	unsigned int	color_start;
+	unsigned int 	color_finish;
 }					t_coords;
 
 typedef	struct		s_window
@@ -67,6 +69,8 @@ typedef	struct		s_window
 	float 		cur_zoom;
 	int 		cur_x;
 	int 		cur_y;
+	int 		block;
+	int 		height_mod;
 }					t_window;
 
 
@@ -115,5 +119,12 @@ void	copy_to_current(t_coords *origin, t_coords *target);
 void	fix_current(t_coords *start, t_coords *target, float ratio, t_window *window);
 t_coords	*init_current(t_window *window);
 void	move(int key, t_window *window);
+int mouse_buttons(int key, int x, int y, t_window *window);
+double percent(int start, int end, int current);
+int get_light(unsigned int start, unsigned int end, double percentage);
+unsigned int get_color(int cur_x, t_coords *line, int steep);
+void increase_upper(t_window *window);
+void	randomise_colors(t_window *window);
+void	redraw_altitude(t_window *window);
 
 #endif

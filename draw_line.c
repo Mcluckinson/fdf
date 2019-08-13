@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/01 18:02:24 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/13 13:31:13 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_line(t_coords *line, t_window *window)
 	int x;
 	int y;
 	int ystep;
-	unsigned int 	color;
+	unsigned int	final_color;
 	int 	i;
 	int 	steep;
 
@@ -60,7 +60,7 @@ void	draw_line(t_coords *line, t_window *window)
 	*x1 = line->x1;
 	*y0 = line->y0;
 	*y1 = line->y1;
-	color = 0x00ff00ff;
+
 	steep = steep_check(x0, x1, y0, y1);
 	dx = *x1 - *x0;
 	dy = labs(*y1 - *y0);
@@ -73,11 +73,12 @@ void	draw_line(t_coords *line, t_window *window)
 	x = *x0;
 	while (x <= *x1)
 	{
+		final_color = get_color(x, line, steep);
 		if ((x >= 0 && x <= MAP_W && y > 0 && y <= MAP_H - 300 && steep == 0) ||
 				(y >= 0 && y <= MAP_W && x > 0 && x <= MAP_H - 300 && steep == 1))
 		{
 			i = find_i(x, y, window, steep);
-			put_color(window->img_data, i, color);
+			put_color(window->img_data, i, final_color);
 		}
 		error -= dy;
 		if (error < 0)
@@ -106,4 +107,38 @@ void	put_color(char *img_data, int i, unsigned int color)
 	img_data[++i] = color >> 8; // G — Green
 	img_data[++i] = color >> 16; // R — Red
 //	img_data[++i] = 0; // Alpha channel
+}
+
+double percent(int start, int end, int current)
+{
+	double placement;
+	double distance;
+
+	placement = current - start;
+	distance = end - start;
+	return ((distance == 0) ? 1.0 : (placement / distance));
+}
+
+int get_light(unsigned int start, unsigned int end, double percentage)
+{
+	return ((unsigned int)((1 - percentage) * start + percentage * end));
+}
+
+unsigned int get_color(int cur_x, t_coords *line, int steep)
+{
+	unsigned int     red;
+	unsigned int     green;
+	unsigned int     blue;
+	double  percentage;
+
+	if (line->color_start == line->color_finish)
+		return (line->color_start);
+	if (steep == 0)
+		percentage = percent(line->x0, line->x1, cur_x);
+	else
+		percentage = percent(line->y0, line->y1, cur_x);
+	red = get_light((line->color_start >> 16) & 0xFF, (line->color_finish >> 16) & 0xFF, percentage);
+	green = get_light((line->color_start >> 8) & 0xFF, (line->color_finish >> 8) & 0xFF, percentage);
+	blue = get_light(line->color_start & 0xFF, line->color_finish & 0xFF, percentage);
+	return ((red << 16) | (green << 8) | blue);
 }

@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/01 18:02:24 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/12 15:19:02 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ t_coords	*iso(t_coords *start, t_map *map)
 	t_coords *turned;
 	t_coords	*result;
 
+	map->x_min = 0;
+	map->x_max = 0;
+	map->y_max = 0;
+	map->y_min = 0;
 	turned = NULL;
 	result = turned;
 	while (start != NULL)
@@ -53,11 +57,12 @@ t_coords	*iso(t_coords *start, t_map *map)
 		turned->y1 = (start->z1) * -1 + ((start->x1 + start->y1)  * sin(0.523599));
 		turned->z0 = start->z0;
 		turned->z1 = start->z1;
+		turned->color_start = 0x0011A953;
+		turned->color_finish = 0x00ff00ff;
 		find_max_min(turned, map);
 		start = start->next;
 	}
 	result = resize_all(result, map);
-	result = move_position(result, map);
 	return (result);
 }
 
@@ -68,6 +73,10 @@ t_coords	*parallel(t_coords *start, t_map *map)
 
 	fixed = NULL;
 	result = fixed;
+	map->x_min = 0;
+	map->x_max = 0;
+	map->y_max = 0;
+	map->y_min = 0;
 	while (start != NULL)
 	{
 		if (!(fixed = new_coords(fixed)))
@@ -84,11 +93,12 @@ t_coords	*parallel(t_coords *start, t_map *map)
 		fixed->y1 = start->y1;
 		fixed->z0 = start->z0;
 		fixed->z1 = start->z1;
+		fixed->color_start = 0x0011A953;
+		fixed->color_finish = 0x00ff00ff;
 		find_max_min(fixed, map);
 		start = start->next;
 	}
 	result = resize_all(result, map);
-	result = move_position(result, map);
 	return (result);
 }
 

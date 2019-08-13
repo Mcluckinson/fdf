@@ -1,6 +1,7 @@
 NAME = fdf
 
-SOURCE = fdf.c attune_lines.c buttons.c draw_line.c draw_map.c get_lines.c read_map.c window_works.c arrows.c
+SOURCE = fdf.c attune_lines.c buttons.c draw_line.c draw_map.c get_lines.c read_map.c window_works.c arrows.c\
+altitude.c
 
 OBJ = $(patsubst %.c,%.o,$(SOURCE))
 
