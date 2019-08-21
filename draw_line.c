@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/21 19:30:07 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/21 19:31:22 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,6 @@ unsigned int get_color_z(int cur_x, t_coords *line, int *steep)
 	unsigned int     blue;
 	double  percentage;
 
-	////TEMP FIX, GET RID OF IT
-	steep -= 1;
-	steep +=1;
-	///// END OF TEMP FIX
 	if (line->color_start == line->color_finish)
 		return (line->color_start);
 	if (line->z0 == line->z1)
@@ -171,9 +167,6 @@ unsigned int get_color_z(int cur_x, t_coords *line, int *steep)
 		else
 			return (line->color_finish);
 	}
-/*	if (steep == 0)
-		percentage = percent(line->x0, line->x1, cur_x);
-	else*/
 	if (steep[1] == 0)
 		percentage = percent(line->y0, line->y1, cur_x);
 	else
