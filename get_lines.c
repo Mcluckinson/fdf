@@ -24,6 +24,8 @@ t_coords	*new_coords(t_coords *coords)
 	new->y1 = 0;
 	new->z0 = 0;
 	new->z1 = 0;
+	new->z0orig = 0;
+	new->z1orig = 0;
 	if (coords != NULL)
 		coords->next = new;
 	new->next = NULL;
@@ -42,6 +44,8 @@ t_coords	*new_coords_from_above(t_coords *coords)
 	new->y1 = 0;
 	new->z0 = 0;
 	new->z1 = 0;
+	new->z0orig = 0;
+	new->z1orig = 0;
 	if (coords != NULL)
 		new->next = coords;
 	else
@@ -91,6 +95,8 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 			line->z1 = map->z[rows][cols + 1];
 			line->y0 = rows;
 			line->y1 = rows;
+			line->z0orig = line->z0;
+			line->z1orig = line->z1;
 			cols++;
 		}
 		rows++;
@@ -123,7 +129,9 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 			line->x0 = cols;
 			line->x1 = cols;
 			line->z0 = map->z[rows][cols];
+			line->z0orig = line->z0;
 			line->z1 = map->z[rows + 1][cols];
+			line->z1orig = line->z1;
 			rows++;
 		}
 		cols++;

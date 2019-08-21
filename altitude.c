@@ -20,9 +20,9 @@ void increase_upper(t_window *window)
 	go = window->lines;
 	while (go != NULL)
 	{
-		if (go->z1 != 0)
+		if (go->z1orig != 0)
 			go->z1 += window->height_mod;
-		if (go->z0 != 0)
+		if (go->z0orig != 0)
 			go->z0 += window->height_mod;
 		go = go->next;
 	}
@@ -41,9 +41,9 @@ void decrease_upper(t_window *window)
 	go = window->lines;
 	while (go != NULL)
 	{
-		if (go->z1 != 0)
+		if (go->z1orig != 0)
 			go->z1 += window->height_mod;
-		if (go->z0 != 0)
+		if (go->z0orig != 0)
 			go->z0 += window->height_mod;
 		go = go->next;
 	}

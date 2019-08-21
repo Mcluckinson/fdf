@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/21 19:30:38 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/21 19:50:49 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef	struct		s_coords
 	int 			y1;
 	int				z0;
 	int 			z1;
+	int 			z0orig;
+	int 			z1orig;
 	struct s_coords	*next;
 	unsigned int	color_start;
 	unsigned int 	color_finish;
