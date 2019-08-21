@@ -6,20 +6,20 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/21 19:31:22 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/21 19:50:49 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	swap_em(int *a0, int *a1)
+/*void	swap_em(int *a0, int *a1)
 {
 	int c;
 
 	c = *a0;
 	*a0 = *a1;
 	*a1 = c;
-}
+}*/
 
 int 	*steep_check(int *x0, int *x1, int *y0, int *y1)
 {
@@ -31,14 +31,18 @@ int 	*steep_check(int *x0, int *x1, int *y0, int *y1)
 	if (labs(*y1 - *y0) > labs(*x1 - *x0))
 	{
 		steep[0]++;
-		swap_em(x0, y0);
-		swap_em(x1, y1);
+	//	swap_em(x0, y0);
+	//	swap_em(x1, y1);
+		ft_swap(x0, y0);
+		ft_swap(x1, y1);
 	}
 	if (*x0 > *x1)
 	{
 		steep[1]++;
-		swap_em(x0, x1);
-		swap_em(y0, y1);
+	//	swap_em(x0, x1);
+	//	swap_em(y0, y1);
+		ft_swap(x0, x1);
+		ft_swap(y0, y1);
 	}
 	return (steep);
 }
@@ -163,9 +167,9 @@ unsigned int get_color_z(int cur_x, t_coords *line, int *steep)
 	if (line->z0 == line->z1)
 	{
 		if (line->z0 == 0)
-			return (line->color_start);
-		else
 			return (line->color_finish);
+		else
+			return (line->color_start);
 	}
 	if (steep[1] == 0)
 		percentage = percent(line->y0, line->y1, cur_x);

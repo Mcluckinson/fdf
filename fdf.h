@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/21 19:27:13 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/21 19:30:38 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int 	**find_z(t_lines *start, int x, int y);
 int 	find_x(t_lines *start);
 int 		find_y(t_lines *start);
 void	draw_line(t_coords *line, t_window *window);
-void	swap_em(int *a0, int *a1);
+//void	swap_em(int *a0, int *a1);
 t_coords	*get_lines(t_map *map);
 t_coords	*new_coords(t_coords *coords);
 t_coords	*get_horisontal(t_coords *line, t_map *map);
