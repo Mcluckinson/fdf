@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:24:17 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/13 13:31:43 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/21 15:21:24 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	set_up_window(t_window *window, char *map_name)
 	window->cur_y = 0;
 	window->block = 1;
 	window->height_mod = 0;
+	window->gradient_mod = 0;
 	return (0);
 }
 
@@ -54,11 +55,13 @@ void	print_controls(t_window *window)
 	instr = "NUM +/-  or MOUSE WHEEL for zoom";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 50, 1250, 0x00ffffff, instr);
 	instr = "W & S to change altitude";
-	mlx_string_put(window->mlx_ptr, window->win_ptr, 900, 1100, 0x00ffffff, instr);
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 800, 1100, 0x00ffffff, instr);
 	instr = "NUM 1-9 for turning";
-	mlx_string_put(window->mlx_ptr, window->win_ptr, 900, 1150, 0x00ffffff, instr);
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 800, 1150, 0x00ffffff, instr);
 	instr = "SPACE blocks movement";
-	mlx_string_put(window->mlx_ptr, window->win_ptr, 900, 1200, 0x00ffffff, instr);
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 800, 1200, 0x00ffffff, instr);
 	instr = "press 0 to go mad";
-	mlx_string_put(window->mlx_ptr, window->win_ptr, 900, 1250, 0x00ffffff, instr);
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 800, 1250, 0x00ffffff, instr);
+	instr = "press 4 to change color mod";
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 1300, 1100, 0x00ffffff, instr);
 }

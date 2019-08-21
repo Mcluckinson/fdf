@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/13 13:46:54 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/21 19:27:13 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef	struct		s_map
 	int 			y_max;
 	int 			x_min;
 	int 			y_min;
+	int 			z_max;
+	int 			z_min;
 }					t_map;
 
 typedef	struct		s_coords
@@ -71,6 +73,7 @@ typedef	struct		s_window
 	int 		cur_y;
 	int 		block;
 	int 		height_mod;
+	int 		gradient_mod;
 }					t_window;
 
 
@@ -93,9 +96,9 @@ t_coords	*get_vertical(t_coords *line, t_map *map);
 t_coords	*fix_orig(t_coords *start, float ratio);
 int	draw_map(t_coords *lines, t_window *window);
 void put_color(char *img_data, int i, unsigned int color);
-int 	steep_check(int *x0, int *x1, int *y0, int *y1);
+int 	*steep_check(int *x0, int *x1, int *y0, int *y1);
 int	set_up_window(t_window *window, char *map_name);
-int 	find_i(int x, int y, t_window *window ,int steep);
+int 	find_i(int x, int y, t_window *window ,int *steep);
 t_coords	*iso(t_coords *start, t_map *map);
 void	find_max_min(t_coords *turned, t_map *map);
 t_coords	*move_position(t_coords *start, t_map *map);
@@ -122,9 +125,15 @@ void	move(int key, t_window *window);
 int mouse_buttons(int key, int x, int y, t_window *window);
 double percent(int start, int end, int current);
 int get_light(unsigned int start, unsigned int end, double percentage);
-unsigned int get_color(int cur_x, t_coords *line, int steep);
+unsigned int get_color(int cur_x, t_coords *line, int *steep);
 void increase_upper(t_window *window);
 void	randomise_colors(t_window *window);
 void	redraw_altitude(t_window *window);
+void decrease_upper(t_window *window);
+
+///TRYINA ADD HEIGHT GRADIENT
+void	find_max_min_z(t_coords *turned, t_map *map);
+unsigned int get_color_z(int cur_x, t_coords *line, int *steep);
+void	change_gradient(t_window *window);
 
 #endif

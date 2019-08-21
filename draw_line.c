@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/13 13:31:13 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/21 19:30:07 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,22 @@ void	swap_em(int *a0, int *a1)
 	*a1 = c;
 }
 
-int 	steep_check(int *x0, int *x1, int *y0, int *y1)
+int 	*steep_check(int *x0, int *x1, int *y0, int *y1)
 {
-	int	steep;
+	int	*steep;
 
-	steep = 0;
+	steep = (int*)malloc(sizeof(int) * 2);
+	steep[0] = 0;
+	steep[1] = 0;
 	if (labs(*y1 - *y0) > labs(*x1 - *x0))
 	{
-		steep = 1;
+		steep[0]++;
 		swap_em(x0, y0);
 		swap_em(x1, y1);
 	}
 	if (*x0 > *x1)
 	{
+		steep[1]++;
 		swap_em(x0, x1);
 		swap_em(y0, y1);
 	}
@@ -54,12 +57,13 @@ void	draw_line(t_coords *line, t_window *window)
 	int ystep;
 	unsigned int	final_color;
 	int 	i;
-	int 	steep;
+	int 	*steep;
 
 	*x0 = line->x0;
 	*x1 = line->x1;
 	*y0 = line->y0;
 	*y1 = line->y1;
+
 
 	steep = steep_check(x0, x1, y0, y1);
 	dx = *x1 - *x0;
@@ -73,9 +77,12 @@ void	draw_line(t_coords *line, t_window *window)
 	x = *x0;
 	while (x <= *x1)
 	{
-		final_color = get_color(x, line, steep);
-		if ((x >= 0 && x <= MAP_W && y > 0 && y <= MAP_H - 300 && steep == 0) ||
-				(y >= 0 && y <= MAP_W && x > 0 && x <= MAP_H - 300 && steep == 1))
+		if (window->gradient_mod == 0)
+			final_color = get_color(x, line, steep);
+		else if (window->gradient_mod == 1)
+			final_color = get_color_z(x, line, steep);
+		if ((x >= 0 && x <= MAP_W && y > 0 && y <= MAP_H - 300 && steep[0] == 0) ||
+				(y >= 0 && y <= MAP_W && x > 0 && x <= MAP_H - 300 && steep[0] == 1))
 		{
 			i = find_i(x, y, window, steep);
 			put_color(window->img_data, i, final_color);
@@ -88,13 +95,14 @@ void	draw_line(t_coords *line, t_window *window)
 		}
 		x++;
 	}
+	free(steep);
 }
 
-int 	find_i(int x, int y, t_window *window ,int steep)
+int 	find_i(int x, int y, t_window *window ,int *steep)
 {
 	int i;
 
-	if (steep == 0)
+	if (steep[0] == 0)
 		i = (x  * (*window->depth / 8)) + (y * (*window->linesize));
 	else
 		i = (y * (*window->depth / 8)) + (x * (*window->linesize));
@@ -124,7 +132,7 @@ int get_light(unsigned int start, unsigned int end, double percentage)
 	return ((unsigned int)((1 - percentage) * start + percentage * end));
 }
 
-unsigned int get_color(int cur_x, t_coords *line, int steep)
+unsigned int get_color(int cur_x, t_coords *line, int *steep)
 {
 	unsigned int     red;
 	unsigned int     green;
@@ -133,10 +141,43 @@ unsigned int get_color(int cur_x, t_coords *line, int steep)
 
 	if (line->color_start == line->color_finish)
 		return (line->color_start);
-	if (steep == 0)
+	if (steep[0] == 0)
 		percentage = percent(line->x0, line->x1, cur_x);
 	else
 		percentage = percent(line->y0, line->y1, cur_x);
+	red = get_light((line->color_start >> 16) & 0xFF, (line->color_finish >> 16) & 0xFF, percentage);
+	green = get_light((line->color_start >> 8) & 0xFF, (line->color_finish >> 8) & 0xFF, percentage);
+	blue = get_light(line->color_start & 0xFF, line->color_finish & 0xFF, percentage);
+	return ((red << 16) | (green << 8) | blue);
+}
+
+unsigned int get_color_z(int cur_x, t_coords *line, int *steep)
+{
+	unsigned int     red;
+	unsigned int     green;
+	unsigned int     blue;
+	double  percentage;
+
+	////TEMP FIX, GET RID OF IT
+	steep -= 1;
+	steep +=1;
+	///// END OF TEMP FIX
+	if (line->color_start == line->color_finish)
+		return (line->color_start);
+	if (line->z0 == line->z1)
+	{
+		if (line->z0 == 0)
+			return (line->color_start);
+		else
+			return (line->color_finish);
+	}
+/*	if (steep == 0)
+		percentage = percent(line->x0, line->x1, cur_x);
+	else*/
+	if (steep[1] == 0)
+		percentage = percent(line->y0, line->y1, cur_x);
+	else
+		percentage = percent(line->y1, line->y0, cur_x);
 	red = get_light((line->color_start >> 16) & 0xFF, (line->color_finish >> 16) & 0xFF, percentage);
 	green = get_light((line->color_start >> 8) & 0xFF, (line->color_finish >> 8) & 0xFF, percentage);
 	blue = get_light(line->color_start & 0xFF, line->color_finish & 0xFF, percentage);

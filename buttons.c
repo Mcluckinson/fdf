@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/12 19:00:10 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/21 15:25:20 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ int key_press(int key, t_window *window)
 		randomise_colors(window);
 	if (key == 13)
 		increase_upper(window);
+	if (key == 1)
+		decrease_upper(window);
+	if (key == 21)
+		change_gradient(window);
 	return (0);
+
+
 }
 
 int close_window(t_window *window)
@@ -96,4 +102,14 @@ int mouse_buttons(int key, int x, int y, t_window *window)
 	if (key == 5)
 		zoom_out(window);
 	return (0);
+}
+
+void	change_gradient(t_window *window)
+{
+	if (window->gradient_mod == 0)
+		window->gradient_mod = 1;
+	else
+		window->gradient_mod = 0;
+	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
+	draw_map(window->current, window);
 }

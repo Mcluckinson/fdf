@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 18:15:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/13 14:35:18 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/13 15:33:08 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void increase_upper(t_window *window)
 {
 	t_coords *go;
 
-	window->height_mod += 10;
+	window->height_mod = 10;
 	go = window->lines;
 	while (go != NULL)
 	{
@@ -28,7 +28,28 @@ void increase_upper(t_window *window)
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	redraw_altitude(window);
-//	fix_current(window->current, window->current, window->cur_zoom, window);
+	fix_current(window->current, window->current, window->cur_zoom, window);
+	move_position(window->current, window->map);
+	draw_map(window->current, window);
+}
+
+void decrease_upper(t_window *window)
+{
+	t_coords *go;
+
+	window->height_mod -= 10;
+	go = window->lines;
+	while (go != NULL)
+	{
+		if (go->z1 != 0)
+			go->z1 += window->height_mod;
+		if (go->z0 != 0)
+			go->z0 += window->height_mod;
+		go = go->next;
+	}
+	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
+	redraw_altitude(window);
+	fix_current(window->current, window->current, window->cur_zoom, window);
 	move_position(window->current, window->map);
 	draw_map(window->current, window);
 }
