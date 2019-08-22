@@ -37,7 +37,7 @@ void decrease_upper(t_window *window)
 {
 	t_coords *go;
 
-	window->height_mod -= 10;
+	window->height_mod = -10;
 	go = window->lines;
 	while (go != NULL)
 	{

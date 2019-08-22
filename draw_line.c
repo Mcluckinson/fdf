@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/21 19:50:49 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/22 18:39:14 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	*a1 = c;
 }*/
 /////МЕНЯЕТ МЕСТАМИ КООРДИНАТЫ ДЛЯ КОРРЕКТНОГО РИСОВАНИЯ, ФИКСИРУЕТ ИЗМЕНЕНИЯ В int *steep
-/////int *steep хранит два инта, steep[0] фикстирует первое изменение, steep[0] фиксирует второе
+/////int *steep хранит два инта, steep[0] фикстирует первое изменение, steep[1] фиксирует второе
 int 	*steep_check(int *x0, int *x1, int *y0, int *y1)
 {
 	int	*steep;
@@ -139,10 +139,10 @@ int get_light(unsigned int start, unsigned int end, double percentage)
 ///////////ЭТА ШТУКА ДЕЛАЕТ ГРАДИЕНТ КАЖДОЙ ЛИНИИ
 unsigned int get_color(int cur_x, t_coords *line, int *steep)
 {
-	unsigned int     red;
-	unsigned int     green;
-	unsigned int     blue;
-	double  percentage;
+	unsigned int	red;
+	unsigned int	green;
+	unsigned int	blue;
+	double 			percentage;
 
 	if (line->color_start == line->color_finish)
 		return (line->color_start);

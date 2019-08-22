@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/22 13:59:14 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/22 18:39:14 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_coords	*fix_orig(t_coords *start, float ratio)
 /////ПРЕВРАЩАЕТ ОРИГИНАЛЬНЫЕ КООРДИНАТЫ В КООРДИНАТЫ ДЛЯ ИЗОМЕТРИЧЕСКОЙ ПРОЕКЦИИ, СОЗДАВАЯ НОВуЮ СТРУКТУРУ С ЭТИМИ ДАННЫМИ
 t_coords	*iso(t_coords *start, t_map *map)
 {
-	t_coords *turned;
+	t_coords	*turned;
 	t_coords	*result;
 
 	map->x_min = 0;

@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:17:22 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/22 13:28:11 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/22 19:33:18 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,21 @@ t_coords	*get_lines(t_map *map)
 
 t_coords	*get_horisontal(t_coords *line, t_map *map)
 {
-	int rows;////СЧЕТЧИК ПО У
-	int cols;////СЧЕТЧИК ПО Х
+	int			rows;////СЧЕТЧИК ПО У
+	int			cols;////СЧЕТЧИК ПО Х
+	//////ПРОБУЮ ЭТИ ДВЕ ПЕРЕМЕННЫЕ ВНИЗУ КЛАСТЬ В КООРДИНАТЫ
+	int 		rows_actual;
+	int 		cols_actual;
 	t_coords	*result;
+
+	rows_actual = map->y * -1 / 2;
 
 	result = NULL;
 	rows = 0;
 	while (rows < map->y)
 	{
 		cols = 0;
+		cols_actual = map->x * -1 / 2;
 		while (cols < map->x - 1) //// НЕ ЗАГЛЯНЕТ В ПОСЛЕДНИЙ ЭЛЕМЕНТ СТРОКИ ПОТОМУ ЧТО ДАЛЬШЕ В ЦИКЛЕ ОН СМОТРИТ НА ТЕКУЩИЙ И НА СЛЕДУЮЩИЙ
 		{
 			if (!(line = new_coords(line)))
@@ -89,17 +95,23 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 			}
 			if (cols == 0 && rows == 0)
 				result = line;
-			line->x0 = cols;
-			line->x1 = cols + 1;
+	//		line->x0 = cols;
+	//		line->x1 = cols + 1;
+			line->x0 = cols_actual;
+			line->x1 = cols_actual + 1;
 			line->z0 = map->z[rows][cols];
 			line->z1 = map->z[rows][cols + 1];
-			line->y0 = rows;
-			line->y1 = rows;
+	//		line->y0 = rows;
+	//		line->y1 = rows;
+			line->y0 = rows_actual;
+			line->y1 = rows_actual;
 			line->z0orig = line->z0;/////ОРИГИНАЛЬНЫЕ ВЫСОТЫ ПОНАДОБЯТСЯ ДЛЯ ИЗМЕНЕНИЯ ВЫСОТЫ ПО КНОПКАМ
 			line->z1orig = line->z1;
 			cols++;
+			cols_actual++;
 		}
 		rows++;
+		rows_actual++;
 	}
 	return (result);
 }
@@ -108,12 +120,18 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 {
 	int rows;
 	int cols;
+	//////ПРОБУЮ ЭТИ ДВЕ ПЕРЕМЕННЫЕ ВНИЗУ КЛАСТЬ В КООРДИНАТЫ
+	int 		rows_actual;
+	int 		cols_actual;
 	t_coords *prev;
 
+
+	cols_actual = map->x * -1 / 2;
 	cols = 0;
 	while (cols < map->x)
 	{
 		rows = 0;
+		rows_actual = map->y * -1 / 2;
 		while (rows < map->y - 1)
 		{
 			if (line)
@@ -124,17 +142,23 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 					del_coords(prev);
 				return (NULL);
 			}
-			line->y0 = rows;
-			line->y1 = rows + 1;
-			line->x0 = cols;
-			line->x1 = cols;
+	//		line->y0 = rows;
+	//		line->y1 = rows + 1;
+			line->y0 = rows_actual;
+			line->y1 = rows_actual + 1;
+//			line->x0 = cols;
+//			line->x1 = cols;
+			line->x0 = cols_actual;
+			line->x1 = cols_actual;
 			line->z0 = map->z[rows][cols];
 			line->z0orig = line->z0;
 			line->z1 = map->z[rows + 1][cols];
 			line->z1orig = line->z1;
 			rows++;
+			rows_actual++;
 		}
 		cols++;
+		cols_actual++;
 	}
 	return (line);
 }
