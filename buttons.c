@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-
+///////ЭТА ФУНКЦИЯ КЛАДЕТСЯ В КЕЙ ХУК, МЛХ САМ ОПРЕДЕЛЯЕТ, КАКАЯ КЛАВИША НАЖАТА И КЛАДЕТ В int key соответствующий код
 int key_press(int key, t_window *window)
 {
 	if (key == 53)
@@ -44,7 +44,7 @@ int close_window(t_window *window)
 	del_win(window);
 	exit(0);
 }
-
+///////СБРАСЫВАЕТ ИЗМЕНЕНИЯ И РИСУЕТ ПАРАЛЛЕЛЬНУЮ ПРОЕКЦИЮ В ЦЕНТРЕ
 void	draw_parallel(t_window *window)
 {
 	window->cur_zoom = 1;
@@ -62,7 +62,7 @@ void	draw_parallel(t_window *window)
 	window->cur_x = 0;
 	window->cur_y = 0;
 }
-
+////////СБРАСЫВАЕТ ИЗМЕНЕНИЯ, РИСУЕТ ИЗОМЕТРИЧЕСКУЮ ПРОЕКЦИЮ В ЦЕНТРЕ
 void 	draw_iso(t_window *window)
 {
 	window->cur_zoom = 1;
@@ -80,7 +80,7 @@ void 	draw_iso(t_window *window)
 	window->cur_x = 0;
 	window->cur_y = 0;
 }
-
+////////ДВИЖЕНИЕ ПО СТРЕЛКАМ
 void	move(int key, t_window *window)
 {
 	if (key == 124)
@@ -92,18 +92,18 @@ void	move(int key, t_window *window)
 	if (key == 125)
 		move_down(window);
 }
-
+////////МЫШЬ
 int mouse_buttons(int key, int x, int y, t_window *window)
 {
 	//////DONT FORGET THIS X=Y SHIT
-	x = y;
+	x = y;//////////ТО ЖЕ САМОЕ ЧТО int key. MLX САМА ОПРЕДЕЛЯЕТ КООРДИНАТЫ КУРСОРА И КЛАДЕТ ИХ В Х и У
 	if (key == 4)
 		zoom_in(window);
 	if (key == 5)
 		zoom_out(window);
 	return (0);
 }
-
+///////МЕНЯЕТ ТИП ГРАДЕНТА ПО КНОПКЕ 4 и ПЕРЕРИСОВЫВАЕТ КАРТУ
 void	change_gradient(t_window *window)
 {
 	if (window->gradient_mod == 0)

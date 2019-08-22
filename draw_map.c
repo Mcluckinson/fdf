@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-
+///ТУТ ВСЕ ПРОСТО, ПОКА НЕ ЗАКОНЧАТСЯ ЭЛЕМЕНТЫ СТРУКТУРЫ t_coords, будет к каждому запускать DRAW_LINE
 int	draw_map(t_coords *lines, t_window *window)
 {
 
@@ -23,6 +23,6 @@ int	draw_map(t_coords *lines, t_window *window)
 		draw_line(go, window);
 		go = go->next;
 	}
-	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, window->img_ptr, 0, 0);
+	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, window->img_ptr, 0, 0);//MLX ФУНКЦИЯ, КОТОРАЯ КИДАЕТ ИЗОБРАЖЕНИЕ НА ЭКРАН
 	return (0);
 }

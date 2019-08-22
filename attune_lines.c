@@ -6,12 +6,12 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/21 14:45:54 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/22 13:59:14 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
+/////////////ПРОСТО ПЕРЕМНОЖАЕТ ЗНАЧЕНИЯ НА ratio
 t_coords	*fix_orig(t_coords *start, float ratio)
 {
 	t_coords	*result;
@@ -29,7 +29,7 @@ t_coords	*fix_orig(t_coords *start, float ratio)
 	}
 	return (result);
 }
-
+/////ПРЕВРАЩАЕТ ОРИГИНАЛЬНЫЕ КООРДИНАТЫ В КООРДИНАТЫ ДЛЯ ИЗОМЕТРИЧЕСКОЙ ПРОЕКЦИИ, СОЗДАВАЯ НОВуЮ СТРУКТУРУ С ЭТИМИ ДАННЫМИ
 t_coords	*iso(t_coords *start, t_map *map)
 {
 	t_coords *turned;
@@ -51,21 +51,21 @@ t_coords	*iso(t_coords *start, t_map *map)
 		}
 		if (result == NULL)
 			result = turned;
-		turned->x0 = (start->x0 - start->y0)  * cos(0.523599);
+		turned->x0 = (start->x0 - start->y0)  * cos(0.523599);//////////В КУКБУКЕ ЕСТЬ ПРО ЭТО СТАТЬЯ
 		turned->x1 = (start->x1 - start->y1)  * cos(0.523599);
 		turned->y0 = (start->z0) * -1 + ((start->x0 + start->y0)  * sin(0.523599));
 		turned->y1 = (start->z1) * -1 + ((start->x1 + start->y1)  * sin(0.523599));
 		turned->z0 = start->z0;
 		turned->z1 = start->z1;
-		turned->color_start = 0x0011A953;
+		turned->color_start = 0x0011A953;//////////КЛАДУ ЦВЕТА ЧТОБЫ ПОТОМ СЧИТАТЬ ГРАДИЕНТ
 		turned->color_finish = 0x00ff00ff;
-		find_max_min(turned, map);
+		find_max_min(turned, map);//////////СЕРВИСНАЯ ФУНКЦИЯ, ЧТОБЫ ПОТОМ МЕНЯТЬ РАЗМЕР
 		start = start->next;
 	}
-	result = resize_all(result, map);
+	result = resize_all(result, map);///////СОБСТВЕННО МЕНЯЮ РАЗМЕР ЕСЛИ КАРТА СЛИШКОМ БОЛЬШАЯ (НАПРИМЕР МАРС)
 	return (result);
 }
-
+////////////////ДЕЛАЕТ НОВЫЙ КООРДИНАТЫ С ПАРАЛЛЕЛЛЬНОЙ ПРОЕКЦИЕЙ ПО АНАЛОГИИ С ПРЕДЫДУЩЕЙ ФУНКЦИЕЙ
 t_coords	*parallel(t_coords *start, t_map *map)
 {
 	t_coords	*fixed;
@@ -101,7 +101,7 @@ t_coords	*parallel(t_coords *start, t_map *map)
 	result = resize_all(result, map);
 	return (result);
 }
-
+/////////ЗАПИСЫВАЕТ В  t_map *map макс мин значения
 void	find_max_min(t_coords *turned, t_map *map)
 {
 	if (turned->x0 > map->x_max)
@@ -121,7 +121,7 @@ void	find_max_min(t_coords *turned, t_map *map)
 	if (turned->y1 < map->y_min && turned->y1 < 0)
 		map->y_min = turned->y1;
 }
-
+////////////ДВИГАЕТ КАРТУ В ЦЕНТР, СОХРАНЯЯ ПЕРЕДВИЖЕНИЕ ПО СТРЕЛКАМ, ЕСЛИ ОНО БЫЛО
 t_coords	*move_position(t_coords *start, t_map *map)
 {
 	t_coords	*result;
@@ -141,7 +141,7 @@ t_coords	*move_position(t_coords *start, t_map *map)
 	}
 	return (result);
 }
-
+///////////////////МЕНЯЕТ РАЗМЕР КАРТЫ ПРИ НЕОБХОДИМОСТИ
 t_coords	*resize_all(t_coords *start, t_map *map)
 {
 	float 		ratio;
@@ -165,7 +165,7 @@ t_coords	*resize_all(t_coords *start, t_map *map)
 	}
 	return (start);
 }
-
+///////////////ЭТО ПО ХОДУ НЕ ПОНАДОБИТСЯ ВООБЩЕ
 void	find_max_min_z(t_coords *turned, t_map *map)
 {
 	if (turned->z0 > map->z_max)

@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/21 19:50:49 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/21 20:23:43 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 #define MAP_H 1300
 #define MAP_W 2000
 
-typedef	struct		s_lines
+typedef	struct		s_lines////////////СТРОЧКИ КАРТЫ
 {
 	char 			*line;
 	struct s_lines	*next;
 }					t_lines;
 
-typedef	struct		s_map
+typedef	struct		s_map/////////КАРТА
 {
 	int				x;
 	int				y;
@@ -40,7 +40,7 @@ typedef	struct		s_map
 	int 			z_min;
 }					t_map;
 
-typedef	struct		s_coords
+typedef	struct		s_coords////////ЛИНИИ ДЛЯ РИСОВАНИЯ
 {
 	int				x0;
 	int 			x1;
@@ -55,7 +55,7 @@ typedef	struct		s_coords
 	unsigned int 	color_finish;
 }					t_coords;
 
-typedef	struct		s_window
+typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКАМИ И ДАННЫМИ
 {
 	void	*mlx_ptr;
 	void	*win_ptr;

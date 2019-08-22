@@ -6,12 +6,12 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:17:22 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/21 13:57:34 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/22 13:28:11 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
+////СОЗДАЕТ НОВЫЙ ЭЛЕМЕНТ t_coords
 t_coords	*new_coords(t_coords *coords)
 {
 	t_coords	*new;
@@ -31,7 +31,7 @@ t_coords	*new_coords(t_coords *coords)
 	new->next = NULL;
 	return (new);
 }
-
+////НОВЫЙ ЭЛЕМЕНТ t_coords цепляющийся с другой стороны. Хуево и костыльно
 t_coords	*new_coords_from_above(t_coords *coords)
 {
 	t_coords	*new;
@@ -52,26 +52,26 @@ t_coords	*new_coords_from_above(t_coords *coords)
 		new->next = NULL;
 	return (new);
 }
-
+/////СОБИРАЕТ ПОЛОСКИ t_coords из данных в t_map *map.
 t_coords	*get_lines(t_map *map)
 {
 	t_coords	*line;
 	t_coords	*start;
 
 	line = NULL;
-	line = get_horisontal(line, map);
+	line = get_horisontal(line, map);///СНАЧАЛА ГОРИЗОНТАЛЬНЫЕ
 	start = line;
-	if (!(line = get_vertical(line, map)))
+	if (!(line = get_vertical(line, map)))/////ПОТОМ ВЕРТИКАЛЬНЫЕ
 		del_coords(start);
 	if (line)
-		line = fix_orig(line, 20);
+		line = fix_orig(line, 20);////УМНОЖАЕТ ВСЕ НА 20 (Я ПРОСТО ВЫБРАЛ ТАКОЕ ЗНАЧЕНИЕ ПО УМОЛЧАНИЮ, ИНАЧЕ ДЛИНЫ ПОЛОСОК БУДУТ РАВНЫ 1
 	return (line);
 }
 
 t_coords	*get_horisontal(t_coords *line, t_map *map)
 {
-	int rows;
-	int cols;
+	int rows;////СЧЕТЧИК ПО У
+	int cols;////СЧЕТЧИК ПО Х
 	t_coords	*result;
 
 	result = NULL;
@@ -79,7 +79,7 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 	while (rows < map->y)
 	{
 		cols = 0;
-		while (cols < map->x - 1)
+		while (cols < map->x - 1) //// НЕ ЗАГЛЯНЕТ В ПОСЛЕДНИЙ ЭЛЕМЕНТ СТРОКИ ПОТОМУ ЧТО ДАЛЬШЕ В ЦИКЛЕ ОН СМОТРИТ НА ТЕКУЩИЙ И НА СЛЕДУЮЩИЙ
 		{
 			if (!(line = new_coords(line)))
 			{
@@ -95,7 +95,7 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 			line->z1 = map->z[rows][cols + 1];
 			line->y0 = rows;
 			line->y1 = rows;
-			line->z0orig = line->z0;
+			line->z0orig = line->z0;/////ОРИГИНАЛЬНЫЕ ВЫСОТЫ ПОНАДОБЯТСЯ ДЛЯ ИЗМЕНЕНИЯ ВЫСОТЫ ПО КНОПКАМ
 			line->z1orig = line->z1;
 			cols++;
 		}
@@ -138,7 +138,7 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 	}
 	return (line);
 }
-
+////УДАЛЯЛКА ДЛЯ t_coords
 void	del_coords(t_coords *lines)
 {
 	while (lines->next != NULL)

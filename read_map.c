@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-
+///МАЛЛОЧИМ t_lines и кладем туда считанное gnl
 t_lines		*read_lines(int fd)
 {
 	t_lines		*start;
@@ -29,7 +29,7 @@ t_lines		*read_lines(int fd)
 	another->next = NULL;
 	return (start);
 }
-
+//УДАЛЯЛАКА ДЛЯ t_lines
 void		del_lines(t_lines *start)
 {
 	while (start->next != NULL)
@@ -40,7 +40,7 @@ void		del_lines(t_lines *start)
 	free(start->line);
 	free(start);
 }
-
+//СЧИТАЕТ КОЛИЧЕСТВО СТРОК, ЭТО БУДЕТ У
 int 		find_y(t_lines *start)
 {
 	int y;
@@ -55,11 +55,11 @@ int 		find_y(t_lines *start)
 	}
 	return (y);
 }
-
+///СТРСПЛИТОМ ДЕЛИТ СТРОКУ, СЧИТАЕТ КОЛИЧЕСТВО ЭЛЕМЕНТОВ, ЁТО БУДЕТ Х
 int 	find_x(t_lines *start)
 {
 	int x;
-	int x_max;
+	int x_max;//ДЛЯ ПРОВЕРКИ КОЛИЧЕСТВА ЭЛЕМЕНТОВ В СТРОКАХ
 	t_lines *temp;
 	char **split;
 
@@ -79,12 +79,12 @@ int 	find_x(t_lines *start)
 		if (!x_max)
 			x_max = x;
 		else if (x != x_max)
-			return (0);
+			return (0);///СРАВНИВАЕТ КОЛИЧЕСТВО Х В СЧИТАННОЙ СТРОКЕ С КОЛИЧЕСТВОМ Х В ПРЕДЫДУЩИХ, ОНО ДОЛЖНО БЫТЬ ОДИНАКОВЫМ
 		temp = temp->next;
 	}
 	return (x);
 }
-
+///СЧИТЫВАЕТ ВЫСОТЫ, КЛАДЕТ В **Z
 int 	**find_z(t_lines *start, int x, int y)
 {
 	int	**z;
@@ -114,7 +114,7 @@ int 	**find_z(t_lines *start, int x, int y)
 	}
 	return (z);
 }
-
+///УДАЛЯЛКА ДЛЯ КАРТЫ
 void	del_map(t_map *map)
 {
 	int i;
@@ -131,14 +131,14 @@ void	del_map(t_map *map)
 	}
 	free(map);
 }
-
+////ПРОВЕРКА ОШИБОК, НУЖНО ДОПОЛНИТЬ
 int 	check_errors(t_map *map)
 {
 	if (!map->x || !map->y || !map->z)
 		return (0);
 	return (1);
 }
-
+////ЧИТАЕТ КАРТУ В t_map *map. ИСПОЛЬЗУЕТ ФУНКЦИИ ВЫШЕ
 t_map	*read_map(t_lines *start)
 {
 	t_map	*map;

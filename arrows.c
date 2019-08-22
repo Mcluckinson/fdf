@@ -11,13 +11,13 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-
+//////////ПРОСТО МЕНЯЕТ КООРДИНАТЫ ПРИ НАЖАТИИ СТРЕЛКИ
 void 	move_right(t_window *window)
 {
 	t_coords *go;
 	int 	flag;
 
-	flag = 0;
+	flag = 0;/////////////ЭТОТ ФЛАГ ОПРЕДЕЛЯЕТ, ВЫЛЕЗЛО ЛИ ИЗОБРАЖЕНИЕ ЗА ПРЕДЕЛЫ ЭКРАНА
 	window->cur_x++;
 	go = window->current;
 	while (go != NULL)
@@ -28,6 +28,7 @@ void 	move_right(t_window *window)
 			flag = 1;
 		go = go->next;
 	}
+	////////ДАЛЕЕ В КОММЕНТАХ ШТУКА, КОТОРАЯ ОТКАТЫВАЕТ ИЗМЕНЕНИЯ, ЕСЛИ ИЗОБРАЖЕНИЕ ВЫЛЕЗЛО ЗА ПРЕДЕЛЫ ЭКРАНА. ПОКА ЧТО УБРАНО ПОТОМУ ЧТО ПРИ ЗУМЕ ИНОГДА СЕГАЕТСЯ ИЛИ УХОДИТ В БЕСКОНЕЧНЫЙ ЦИКЛ
 /*	if (flag == 1)
 	{
 		move_left(window);
@@ -111,7 +112,7 @@ void 	move_down(t_window *window)
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
-
+////////ЭТО СОБСТВЕННО ЗУМ
 void	zoom_in(t_window *window)
 {
 	window->cur_zoom += 0.1;
@@ -132,7 +133,7 @@ void	zoom_out(t_window *window)
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
-
+/////////////ВОТ ПОСЛЕ ПЕРЕДЕЛКИ КООРДИНАТ ВСЕ ДОЛЖНО КЛЕВО РАБОТАТЬ, А СЕЙЧАС ЗУМ ОТНОСИТЕЛЬНО ВЕРХНЕГО ЛЕВОГО УГЛА
 void	fix_current(t_coords *start, t_coords *target, float ratio, t_window *window)
 {
 	if (start != NULL)
@@ -147,7 +148,7 @@ void	fix_current(t_coords *start, t_coords *target, float ratio, t_window *windo
 	}
 	return ;
 }
-
+////////////СОЗДАЕТ ПУСТОЙ t_coords *current
 t_coords	*init_current(t_window *window)
 {
 	t_coords	*result;
@@ -162,7 +163,7 @@ t_coords	*init_current(t_window *window)
 	}
 	return (result);
 }
-
+////////////КОПИРУЕТ В НЕГО ДАННЫЕ ИЗ ВЫБРАННОГО t_coords
 void	copy_to_current(t_coords *origin, t_coords *target)
 {
 	t_coords *go;
