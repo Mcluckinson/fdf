@@ -57,8 +57,8 @@ t_coords	*iso(t_coords *start, t_map *map, t_window *window)
 		turned->y1 = (start->z1) * -1 + ((start->x1 + start->y1)  * sin(0.523599));
 		turned->z0 = start->z0;
 		turned->z1 = start->z1;
-		turned->color_start = 0x0011A953;//////////КЛАДУ ЦВЕТА ЧТОБЫ ПОТОМ СЧИТАТЬ ГРАДИЕНТ
-		turned->color_finish = 0x00ff00ff;
+		turned->color_start = window->color[0];//////////КЛАДУ ЦВЕТА ЧТОБЫ ПОТОМ СЧИТАТЬ ГРАДИЕНТ
+		turned->color_finish = window->color[1];
 		find_max_min(turned, map);//////////СЕРВИСНАЯ ФУНКЦИЯ, ЧТОБЫ ПОТОМ МЕНЯТЬ РАЗМЕР
 		start = start->next;
 	}

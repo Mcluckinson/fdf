@@ -58,10 +58,11 @@ int		main(int argc, char **argv)
 		del_win(window);
 		return (0);
 	}
-	close (window->fd);
-	window->turned = iso(window->lines, window->map, window);//ПРЕОБРАЗУЕТ window->lines в изометрическую проекцию, кладет в t_coords window->turned
 	if (set_up_window(window, argv[argc]) == -1) //СОЗДАЕТ ВСЕ ОСТАЛЬНЫЕ ДАННЫЕ В t_window *window
 		return (0);
+	close (window->fd);
+	window->turned = iso(window->lines, window->map, window);//ПРЕОБРАЗУЕТ window->lines в изометрическую проекцию, кладет в t_coords window->turned
+
 	window->current = init_current(window);//СОЗДАЕТ t_window *current, оттуда все и рисуется. Сейчас в нем нет данных, количество элементов такое же, как количество линий
 	copy_to_current(window->turned, window->current);//КОПИРУЕТ ДАННЫЕ ИЗ t_coords turned в t_coords current
 	move_position(window->current, window->map);//ДВИГАЕТ t_coords current в центр экрана

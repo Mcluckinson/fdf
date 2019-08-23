@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
-project(fdf C)
+project(../../.. C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(.)
+include_directories(../../../..)
 include_directories(libft)
 
 add_executable(fdf
@@ -84,7 +84,8 @@ add_executable(fdf
         read_map.c
         window_works.c
         arrows.c
-        altitude.c)
+        altitude.c
+        gradient.c)
 target_link_libraries(fdf
         "-framework AppKit"
         "-framework OpenGL"

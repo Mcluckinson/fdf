@@ -39,6 +39,8 @@ int	set_up_window(t_window *window, char *map_name)
 	window->block = 1;////ДАТЧИК БЛОКИРОВКИ ДВИЖЕНИЯ
 	window->height_mod = 0;/////МОДИФИКАТОР ИЗМЕНЕНИЯ ВЫСОТЫ
 	window->gradient_mod = 0;////ТИП ГРАДИЕНТА
+	window->color[0] = 0x0011A953;
+	window->color[1] = 0x00ff00ff;
 	return (0);
 }
 
