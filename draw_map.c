@@ -18,6 +18,7 @@ int	draw_map(t_coords *lines, t_window *window)
 	t_coords	*go;
 
 	go = lines;
+	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	while (go != NULL)
 	{
 		draw_line(go, window);

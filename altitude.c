@@ -30,7 +30,7 @@ void	change_altitude(int key, t_window *window)
 		go = go->next;
 	}
 	redraw_altitude(window);
-	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
+//	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	fix_current(window->current, window->current, window->cur_zoom, window);
 	move_position(window->current, window->map);
 	draw_map(window->current, window);
