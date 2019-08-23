@@ -34,6 +34,24 @@ int key_press(int key, t_window *window)
 		decrease_upper(window);
 	if (key == 21)
 		change_gradient(window);
+	if (key == 23)
+	{
+		window->color[0] = 0xffff00;
+		window->color[1] = 0xee82ee;
+		gradient1(window);
+	}
+	if (key == 22)
+	{
+		window->color[0] = 0x008000;
+		window->color[1] = 0xffa500;
+		gradient2(window);
+	}
+	if (key == 26)
+	{
+		window->color[0] = 0xb0c4de;
+		window->color[1] = 0xc71585;
+		gradient3(window);
+	}
 	return (0);
 
 

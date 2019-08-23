@@ -76,10 +76,13 @@ typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКА
 	int 		block;
 	int 		height_mod;
 	int 		gradient_mod;
+	unsigned int color[2];
 }					t_window;
 
 
-
+void	gradient1(t_window *window);
+void	gradient2(t_window *window);
+void	gradient3(t_window *window);
 
 t_lines		*read_lines(int fd);
 void		del_lines(t_lines *start);
@@ -101,7 +104,7 @@ void put_color(char *img_data, int i, unsigned int color);
 int 	*steep_check(int *x0, int *x1, int *y0, int *y1);
 int	set_up_window(t_window *window, char *map_name);
 int 	find_i(int x, int y, t_window *window ,int *steep);
-t_coords	*iso(t_coords *start, t_map *map);
+t_coords	*iso(t_coords *start, t_map *map, t_window *window);
 void	find_max_min(t_coords *turned, t_map *map);
 t_coords	*move_position(t_coords *start, t_map *map);
 t_coords	*resize_all(t_coords *start, t_map *map);

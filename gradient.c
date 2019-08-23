@@ -19,8 +19,8 @@ void	gradient1(t_window *window)
 	go = window->current;
 	while (go != NULL)
 	{
-		go->color_finish = 0xffff00;
-		go->color_start = 0xee82ee;
+		go->color_finish = window->color[0];
+		go->color_start = window->color[1];
 		go = go->next;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
@@ -34,8 +34,8 @@ void	gradient2(t_window *window)
 	go = window->current;
 	while (go != NULL)
 	{
-		go->color_finish = 0x008000;
-		go->color_start = 0xffa500;
+		go->color_finish = window->color[0];
+		go->color_start = window->color[1];
 		go = go->next;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
@@ -49,8 +49,8 @@ void	gradient3(t_window *window)
 	go = window->current;
 	while (go != NULL)
 	{
-		go->color_finish = 0xb0c4de;
-		go->color_start = 0xc71585;
+		go->color_finish = window->color[0];
+		go->color_start = window->color[1];
 		go = go->next;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));

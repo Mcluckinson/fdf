@@ -59,7 +59,7 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 	close (window->fd);
-	window->turned = iso(window->lines, window->map);//ПРЕОБРАЗУЕТ window->lines в изометрическую проекцию, кладет в t_coords window->turned
+	window->turned = iso(window->lines, window->map, window);//ПРЕОБРАЗУЕТ window->lines в изометрическую проекцию, кладет в t_coords window->turned
 	if (set_up_window(window, argv[argc]) == -1) //СОЗДАЕТ ВСЕ ОСТАЛЬНЫЕ ДАННЫЕ В t_window *window
 		return (0);
 	window->current = init_current(window);//СОЗДАЕТ t_window *current, оттуда все и рисуется. Сейчас в нем нет данных, количество элементов такое же, как количество линий

@@ -30,7 +30,7 @@ t_coords	*fix_orig(t_coords *start, float ratio)
 	return (result);
 }
 /////ПРЕВРАЩАЕТ ОРИГИНАЛЬНЫЕ КООРДИНАТЫ В КООРДИНАТЫ ДЛЯ ИЗОМЕТРИЧЕСКОЙ ПРОЕКЦИИ, СОЗДАВАЯ НОВуЮ СТРУКТУРУ С ЭТИМИ ДАННЫМИ
-t_coords	*iso(t_coords *start, t_map *map)
+t_coords	*iso(t_coords *start, t_map *map, t_window *window)
 {
 	t_coords	*turned;
 	t_coords	*result;
