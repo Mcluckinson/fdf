@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/22 18:39:14 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/23 19:57:16 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int key_press(int key, t_window *window)
 		zoom_out(window);
 	if (key == 29)
 		randomise_colors(window);
-	if (key == 13)
-		increase_upper(window);
-	if (key == 1)
-		decrease_upper(window);
+	if (key == 13 || key == 1)
+		change_altitude(key, window);
 	if (key == 21)
 		change_gradient(window);
 	if (key == 23)
@@ -73,8 +71,8 @@ void	draw_parallel(t_window *window)
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	del_coords(window->turned);
 	del_coords(window->current);
-	window->turned = parallel(window->lines, window->map);
-	window->current = parallel(window->lines, window->map);
+	window->turned = parallel(window->lines, window->map, window);
+	window->current = parallel(window->lines, window->map, window);
 	move_position(window->current, window->map);
 	draw_map(window->current, window);
 	window->cur_x = 0;

@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/22 18:39:14 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/23 19:57:16 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int close_window(t_window *window);
 int key_press(int key, t_window *window);
 void	del_win(t_window *window);
 void	draw_parallel(t_window *window);
-t_coords	*parallel(t_coords *start, t_map *map);
+t_coords	*parallel(t_coords *start, t_map *map, t_window *window);
 void 	draw_iso(t_window *window);
 void	print_controls(t_window *window);
 void 	move_right(t_window *window);
@@ -131,13 +131,11 @@ int mouse_buttons(int key, int x, int y, t_window *window);
 double percent(int start, int end, int current);
 int get_light(unsigned int start, unsigned int end, double percentage);
 unsigned int get_color(int cur_x, t_coords *line, int *steep);
-void increase_upper(t_window *window);
 void	randomise_colors(t_window *window);
 void	redraw_altitude(t_window *window);
-void decrease_upper(t_window *window);
+void	change_altitude(int key, t_window *window);
 
 ///TRYINA ADD HEIGHT GRADIENT
-void	find_max_min_z(t_coords *turned, t_map *map);
 unsigned int get_color_z(int cur_x, t_coords *line, int *steep);
 void	change_gradient(t_window *window);
 

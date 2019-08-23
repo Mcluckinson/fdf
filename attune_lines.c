@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/22 18:39:14 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/23 19:57:16 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_coords	*fix_orig(t_coords *start, float ratio)
 		start->y1 = start->y1 * ratio;
 		start->z0 = start->z0 * ratio;
 		start->z1 = start->z1 * ratio;
+		start->z0orig *= ratio;
+		start->z1orig *= ratio;
 		start = start->next;
 	}
 	return (result);
@@ -66,7 +68,7 @@ t_coords	*iso(t_coords *start, t_map *map, t_window *window)
 	return (result);
 }
 ////////////////ДЕЛАЕТ НОВЫЙ КООРДИНАТЫ С ПАРАЛЛЕЛЛЬНОЙ ПРОЕКЦИЕЙ ПО АНАЛОГИИ С ПРЕДЫДУЩЕЙ ФУНКЦИЕЙ
-t_coords	*parallel(t_coords *start, t_map *map)
+t_coords	*parallel(t_coords *start, t_map *map, t_window *window)
 {
 	t_coords	*fixed;
 	t_coords	*result;
@@ -93,8 +95,8 @@ t_coords	*parallel(t_coords *start, t_map *map)
 		fixed->y1 = start->y1;
 		fixed->z0 = start->z0;
 		fixed->z1 = start->z1;
-		fixed->color_start = 0x0011A953;
-		fixed->color_finish = 0x00ff00ff;
+		fixed->color_start = window->color[0];
+		fixed->color_finish = window->color[1];
 		find_max_min(fixed, map);
 		start = start->next;
 	}
@@ -164,16 +166,4 @@ t_coords	*resize_all(t_coords *start, t_map *map)
 		map->x_min *= ratio;
 	}
 	return (start);
-}
-///////////////ЭТО ПО ХОДУ НЕ ПОНАДОБИТСЯ ВООБЩЕ
-void	find_max_min_z(t_coords *turned, t_map *map)
-{
-	if (turned->z0 > map->z_max)
-		map->z_max = turned->z0;
-	if (turned->z1 > map->z_max)
-		map->z_max = turned->z1;
-	if (turned->z0 < map->z_min)
-		map->z_min = turned->z0;
-	if (turned->z1 < map->z_min)
-		map->z_min = turned->z1;
 }
