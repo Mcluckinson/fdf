@@ -1,0 +1,9 @@
+enum name
+{
+  s  == 8
+  d  == 4
+  f
+  g
+}
+
+name[4]
