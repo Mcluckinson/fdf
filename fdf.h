@@ -83,6 +83,11 @@ typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКА
 void	gradient1(t_window *window);
 void	gradient2(t_window *window);
 void	gradient3(t_window *window);
+void				pre_draw_line(int coord[4], t_coords *line);
+void	inter_via_mass(int coord[4], int inter[4]);
+int 				check_shit(int ixy[3], int *steep);
+void				draw_line(t_coords *line, t_window *window);
+
 
 t_lines		*read_lines(int fd);
 void		del_lines(t_lines *start);

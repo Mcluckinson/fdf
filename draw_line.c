@@ -34,62 +34,76 @@ int				*steep_check(int *x0, int *x1, int *y0, int *y1)
 	return (steep);
 }
 
+void				pre_draw_line(int coord[4], t_coords *line)
+{
+	coord[0] = line->x0;
+	coord[1] = line->x1;
+	coord[2] = line->y0;
+	coord[3] = line->y1;
+}
+
+void				inter_via_mass(int coord[4], int incr[4])
+{
+	incr[0] = coord[1] - coord[0];
+	incr[1] = labs(coord[3] - coord[2]);
+	incr[2] = incr[0] / 2;
+	incr[3] = 1;
+	coord[2] < coord[3] ? (incr[3] = 1) : (incr[3] *= -1);
+}
+
+int 				check_shit(int ixy[3], int *steep)
+{
+	return (
+	(((ixy[1] >= 0 && ixy[1] <= MAP_W && ixy[2] > 0
+	&& ixy[2] <= MAP_H - 300 && steep[0] == 0)
+	|| (ixy[2] >= 0 && ixy[2] <= MAP_W && ixy[1] > 0
+	&& ixy[1] <= MAP_H - 300 && steep[0] == 1))) ? 0 : 1);
+}
+
+void finish_count(int ixy[3], int incr[4])
+{
+	incr[2] -= incr[1];
+	if (incr[2] < 0)
+	{
+		ixy[2] = ixy[2] + incr[3];
+		incr[2] = incr[2] + incr[0];
+	}
+}
+
+/* coord[4] - координаты начала и конца линии */
+/* приращение по х - incr[0] и по у - incr[1];  */
+/* incr[2] - ошибка; incr[3] - шаг по y */
+
 void				draw_line(t_coords *line, t_window *window)
 {
-	int				x0[1];
-	int				x1[1];
-	int				y0[1];
-	int				y1[1];
-	int				dx;
-	int				dy;
-	int				error;
-	int				x;
-	int				y;
-	int				ystep;
+	int				coord[4];
+	int				incr[4];
+	int				ixy[3];
 	unsigned int	final_color;
-	int				i;
 	int				*steep;
 
-	*x0 = line->x0;
-	*x1 = line->x1;
-	*y0 = line->y0;
-	*y1 = line->y1;
-	steep = steep_check(x0, x1, y0, y1);
-	dx = *x1 - *x0;
-	dy = labs(*y1 - *y0);
-	error = dx / 2;
-	if (*y0 < *y1)
-		ystep = 1;
-	else if (*y0 > *y1)
-		ystep = -1;
-	y = *y0;
-	x = *x0;
-	while (x <= *x1)
+	pre_draw_line(coord, line);
+	steep = steep_check(&coord[0], &coord[1], &coord[2], &coord[3]);
+	inter_via_mass(coord, incr);
+	ixy[2] = coord[2];
+	ixy[1] = coord[0];
+	while (ixy[1]++ <= coord[1])
 	{
 		if (window->gradient_mod == 0)
-			final_color = get_color(x, line, steep);
+			final_color = get_color(ixy[1], line, steep);
 		else if (window->gradient_mod == 1)
-			final_color = get_color_z(x, line, steep);
-		if ((x >= 0 && x <= MAP_W && y > 0 && y <= MAP_H - 300
-		&& steep[0] == 0) ||
-				(y >= 0 && y <= MAP_W && x > 0 && x <= MAP_H - 300
-				&& steep[0] == 1))
+			final_color = get_color_z(ixy[1], line, steep);
+		if (!check_shit(ixy, steep))
 		{
-			i = find_i(x, y, window, steep);
-			put_color(window->img_data, i, final_color);
+			ixy[0] = find_i(ixy[1], ixy[2], window, steep);
+			put_color(window->img_data, ixy[0], final_color);
 		}
-		error -= dy;
-		if (error < 0)
-		{
-			y = y + ystep;
-			error = error + dx;
-		}
-		x++;
+		finish_count(ixy, incr);
 	}
 	free(steep);
 }
 
-int					find_i(int x, int y, t_window *window, int *steep)
+int			find_i(int x, int y, t_window *window, int *steep)
 {
 	int i;
 
@@ -100,14 +114,14 @@ int					find_i(int x, int y, t_window *window, int *steep)
 	return (i);
 }
 
-void				put_color(char *img_data, int i, unsigned int color)
+void			put_color(char *img_data, int i, unsigned int color)
 {
 	img_data[i] = color;
 	img_data[++i] = color >> 8;
 	img_data[++i] = color >> 16;
 }
 
-double				percent(int start, int end, int current)
+double			percent(int start, int end, int current)
 {
 	double placement;
 	double distance;
@@ -117,12 +131,12 @@ double				percent(int start, int end, int current)
 	return ((distance == 0) ? 1.0 : (placement / distance));
 }
 
-int					get_light(unsigned int start, unsigned int end, double percent)
+int				get_light(unsigned int start, unsigned int end, double percent)
 {
 	return ((unsigned int)((1 - percent) * start + percent * end));
 }
 
-unsigned int		get_color(int cur_x, t_coords *line, int *steep)
+unsigned int	get_color(int cur_x, t_coords *line, int *steep)
 {
 	unsigned int	red;
 	unsigned int	green;
@@ -139,11 +153,12 @@ unsigned int		get_color(int cur_x, t_coords *line, int *steep)
 	& 0xFF, percentage);
 	green = get_light((line->color_start >> 8) & 0xFF, (line->color_finish >> 8)
 	& 0xFF, percentage);
-	blue = get_light(line->color_start & 0xFF, line->color_finish & 0xFF, percentage);
+	blue = get_light(line->color_start & 0xFF, line->color_finish
+	& 0xFF, percentage);
 	return ((red << 16) | (green << 8) | blue);
 }
 
-unsigned int		get_color_z(int cur_x, t_coords *line, int *steep)
+unsigned int	get_color_z(int cur_x, t_coords *line, int *steep)
 {
 	unsigned int	red;
 	unsigned int	green;
@@ -163,8 +178,11 @@ unsigned int		get_color_z(int cur_x, t_coords *line, int *steep)
 		percentage = percent(line->y0, line->y1, cur_x);
 	else
 		percentage = percent(line->y1, line->y0, cur_x);
-	red = get_light((line->color_start >> 16) & 0xFF, (line->color_finish >> 16) & 0xFF, percentage);
-	green = get_light((line->color_start >> 8) & 0xFF, (line->color_finish >> 8) & 0xFF, percentage);
-	blue = get_light(line->color_start & 0xFF, line->color_finish & 0xFF, percentage);
+	red = get_light((line->color_start >> 16) & 0xFF, (line->color_finish >> 16)
+	& 0xFF, percentage);
+	green = get_light((line->color_start >> 8) & 0xFF, (line->color_finish >> 8)
+	& 0xFF, percentage);
+	blue = get_light(line->color_start & 0xFF, line->color_finish &
+	0xFF, percentage);
 	return ((red << 16) | (green << 8) | blue);
 }
