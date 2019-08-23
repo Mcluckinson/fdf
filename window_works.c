@@ -70,6 +70,6 @@ void	print_controls(t_window *window)
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 1300, 1150, 0x00ffffff, instr);
 	instr = "press 6 to see tropicana";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 1300, 1200, 0x00ffffff, instr);
-	instr = "press 4 for vodka with cranberry";
+	instr = "press 7 for vodka with cranberry";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 1300, 1250, 0x00ffffff, instr);
 }

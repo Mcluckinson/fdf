@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
-project(../../.. C)
+project(fdf C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(../../../..)
+include_directories(.)
 include_directories(libft)
 
 add_executable(fdf
