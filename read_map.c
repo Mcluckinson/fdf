@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 13:59:02 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/22 18:39:14 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/24 15:39:00 by samymone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ int 		find_y(t_lines *start)
 ///СТРСПЛИТОМ ДЕЛИТ СТРОКУ, СЧИТАЕТ КОЛИЧЕСТВО ЭЛЕМЕНТОВ, ЁТО БУДЕТ Хбб, Ширина
 int 	find_x(t_lines *start)
 {
-	int x;
-	int x_max;//ДЛЯ ПРОВЕРКИ КОЛИЧЕСТВА ЭЛЕМЕНТОВ В СТРОКАХ
-	t_lines *temp;
-	char **split;
+	int		x;
+	int		x_max;//ДЛЯ ПРОВЕРКИ КОЛИЧЕСТВА ЭЛЕМЕНТОВ В СТРОКАХ
+	t_lines	*temp;
+	char	**split;
 
 	x = 0;
 	x_max = 0;
@@ -85,34 +85,44 @@ int 	find_x(t_lines *start)
 	return (x);
 }
 ///СЧИТЫВАЕТ ВЫСОТЫ, КЛАДЕТ В **Z
-int 	**find_z(t_lines *start, int x, int y)
+void	find_z(t_lines *start, t_map *map)
 {
-	int	**z;
-	int yy;
-	int i;
-	char **split;
+	//int		**z;
+	int		yy;
+	int		i;
+	char	**split;
 	t_lines	*temp;
 
 	temp = start;
 	yy = 0;
-	if (!(z = (int**)malloc(sizeof(int*) * (y + 1))))
-		return (NULL);
-	while (yy < y)
-	{
+	if (!(map->z = (int**)malloc(sizeof(int*) * (map->y + 1))))
+		return ;
+	if (!(map->color = (int**)malloc(sizeof(int*) * (map->y + 1))))
+		return ;
+	while (yy < map->y) {
 		i = 0;
 		split = ft_strsplit(temp->line, ' ');
-		z[yy] = (int*)malloc(sizeof(int) * x);
-		while (i < x)
-		{
-			z[yy][i] = ft_atoi(split[i]);
-			free(split[i]);
+		map->z[yy] = (int *) malloc(sizeof(int) * map->x);
+		map->color[yy] = (int *) malloc(sizeof(int) * map->x);
+		while (i < map->x) {
+			if (strchr(split[i], ','))
+			{
+				map->z[yy][i] = ft_atoi(split[i]);
+				map->color[yy][i] = ft_atoi_base(ft_strchr(split[i], ','));
+				free(split[i]);
+			}
+			else
+			{
+				map->z[yy][i] = ft_atoi(split[i]);
+				map->color[yy][i] = 0;
+				free(split[i]);
+			}
 			i++;
 		}
 		free(split);
 		yy++;
 		temp = temp->next;
 	}
-	return (z);
 }
 ///УДАЛЯЛКА ДЛЯ КАРТЫ
 void	del_map(t_map *map)
@@ -138,6 +148,18 @@ int 	check_errors(t_map *map)
 		return (0);
 	return (1);
 }
+
+//int			find_color(int **z)
+//{
+//	while ((*z)++)
+//	{
+//		while (z++)
+//		{
+//			if (strchr())
+//		}
+//	}
+//}
+
 ////ЧИТАЕТ КАРТУ В t_map *map. ИСПОЛЬЗУЕТ ФУНКЦИИ ВЫШЕ
 t_map	*read_map(t_lines *start)
 {
@@ -151,7 +173,7 @@ t_map	*read_map(t_lines *start)
 	map->y_min = 0;
 	map->y = find_y(start);
 	map->x = find_x(start);
-	map->z = find_z(start, map->x, map->y);
+	find_z(start, map);
 	if (!check_errors(map))
 	{
 		del_lines(start);

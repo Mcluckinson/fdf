@@ -1,2 +1,6 @@
+*.o
+.DS_Store/
+fdf
+test_maps/
 cmake-build-debug/
 .idea/

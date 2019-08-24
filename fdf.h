@@ -32,6 +32,7 @@ typedef	struct		s_map/////////КАРТА
 	int				x;
 	int				y;
 	int				**z;
+	unsigned int	**color;
 	int 			x_max;
 	int 			y_max;
 	int 			x_min;
@@ -51,9 +52,12 @@ typedef	struct		s_coords////////ЛИНИИ ДЛЯ РИСОВАНИЯ
 	int 			z0orig;
 	int 			z1orig;
 	struct s_coords	*next;
+	unsigned int	**color;
 	unsigned int	color_start;
 	unsigned int 	color_finish;
 }					t_coords;
+
+t_coords.v1.x
 
 typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКАМИ И ДАННЫМИ
 {
@@ -76,17 +80,19 @@ typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКА
 	int 		block;
 	int 		height_mod;
 	int 		gradient_mod;
-	unsigned int color[2];
+	unsigned int	color[2];
 }					t_window;
 
 
-void	gradient1(t_window *window);
-void	gradient2(t_window *window);
-void	gradient3(t_window *window);
-void				pre_draw_line(int coord[4], t_coords *line);
-void	inter_via_mass(int coord[4], int inter[4]);
-int 				check_shit(int ixy[3], int *steep);
-void				draw_line(t_coords *line, t_window *window);
+void			gradient(t_window *window, int key);
+void			gradiend_distr(int key, t_window *window);
+void			pre_draw_line(int coord[4], t_coords *line);
+void			inter_via_mass(int coord[4], int inter[4]);
+int 			check_shit(int ixy[3], int *steep);
+void			draw_line(t_coords *line, t_window *window);
+unsigned int	ft_atoi_base(char	*str);
+int				get_value(int a, int i);
+
 
 
 t_lines		*read_lines(int fd);
@@ -94,7 +100,7 @@ void		del_lines(t_lines *start);
 t_map	*read_map(t_lines *start);
 int 	check_errors(t_map *map);
 void	del_map(t_map *map);
-int 	**find_z(t_lines *start, int x, int y);
+void	find_z(t_lines *start, t_map *map);
 int 	find_x(t_lines *start);
 int 		find_y(t_lines *start);
 void	draw_line(t_coords *line, t_window *window);

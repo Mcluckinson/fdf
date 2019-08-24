@@ -48,6 +48,7 @@ int		main(int argc, char **argv)
 	static t_window	*window;//СТАТИК НУ ЧТОБ НАВЕРНЯКА
 
 	argc = 1;//КОСТЫЛЬ
+//	printf("%u", ft_atoi_base("0xffffff"));
 	if (!(window = (t_window*)malloc(sizeof(t_window))))
 		return (0);
 	if (!(window->fd = open (argv[argc], O_RDONLY)) ||
