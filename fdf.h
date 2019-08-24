@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/23 19:57:16 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/24 11:45:12 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКА
 	int 		block;
 	int 		height_mod;
 	int 		gradient_mod;
+	int 		projection;
 	unsigned int color[2];
 }					t_window;
 

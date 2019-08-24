@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/23 19:57:16 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/24 11:55:05 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int key_press(int key, t_window *window)
 	}
 	if (key == 26)
 	{
-		window->color[0] = 0xb0c4de;
-		window->color[1] = 0xc71585;
+		window->color[0] = 0x0011A953;
+		window->color[1] = 0x00ff00ff;
 		gradient3(window);
 	}
 	return (0);
@@ -63,6 +63,7 @@ int close_window(t_window *window)
 ///////СБРАСЫВАЕТ ИЗМЕНЕНИЯ И РИСУЕТ ПАРАЛЛЕЛЬНУЮ ПРОЕКЦИЮ В ЦЕНТРЕ
 void	draw_parallel(t_window *window)
 {
+	window->projection = 1;
 	window->cur_zoom = 1;
 	window->map->x_max = 0;
 	window->map->x_min = 0;
@@ -81,6 +82,7 @@ void	draw_parallel(t_window *window)
 ////////СБРАСЫВАЕТ ИЗМЕНЕНИЯ, РИСУЕТ ИЗОМЕТРИЧЕСКУЮ ПРОЕКЦИЮ В ЦЕНТРЕ
 void 	draw_iso(t_window *window)
 {
+	window->projection = 2;
 	window->cur_zoom = 1;
 	window->map->x_max = 0;
 	window->map->x_min = 0;
