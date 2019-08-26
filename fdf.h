@@ -132,7 +132,7 @@ int 			check_shit(int ixy[3], int *steep);
 void			draw_line(t_coords *line, t_window *window, t_coords *start);
 unsigned int	ft_atoi_base(char	*str);
 int				get_value(int a, int i);
-void	fuck_you();
+void	fuck_you(void);
 
 
 
