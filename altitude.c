@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 18:15:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/24 12:01:14 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/25 21:12:25 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	redraw_altitude(t_window *window)
 		go->y1 = (orig->z1) * -1 + ((orig->x1 + orig->y1)  * sin(0.523599));
 		go->z0 = orig->z0;
 		go->z1 = orig->z1;
-		go->color_start = window->color[0]; ////ПОИФИКСИТЬ ЦВЕТА КАК У ЭЛИ
-		go->color_finish = window->color[1];////
+//		go->color_start = window->color[0]; ////ПОИФИКСИТЬ ЦВЕТА КАК У ЭЛИ
+//		go->color_finish = window->color[1];////
 		orig = orig->next;
 		go = go->next;
 	}

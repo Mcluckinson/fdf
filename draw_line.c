@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/24 11:45:12 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/26 13:05:36 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ void				draw_line(t_coords *line, t_window *window)
 	unsigned int	final_color;
 	int				*steep;
 
+	if (window->gradient_mod == 1)
+		recolor_line(line, window);
+	else
+		recolor_back(line, window);
 	pre_draw_line(coord, line);
 	steep = steep_check(&coord[0], &coord[1], &coord[2], &coord[3]);
 	inter_via_mass(coord, incr);
@@ -89,10 +93,11 @@ void				draw_line(t_coords *line, t_window *window)
 	ixy[1] = coord[0];
 	while (ixy[1]++ <= coord[1])
 	{
-		if (window->gradient_mod == 0)
+//		if (window->gradient_mod == 0)
 			final_color = get_color(ixy[1], line, steep);
-		else if (window->gradient_mod == 1)
-			final_color = get_color_z(ixy[1], line, steep);
+//		else if (window->gradient_mod == 1)
+	//
+			//		final_color = get_color_z(ixy, line, steep/*, window*/);
 		if (!check_shit(ixy, steep))
 		{
 			ixy[0] = find_i(ixy[1], ixy[2], window, steep);
@@ -158,31 +163,57 @@ unsigned int	get_color(int cur_x, t_coords *line, int *steep)
 	return ((red << 16) | (green << 8) | blue);
 }
 
-unsigned int	get_color_z(int cur_x, t_coords *line, int *steep)
+/*unsigned int	get_color_z(int ixy[3], t_coords *line, int *steep, t_window *window)
 {
+	unsigned int	color;
+
+//	if (line->color_start == line->color_finish)
+//		return (line->color_start);
+//	if (line->z0 == line->z1 && line->z0 == window->map->z_min)
+//		return (window->color[0]);
+//	if (line->z0 == line->z1 && line->z0 == window->map->z_max)
+//		return (window->color[1]);
+	color = get_color(ixy[1], line, steep);
+	return (color);
+}*/
+
+void	recolor_line(t_coords *line, t_window *window)
+{
+  //	if (!color_start_flag)
+		line->color_start = color_for_z(line->z0, line, window);
+//	if (!color_finish_flag)
+		line->color_finish = color_for_z(line->z1, line, window);
+//		if (line->z0 != line->z1 && line->color_finish == line->color_start)
+//			printf ("FUCK!\n");
+}
+
+void	recolor_back(t_coords *line, t_window *window)
+{
+	//	if (!color_start_flag)
+		line->color_start = window->color[0];
+		//if (!color_finish_flag)
+		line->color_finish = window->color[1];
+}
+
+unsigned int	color_for_z(int z, t_coords *line, t_window *window)
+{
+	double			percentage;
 	unsigned int	red;
 	unsigned int	green;
 	unsigned int	blue;
-	double			percentage;
 
-	if (line->color_start == line->color_finish)
-		return (line->color_start);
-	if (line->z0 == line->z1)
-	{
-		if (line->z0 == 0)
-			return (line->color_finish);
-		else
-			return (line->color_start);
-	}
-	if (steep[1] == 0)
-		percentage = percent(line->y0, line->y1, cur_x);
-	else
-		percentage = percent(line->y1, line->y0, cur_x);
-	red = get_light((line->color_start >> 16) & 0xFF, (line->color_finish >> 16)
-	& 0xFF, percentage);
-	green = get_light((line->color_start >> 8) & 0xFF, (line->color_finish >> 8)
-	& 0xFF, percentage);
-	blue = get_light(line->color_start & 0xFF, line->color_finish &
-	0xFF, percentage);
+	if (z == window->map->z_min)
+		return (window->color[0]);
+	else if (z == window->map->z_max)
+		return (window->color[1]);
+	percentage = percent(window->map->z_min, window->map->z_max, z);
+	t_coords *go = line;
+	go = go->next;
+	red = get_light((window->color[0] >> 16) & 0xFF, (window->color[1] >> 16)
+													  & 0xFF, percentage);
+	green = get_light((window->color[0] >> 8) & 0xFF, (window->color[1] >> 8)
+													   & 0xFF, percentage);
+	blue = get_light(window->color[0] & 0xFF, window->color[1]
+											   & 0xFF, percentage);
 	return ((red << 16) | (green << 8) | blue);
 }

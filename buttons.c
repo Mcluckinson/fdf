@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/24 11:55:05 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/24 22:33:26 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int key_press(int key, t_window *window)
 		change_gradient(window);
 	if (key == 23)
 	{
-		window->color[0] = 0xffff00;
-		window->color[1] = 0xee82ee;
+		window->color[0] = 0x00ffff00;
+		window->color[1] = 0x00ee82ee;
 		gradient1(window);
 	}
 	if (key == 22)
 	{
-		window->color[0] = 0x008000;
-		window->color[1] = 0xffa500;
+		window->color[0] = 0x00008000;
+		window->color[1] = 0x00ffa500;
 		gradient2(window);
 	}
 	if (key == 26)
