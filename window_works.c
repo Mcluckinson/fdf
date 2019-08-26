@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:24:17 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/22 18:39:14 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/24 22:33:26 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	set_up_window(t_window *window, char *map_name)
 	window->gradient_mod = 0;////ТИП ГРАДИЕНТА
 	window->color[0] = 0x0011A953;
 	window->color[1] = 0x00ff00ff;
+	window->projection = 2;
 	return (0);
 }
 

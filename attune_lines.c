@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/23 19:57:16 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/24 22:33:26 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,4 +173,25 @@ t_coords	*resize_all(t_coords *start, t_map *map)
 		map->x_min *= ratio;
 	}
 	return (start);
+}
+
+void	find_max_min_z(t_coords *lines, t_window *window)
+{
+	t_coords *go;
+
+	go = lines;
+	window->map->z_min = go->z0;
+	window->map->z_max = go->z0;
+	while (go != NULL)
+	{
+		if (go->z0 < window->map->z_min)
+			window->map->z_min = go->z0;
+		if (go->z1 < window->map->z_min)
+			window->map->z_min = go->z1;
+		if (go->z0 > window->map->z_max)
+			window->map->z_max = go->z0;
+		if (go->z1 > window->map->z_max)
+			window->map->z_max = go->z1;
+		go = go->next;
+	}
 }

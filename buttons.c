@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/23 19:57:16 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/24 22:33:26 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,7 @@ int key_press(int key, t_window *window)
 	if (key == 21)
 		change_gradient(window);
 	if (key == 23 || key == 22 || key == 26)
-	{
 		gradient(window, key);
-	}
-//	if (key == 22)
-//	{
-//		window->color[0] = 0x008000;
-//		window->color[1] = 0xffa500;
-//		gradient2(window);
-//	}
-//	if (key == 26)
-//	{
-//		window->color[0] = 0xb0c4de;
-//		window->color[1] = 0xc71585;
-//		gradient3(window);
-//	}
 	return (0);
 
 
@@ -61,6 +47,7 @@ int close_window(t_window *window)
 ///////СБРАСЫВАЕТ ИЗМЕНЕНИЯ И РИСУЕТ ПАРАЛЛЕЛЬНУЮ ПРОЕКЦИЮ В ЦЕНТРЕ
 void	draw_parallel(t_window *window)
 {
+	window->projection = 1;
 	window->cur_zoom = 1;
 	window->map->x_max = 0;
 	window->map->x_min = 0;
@@ -79,6 +66,7 @@ void	draw_parallel(t_window *window)
 ////////СБРАСЫВАЕТ ИЗМЕНЕНИЯ, РИСУЕТ ИЗОМЕТРИЧЕСКУЮ ПРОЕКЦИЮ В ЦЕНТРЕ
 void 	draw_iso(t_window *window)
 {
+	window->projection = 2;
 	window->cur_zoom = 1;
 	window->map->x_max = 0;
 	window->map->x_min = 0;

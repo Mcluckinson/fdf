@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 18:15:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/23 19:57:16 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/25 21:12:25 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	change_altitude(int key, t_window *window)
 {
 	t_coords	*go;
 
+	if (window->projection == 1)
+		return ;
 	go = window->lines;
 	if (key == 1)
 		window->height_mod -=10;
@@ -30,7 +32,6 @@ void	change_altitude(int key, t_window *window)
 		go = go->next;
 	}
 	redraw_altitude(window);
-//	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	fix_current(window->current, window->current, window->cur_zoom, window);
 	move_position(window->current, window->map);
 	draw_map(window->current, window);
@@ -69,8 +70,8 @@ void	redraw_altitude(t_window *window)
 		go->y1 = (orig->z1) * -1 + ((orig->x1 + orig->y1)  * sin(0.523599));
 		go->z0 = orig->z0;
 		go->z1 = orig->z1;
-		go->color_start = window->color[0]; ////ПОИФИКСИТЬ ЦВЕТА КАК У ЭЛИ
-		go->color_finish = window->color[1];////
+//		go->color_start = window->color[0]; ////ПОИФИКСИТЬ ЦВЕТА КАК У ЭЛИ
+//		go->color_finish = window->color[1];////
 		orig = orig->next;
 		go = go->next;
 	}

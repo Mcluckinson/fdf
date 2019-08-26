@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:17:22 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/22 19:33:18 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/25 18:45:06 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 			}
 			if (map->color[rows][cols + 1])
 			{
-				line->color_finish = map->color[rows][cols + 1];
+				line->color_finish = map->color[rows + 1][cols];
 				line->color_flag_finish = 1;
 			}
 			rows++;
