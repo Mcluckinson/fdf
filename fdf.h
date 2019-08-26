@@ -27,12 +27,34 @@ typedef	struct		s_lines////////////СТРОЧКИ КАРТЫ
 	struct s_lines	*next;
 }					t_lines;
 
+typedef struct 		s_col
+{
+	unsigned char a;
+	char r;
+	char g;
+	char b;
+}					t_col;
+
+typedef union		u_color
+{
+	unsigned int		hex;
+	t_col	argb;
+}					t_ucol;
+
+//t_ucol a.hex = 473633788453;
+//a.rgba.r
+
+
 typedef	struct		s_map/////////КАРТА
 {
 	int				x;
 	int				y;
 	int				**z;
 	unsigned int	**color;
+//	unsigned int	color_const[2];//0 - start, 1 - finish
+//	unsigned int	color_start;
+//	unsigned int 	color_finish;
+//	unsigned int 	color_const;
 	int 			x_max;
 	int 			y_max;
 	int 			x_min;
@@ -41,8 +63,18 @@ typedef	struct		s_map/////////КАРТА
 	int 			z_min;
 }					t_map;
 
+typedef struct s_int_vector3
+{
+	int x;
+	int y;
+	int z;
+}				t_ivec3;
+
 typedef	struct		s_coords////////ЛИНИИ ДЛЯ РИСОВАНИЯ
 {
+
+	t_ivec3			v1;
+	t_ivec3			v2;
 	int				x0;
 	int 			x1;
 	int				y0;
@@ -55,9 +87,9 @@ typedef	struct		s_coords////////ЛИНИИ ДЛЯ РИСОВАНИЯ
 	unsigned int	**color;
 	unsigned int	color_start;
 	unsigned int 	color_finish;
+	int 			color_flag_start;
+	int 			color_flag_finish;
 }					t_coords;
-
-t_coords.v1.x
 
 typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКАМИ И ДАННЫМИ
 {
@@ -80,7 +112,7 @@ typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКА
 	int 		block;
 	int 		height_mod;
 	int 		gradient_mod;
-	unsigned int	color[2];
+	unsigned int	color[4];
 }					t_window;
 
 

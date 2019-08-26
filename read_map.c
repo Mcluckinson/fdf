@@ -92,29 +92,33 @@ void	find_z(t_lines *start, t_map *map)
 	int		i;
 	char	**split;
 	t_lines	*temp;
+	//t_ucol	a;
 
 	temp = start;
 	yy = 0;
 	if (!(map->z = (int**)malloc(sizeof(int*) * (map->y + 1))))
 		return ;
-	if (!(map->color = (int**)malloc(sizeof(int*) * (map->y + 1))))
+	if (!(map->color = (unsigned int **)malloc(sizeof(unsigned int **) * (map->y + 1))))
 		return ;
 	while (yy < map->y) {
 		i = 0;
 		split = ft_strsplit(temp->line, ' ');
-		map->z[yy] = (int *) malloc(sizeof(int) * map->x);
-		map->color[yy] = (int *) malloc(sizeof(int) * map->x);
+		map->z[yy] = (int*)malloc(sizeof(int) * map->x);
+		map->color[yy] = (unsigned int *)malloc(sizeof(unsigned int *) * map->x);
 		while (i < map->x) {
 			if (strchr(split[i], ','))
 			{
 				map->z[yy][i] = ft_atoi(split[i]);
-				map->color[yy][i] = ft_atoi_base(ft_strchr(split[i], ','));
+				//a.hex = ft_atoi_base(ft_strchr(split[i], ','));
+				map->color[yy][i]/*.hex*/ = ft_atoi_base(ft_strchr(split[i], ','));
+		//		map->color_const[0] = map->color[yy][i];
+		//		map->color_const[1] = map->color[yy][i];
 				free(split[i]);
 			}
 			else
 			{
 				map->z[yy][i] = ft_atoi(split[i]);
-				map->color[yy][i] = 0;
+				map->color[yy][i]/*.hex */= 0;
 				free(split[i]);
 			}
 			i++;

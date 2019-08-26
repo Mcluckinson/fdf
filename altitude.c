@@ -61,6 +61,8 @@ void	redraw_altitude(t_window *window)
 
 	while (orig != NULL)
 	{
+		//go->v1 = vector_upgrade(orig->v1)
+		//go->v2 = vector_upgrade(orig->v2)
 		go->x0 = (orig->x0 - orig->y0)  * cos(0.523599);
 		go->x1 = (orig->x1 - orig->y1)  * cos(0.523599);
 		go->y0 = (orig->z0) * -1 + ((orig->x0 + orig->y0)  * sin(0.523599));

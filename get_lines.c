@@ -101,6 +101,17 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 			line->x1 = cols_actual + 1;
 			line->z0 = map->z[rows][cols];
 			line->z1 = map->z[rows][cols + 1];
+			if (map->color[rows][cols])
+			{
+				line->color_start = map->color[rows][cols];
+				line->color_flag_start = 1;
+			}
+			if (map->color[rows][cols + 1])
+			{
+				line->color_finish = map->color[rows][cols + 1];
+				line->color_flag_finish = 1;
+			}
+
 	//		line->y0 = rows;
 	//		line->y1 = rows;
 			line->y0 = rows_actual;
@@ -154,6 +165,16 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 			line->z0orig = line->z0;
 			line->z1 = map->z[rows + 1][cols];
 			line->z1orig = line->z1;
+			if (map->color[rows][cols])
+			{
+				line->color_start = map->color[rows][cols];
+				line->color_flag_start = 1;
+			}
+			if (map->color[rows][cols + 1])
+			{
+				line->color_finish = map->color[rows][cols + 1];
+				line->color_flag_finish = 1;
+			}
 			rows++;
 			rows_actual++;
 		}
