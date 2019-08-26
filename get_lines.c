@@ -153,12 +153,8 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 					del_coords(prev);
 				return (NULL);
 			}
-	//		line->y0 = rows;
-	//		line->y1 = rows + 1;
 			line->y0 = rows_actual;
 			line->y1 = rows_actual + 1;
-//			line->x0 = cols;
-//			line->x1 = cols;
 			line->x0 = cols_actual;
 			line->x1 = cols_actual;
 			line->z0 = map->z[rows][cols];

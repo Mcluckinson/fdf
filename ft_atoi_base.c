@@ -31,6 +31,8 @@ int					get_value(int a, int i)
 	r = ft_atoi(ft_itoa(a));
 	return (r * hex);
 }
+///////////////ЭТО ЧТО ТАМ МАЛЛОК НЕЗАФРИШЕННЫЙ????
+///////////////NEW = STR?????
 
 unsigned int		ft_atoi_base(char *str)
 {

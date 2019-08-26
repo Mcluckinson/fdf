@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/25 19:13:26 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/26 21:57:48 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ void	find_z(t_lines *start, t_map *map);
 int 	find_x(t_lines *start);
 int 		find_y(t_lines *start);
 void	draw_line(t_coords *line, t_window *window, t_coords *start);
-//void	swap_em(int *a0, int *a1);
 t_coords	*get_lines(t_map *map);
 t_coords	*new_coords(t_coords *coords);
 t_coords	*get_horisontal(t_coords *line, t_map *map);
@@ -189,7 +188,6 @@ void	redraw_altitude(t_window *window);
 void	change_altitude(int key, t_window *window);
 
 ///TRYINA ADD HEIGHT GRADIENT
-unsigned int get_color_z(int ixy[3], t_coords *line, int *steep/*, t_window *window*/);
 void	change_gradient(t_window *window);
 void	find_max_min_z(t_coords *lines, t_window *window);
 unsigned int	color_for_z(int z, t_coords *line, t_window *window, t_coords *start);

@@ -85,7 +85,7 @@ add_executable(fdf
         window_works.c
         arrows.c
         altitude.c
-        gradient.c ft_atoi_base.c)
+        gradient.c)
 target_link_libraries(fdf
         "-framework AppKit"
         "-framework OpenGL"
