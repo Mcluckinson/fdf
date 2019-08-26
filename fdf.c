@@ -11,8 +11,24 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-////ЧИСТИТ ВСЕ, ЧТО НАЙДЕТ
-void	del_win(t_window *window)
+
+static void		continue_del_win(t_window *window)
+{
+	if (window->turned)
+		del_coords(window->turned);
+	if (window->endian)
+		free(window->endian);
+	if (window->depth)
+		free(window->depth);
+	if (window->img_data)
+		free(window->img_data);
+	if (window->current)
+		del_coords(window->current);
+	if (window->map)
+		del_map(window->map);
+}
+
+void			del_win(t_window *window)
 {
 	if (window->fd)
 		close(window->fd);
@@ -28,49 +44,51 @@ void	del_win(t_window *window)
 		free(window->linesize);
 	if (window->lines)
 		del_coords(window->lines);
-	if (window->turned)
-		del_coords(window->turned);
-	if (window->endian)
-		free(window->endian);
-	if (window->depth)
-		free(window->depth);
-	if (window->img_data)
-		free(window->img_data);
-	if (window->current)
-		del_coords(window->current);
-	if (window->map)
-		del_map(window->map);
+	continue_del_win(window);
 	free(window);
 }
 
-int		main(int argc, char **argv)
+static int		preparations(t_window *window, char *name)
 {
-	static t_window	*window;//СТАТИК НУ ЧТОБ НАВЕРНЯКА
-
-	argc = 1;//КОСТЫЛЬ
-//	printf("%u", ft_atoi_base("0xffffff"));
-	if (!(window = (t_window*)malloc(sizeof(t_window))))
-		return (0);
-	if (!(window->fd = open (argv[argc], O_RDONLY)) ||
-			!(window->start = read_lines(window->fd)) ||//ЧИТАЕТ КАРТУ ПО СТРОЧКАМ, ГНЛ, КЛАДЕТ В МАССИВ t_lines
-			!(window->map = read_map(window->start)) ||//ДОСТАЕТ ДАННЫЕ(высоты, ширина, высота) ИЗ СТРОК, кладет в t_map
-			!(window->lines = get_lines(window->map)))//CОБИРАЕТ ЛИНИИ ИЗ БАЗОВЫХ КООРДИНАТ, структура t_coords window->lines
+	ft_bzero(window, sizeof(t_window));
+	if (!(window->fd = open(name, O_RDONLY)) ||
+		!(window->start = read_lines(window->fd)) ||
+		!(window->map = read_map(window->start)) ||
+		!(window->lines = get_lines(window->map)))
 	{
 		del_win(window);
 		return (0);
 	}
-	if (set_up_window(window, argv[argc]) == -1) //СОЗДАЕТ ВСЕ ОСТАЛЬНЫЕ ДАННЫЕ В t_window *window
+	if (set_up_window(window, name) == -1)
 		return (0);
-	close (window->fd);
-	window->turned = iso(window->lines, window->map, window);//ПРЕОБРАЗУЕТ window->lines в изометрическую проекцию, кладет в t_coords window->turned
+	return (1);
+}
 
-	window->current = init_current(window);//СОЗДАЕТ t_window *current, оттуда все и рисуется. Сейчас в нем нет данных, количество элементов такое же, как количество линий
-	copy_to_current(window->turned, window->current);//КОПИРУЕТ ДАННЫЕ ИЗ t_coords turned в t_coords current
-	move_position(window->current, window->map);//ДВИГАЕТ t_coords current в центр экрана
-	draw_map(window->current, window);//РИСУЕТ КАРТУ НА ЭКРАНЕ
-	mlx_hook(window->win_ptr, 17, 1L<<17, close_window, window); //ОТСЛЕЖИВАЕТ НАЖАТИЕ КРАСНОЙ КНОПКИ ДЛЯ ЗАКРЫТИЯ FDF
-	mlx_hook(window->win_ptr, 4, 1L<<2, mouse_buttons, window); //ОТСЛЕЖИВАЕТ НАЖАТИЕ КНОПОК МЫШИ
-	mlx_hook(window->win_ptr, 2, 1L<<0, key_press, window);//ОТСЛЕЖИВАЕТ НАЖАТИЕ КЛАВИШ
-	mlx_loop(window->mlx_ptr);//ПУСКАЕТ ПРОГРАММУ В БЕСКОНЕЧНЫЙ ЦИКЛ
+int				main(int argc, char **argv)
+{
+	t_window	*window;
+
+	if (argc != 2)
+	{
+		printf("Incorrect input :(");
+		return (-1);
+	}
+	else
+	{
+		if (!(window = (t_window*)malloc(sizeof(t_window))))
+			return (0);
+		if (preparations(window, argv[1]) == 0)
+			return (1);
+		close(window->fd);
+		window->turned = iso(window->lines, window->map, window);
+		window->current = init_current(window);
+		copy_to_current(window->turned, window->current);
+		move_position(window->current, window->map);
+		draw_map(window->current, window);
+		mlx_hook(window->win_ptr, 17, 1L << 17, close_window, window);
+		mlx_hook(window->win_ptr, 4, 1L << 2, mouse_buttons, window);
+		mlx_hook(window->win_ptr, 2, 1L << 0, key_press, window);
+		mlx_loop(window->mlx_ptr);
+	}
 	return (0);
 }
