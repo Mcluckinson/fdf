@@ -91,6 +91,12 @@ typedef	struct		s_coords////////ЛИНИИ ДЛЯ РИСОВАНИЯ
 	int 			color_flag_finish;
 }					t_coords;
 
+typedef struct		s_uint2
+{
+	unsigned 	x;
+	unsigned 	y;
+}					t_uint2;
+
 typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКАМИ И ДАННЫМИ
 {
 	void	*mlx_ptr;
@@ -113,6 +119,7 @@ typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКА
 	int 		height_mod;
 	int 		gradient_mod;
 	unsigned int	color[2];
+//	t_uint2		color;
 	int 		projection;
 }					t_window;
 
@@ -122,9 +129,11 @@ void			gradiend_distr(int key, t_window *window);
 void			pre_draw_line(int coord[4], t_coords *line);
 void			inter_via_mass(int coord[4], int inter[4]);
 int 			check_shit(int ixy[3], int *steep);
-void			draw_line(t_coords *line, t_window *window);
+void			draw_line(t_coords *line, t_window *window, t_coords *start);
 unsigned int	ft_atoi_base(char	*str);
 int				get_value(int a, int i);
+void	fuck_you();
+
 
 
 
@@ -136,7 +145,7 @@ void	del_map(t_map *map);
 void	find_z(t_lines *start, t_map *map);
 int 	find_x(t_lines *start);
 int 		find_y(t_lines *start);
-void	draw_line(t_coords *line, t_window *window);
+void	draw_line(t_coords *line, t_window *window, t_coords *start);
 //void	swap_em(int *a0, int *a1);
 t_coords	*get_lines(t_map *map);
 t_coords	*new_coords(t_coords *coords);
@@ -183,7 +192,7 @@ void	change_altitude(int key, t_window *window);
 unsigned int get_color_z(int ixy[3], t_coords *line, int *steep/*, t_window *window*/);
 void	change_gradient(t_window *window);
 void	find_max_min_z(t_coords *lines, t_window *window);
-unsigned int	color_for_z(int z, t_coords *line, t_window *window);
+unsigned int	color_for_z(int z, t_coords *line, t_window *window, t_coords *start);
 void	recolor_line(t_coords *line, t_window *window, t_coords *start);
 void	recolor_back(t_coords *line, t_window *window, t_coords *start);
 void	recolor_map(t_coords *lines, t_window *window);

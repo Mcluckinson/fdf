@@ -180,11 +180,11 @@ unsigned int	get_color(int cur_x, t_coords *line, int *steep)
 void	recolor_line(t_coords *line, t_window *window, t_coords *start)
 {
 	if (!start->color_flag_start)
-		line->color_start = color_for_z(line->z0, line, window);
+		line->color_start = color_for_z(line->z0, line, window, start);
 	else
 		line->color_start = start->color_start;
 	if (!window->lines->color_flag_finish)
-		line->color_finish = color_for_z(line->z1, line, window);
+		line->color_finish = color_for_z(line->z1, line, window, start);
 	else
 		line->color_finish = start->color_finish;
 }
@@ -207,9 +207,10 @@ unsigned int	color_for_z(int z, t_coords *line, t_window *window, t_coords *star
 	unsigned int	red;
 	unsigned int	green;
 	unsigned int	blue;
-	unsigned int	fixed_z0;
-	unsigned int	fixed_z1;
+//	unsigned int	fixed_z0;
+//	unsigned int	fixed_z1;
 
+start = start->next;
 	if (z == window->map->z_min)
 		return (window->color[0]);
 	else if (z == window->map->z_max)

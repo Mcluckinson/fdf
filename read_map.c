@@ -178,6 +178,11 @@ t_map	*read_map(t_lines *start)
 	map->y = find_y(start);
 	map->x = find_x(start);
 	find_z(start, map);
+	if ((map->x != 1 && map->y == 1) || (map->x == 1 && map->y != 1)
+	/*|| (map->x == 1 && map->y == 1)*/)
+	{
+		fuck_you();
+	}
 	if (!check_errors(map))
 	{
 		del_lines(start);
@@ -185,4 +190,9 @@ t_map	*read_map(t_lines *start)
 		return (NULL);
 	}
 	return (map);
+}
+
+void	fuck_you()
+{
+	printf("azazaza");
 }

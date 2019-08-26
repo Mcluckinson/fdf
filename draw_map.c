@@ -24,7 +24,7 @@ int	draw_map(t_coords *lines, t_window *window)
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	while (go != NULL)
 	{
-		draw_line(go, window);
+		draw_line(go, window, window->lines);
 		go = go->next;
 	}
 	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, window->img_ptr, 0, 0);//MLX ФУНКЦИЯ, КОТОРАЯ КИДАЕТ ИЗОБРАЖЕНИЕ НА ЭКРАН
