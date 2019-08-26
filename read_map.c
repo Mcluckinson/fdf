@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-///МАЛЛОЧИМ t_lines и кладем туда считанное gnl
+
 t_lines		*read_lines(int fd)
 {
 	t_lines		*start;
@@ -29,7 +29,7 @@ t_lines		*read_lines(int fd)
 	another->next = NULL;
 	return (start);
 }
-//УДАЛЯЛАКА ДЛЯ t_lines
+
 void		del_lines(t_lines *start)
 {
 	while (start->next != NULL)
@@ -40,8 +40,8 @@ void		del_lines(t_lines *start)
 	free(start->line);
 	free(start);
 }
-//СЧИТАЕТ КОЛИЧЕСТВО СТРОК, ЭТО БУДЕТ У, Высота
-int 		find_y(t_lines *start)
+
+int			find_y(t_lines *start)
 {
 	int		y;
 	t_lines	*temp;
@@ -55,11 +55,11 @@ int 		find_y(t_lines *start)
 	}
 	return (y);
 }
-///СТРСПЛИТОМ ДЕЛИТ СТРОКУ, СЧИТАЕТ КОЛИЧЕСТВО ЭЛЕМЕНТОВ, ЁТО БУДЕТ Хбб, Ширина
+
 int 	find_x(t_lines *start)
 {
 	int		x;
-	int		x_max;//ДЛЯ ПРОВЕРКИ КОЛИЧЕСТВА ЭЛЕМЕНТОВ В СТРОКАХ
+	int		x_max;
 	t_lines	*temp;
 	char	**split;
 
@@ -79,48 +79,45 @@ int 	find_x(t_lines *start)
 		if (!x_max)
 			x_max = x;
 		else if (x != x_max)
-			return (0);///СРАВНИВАЕТ КОЛИЧЕСТВО Х В СЧИТАННОЙ СТРОКЕ С КОЛИЧЕСТВОМ Х В ПРЕДЫДУЩИХ, ОНО ДОЛЖНО БЫТЬ ОДИНАКОВЫМ
+			return (0);
 		temp = temp->next;
 	}
 	return (x);
 }
-///СЧИТЫВАЕТ ВЫСОТЫ, КЛАДЕТ В **Z
+
 void	find_z(t_lines *start, t_map *map)
 {
-	//int		**z;
 	int		yy;
 	int		i;
 	char	**split;
 	t_lines	*temp;
-	//t_ucol	a;
 
 	temp = start;
 	yy = 0;
 	if (!(map->z = (int**)malloc(sizeof(int*) * (map->y + 1))))
 		return ;
-	if (!(map->color = (unsigned int **)malloc(sizeof(unsigned int **) * (map->y + 1))))
+	if (!(map->color = (unsigned int**)malloc(sizeof(unsigned int**)
+			* (map->y + 1))))
 		return ;
-	while (yy < map->y) {
+	while (yy < map->y)
+	{
 		i = 0;
 		split = ft_strsplit(temp->line, ' ');
 		map->z[yy] = (int*)malloc(sizeof(int) * map->x);
-		map->color[yy] = (unsigned int *)malloc(sizeof(unsigned int *) * map->x);
-		while (i < map->x) {
+		map->color[yy] = (unsigned int*)malloc(sizeof(unsigned int*) * map->x);
+		while (i < map->x)
+		{
 			if (strchr(split[i], ','))
 			{
 				map->z[yy][i] = ft_atoi(split[i]);
-				//a.hex = ft_atoi_base(ft_strchr(split[i], ','));
-				map->color[yy][i]/*.hex*/ = ft_atoi_base(ft_strchr(split[i], ','));
-		//		map->color_const[0] = map->color[yy][i];
-		//		map->color_const[1] = map->color[yy][i];
-				free(split[i]);
+				map->color[yy][i] = ft_atoi_base(ft_strchr(split[i], ','));
 			}
 			else
 			{
 				map->z[yy][i] = ft_atoi(split[i]);
-				map->color[yy][i]/*.hex */= 0;
-				free(split[i]);
+				map->color[yy][i] = 0;
 			}
+			free(split[i]);
 			i++;
 		}
 		free(split);
@@ -128,7 +125,7 @@ void	find_z(t_lines *start, t_map *map)
 		temp = temp->next;
 	}
 }
-///УДАЛЯЛКА ДЛЯ КАРТЫ
+
 void	del_map(t_map *map)
 {
 	int i;
@@ -145,26 +142,14 @@ void	del_map(t_map *map)
 	}
 	free(map);
 }
-////ПРОВЕРКА ОШИБОК, НУЖНО ДОПОЛНИТЬ
-int 	check_errors(t_map *map)
+
+int		check_errors(t_map *map)
 {
 	if (!map->x || !map->y || !map->z)
 		return (0);
 	return (1);
 }
 
-//int			find_color(int **z)
-//{
-//	while ((*z)++)
-//	{
-//		while (z++)
-//		{
-//			if (strchr())
-//		}
-//	}
-//}
-
-////ЧИТАЕТ КАРТУ В t_map *map. ИСПОЛЬЗУЕТ ФУНКЦИИ ВЫШЕ
 t_map	*read_map(t_lines *start)
 {
 	t_map	*map;
@@ -179,7 +164,7 @@ t_map	*read_map(t_lines *start)
 	map->x = find_x(start);
 	find_z(start, map);
 	if ((map->x != 1 && map->y == 1) || (map->x == 1 && map->y != 1)
-	/*|| (map->x == 1 && map->y == 1)*/)
+	/* || (map->x == 1 && map->y == 1) */)
 	{
 		fuck_you();
 	}
@@ -192,7 +177,7 @@ t_map	*read_map(t_lines *start)
 	return (map);
 }
 
-void	fuck_you()
+void	fuck_you(void)
 {
 	printf("azazaza");
 }
