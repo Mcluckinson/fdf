@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:17:22 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/25 18:45:06 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/27 15:50:04 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 			}
 			if (cols == 0 && rows == 0)
 				result = line;
-	//		line->x0 = cols;
-	//		line->x1 = cols + 1;
 			line->x0 = cols_actual;
 			line->x1 = cols_actual + 1;
 			line->z0 = map->z[rows][cols];
@@ -111,9 +109,6 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 				line->color_finish = map->color[rows][cols + 1];
 				line->color_flag_finish = 1;
 			}
-
-	//		line->y0 = rows;
-	//		line->y1 = rows;
 			line->y0 = rows_actual;
 			line->y1 = rows_actual;
 			line->z0orig = line->z0;/////ОРИГИНАЛЬНЫЕ ВЫСОТЫ ПОНАДОБЯТСЯ ДЛЯ ИЗМЕНЕНИЯ ВЫСОТЫ ПО КНОПКАМ
@@ -166,7 +161,7 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 				line->color_start = map->color[rows][cols];
 				line->color_flag_start = 1;
 			}
-			if (map->color[rows][cols + 1])
+			if (map->color[rows + 1][cols])
 			{
 				line->color_finish = map->color[rows + 1][cols];
 				line->color_flag_finish = 1;
@@ -179,7 +174,7 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 	}
 	return (line);
 }
-////УДАЛЯЛКА ДЛЯ t_coords
+
 void	del_coords(t_coords *lines)
 {
 	while (lines->next != NULL)

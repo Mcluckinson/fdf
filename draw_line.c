@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/26 22:07:19 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/27 16:07:11 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,19 @@ void finish_count(int ixy[3], int incr[4])
 /* приращение по х - incr[0] и по у - incr[1];  */
 /* incr[2] - ошибка; incr[3] - шаг по y */
 
-void				draw_line(t_coords *line, t_window *window, t_coords *start)
+void				draw_line(t_coords *line, t_window *window)
 {
 	int				coord[4];
 	int				incr[4];
 	int				ixy[3];
 	unsigned int	final_color;
 	int				*steep;
-
-	if (window->gradient_mod == 1)
-		recolor_line(line, window, start);
+////////testing redraw map comment this
+/*	if (window->gradient_mod == 1)
+		recolor_line(line, window, window->l);
 	else
-		recolor_back(line, window, start);
+		recolor_back(line, window, start);*/
+////////END OF REDRAW MAP tESTING
 	pre_draw_line(coord, line);
 	steep = steep_check(&coord[0], &coord[1], &coord[2], &coord[3]);
 	inter_via_mass(coord, incr);
@@ -158,7 +159,3 @@ unsigned int	get_color(int cur_x, t_coords *line, int *steep)
 	& 0xFF, percentage);
 	return ((red << 16) | (green << 8) | blue);
 }
-
-
-
-

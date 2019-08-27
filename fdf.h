@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/26 21:57:48 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/27 12:47:46 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct s_int_vector3
 typedef	struct		s_coords////////ЛИНИИ ДЛЯ РИСОВАНИЯ
 {
 
-	t_ivec3			v1;
-	t_ivec3			v2;
+//	t_ivec3			v1;
+//	t_ivec3			v2;
 	int				x0;
 	int 			x1;
 	int				y0;
@@ -83,12 +83,12 @@ typedef	struct		s_coords////////ЛИНИИ ДЛЯ РИСОВАНИЯ
 	int 			z1;
 	int 			z0orig;
 	int 			z1orig;
-	struct s_coords	*next;
 	unsigned int	**color;
 	unsigned int	color_start;
 	unsigned int 	color_finish;
 	int 			color_flag_start;
 	int 			color_flag_finish;
+	struct s_coords	*next;
 }					t_coords;
 
 typedef struct		s_uint2
@@ -129,7 +129,7 @@ void			gradiend_distr(int key, t_window *window);
 void			pre_draw_line(int coord[4], t_coords *line);
 void			inter_via_mass(int coord[4], int inter[4]);
 int 			check_shit(int ixy[3], int *steep);
-void			draw_line(t_coords *line, t_window *window, t_coords *start);
+//void			draw_line(t_coords *line, t_window *window, t_coords *start);
 unsigned int	ft_atoi_base(char	*str);
 int				get_value(int a, int i);
 void	fuck_you(void);
@@ -145,7 +145,7 @@ void	del_map(t_map *map);
 void	find_z(t_lines *start, t_map *map);
 int 	find_x(t_lines *start);
 int 		find_y(t_lines *start);
-void	draw_line(t_coords *line, t_window *window, t_coords *start);
+void	draw_line(t_coords *line, t_window *window);
 t_coords	*get_lines(t_map *map);
 t_coords	*new_coords(t_coords *coords);
 t_coords	*get_horisontal(t_coords *line, t_map *map);
