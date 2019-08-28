@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/24 22:33:26 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/28 23:30:07 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_coords	*fix_orig(t_coords *start, float ratio)
 	return (result);
 }
 /////ПРЕВРАЩАЕТ ОРИГИНАЛЬНЫЕ КООРДИНАТЫ В КООРДИНАТЫ ДЛЯ ИЗОМЕТРИЧЕСКОЙ ПРОЕКЦИИ, СОЗДАВАЯ НОВуЮ СТРУКТУРУ С ЭТИМИ ДАННЫМИ
-t_coords	*iso(t_coords *start, t_map *map, t_window *window)
+t_coords	*iso(t_coords *start, t_map *map/*, t_window *window*/)
 {
 	t_coords	*turned;
 	t_coords	*result;
@@ -53,20 +53,20 @@ t_coords	*iso(t_coords *start, t_map *map, t_window *window)
 		}
 		if (result == NULL)
 			result = turned;
-		turned->x0 = (start->x0 - start->y0)  * cos(0.523599);//////////В КУКБУКЕ ЕСТЬ ПРО ЭТО СТАТЬЯ
+		turned->x0 = (start->x0 - start->y0)  * cos(0.523599);
 		turned->x1 = (start->x1 - start->y1)  * cos(0.523599);
 		turned->y0 = (start->z0) * -1 + ((start->x0 + start->y0)  * sin(0.523599));
 		turned->y1 = (start->z1) * -1 + ((start->x1 + start->y1)  * sin(0.523599));
 		turned->z0 = start->z0;
 		turned->z1 = start->z1;
-		if (start->color_flag_start == 1)
+/*		if (start->color_flag_start == 1)
 			turned->color_start = start->color_start;
 		else
 			turned->color_start = window->color[0];
 		if (start->color_flag_finish == 1)
 			turned->color_finish = start->color_finish;
 		else
-			turned->color_finish = window->color[1];
+			turned->color_finish = window->color[1];*/
 
 		find_max_min(turned, map);//////////СЕРВИСНАЯ ФУНКЦИЯ, ЧТОБЫ ПОТОМ МЕНЯТЬ РАЗМЕР
 		start = start->next;

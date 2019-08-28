@@ -80,7 +80,7 @@ int				main(int argc, char **argv)
 		if (preparations(window, argv[1]) == 0)
 			return (1);
 		close(window->fd);
-		window->turned = iso(window->lines, window->map, window);
+		window->turned = iso(window->lines, window->map/*, window*/);
 		window->current = init_current(window);
 		copy_to_current(window->turned, window->current);
 		move_position(window->current, window->map);

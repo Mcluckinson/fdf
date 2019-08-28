@@ -75,8 +75,8 @@ void 	draw_iso(t_window *window)
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	del_coords(window->turned);
 	del_coords(window->current);
-	window->current = iso(window->lines, window->map, window);
-	window->turned = iso(window->lines, window->map, window);
+	window->current = iso(window->lines, window->map/*, window*/);
+	window->turned = iso(window->lines, window->map/*, window*/);
 	move_position(window->current, window->map);
 	draw_map(window->current, window);
 	window->cur_x = 0;

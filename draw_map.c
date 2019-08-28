@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 15:37:42 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/28 15:10:18 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/28 23:24:46 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ void	recolor_map(t_coords *lines, t_window *window)
 void	recolor_line(t_coords *line, t_window *window, t_coords *start)
 {
 	if (!start->color_flag_start)
-		line->color_start = color_for_z(line->z0/*, line*/, window, start);
+		line->color_start = color_for_z(line->z0/*, line*/, window/*, start*/);
 	else
 		line->color_start = start->color_start;
 	if (!start->color_flag_finish)
-		line->color_finish = color_for_z(line->z1,/* line, */window, start);
+		line->color_finish = color_for_z(line->z1/*, line*/, window/*, start*/);
 	else
 		line->color_finish = start->color_finish;
 }
@@ -82,41 +82,19 @@ void	recolor_back(t_coords *line, t_window *window, t_coords *start)
 		line->color_finish = start->color_finish;
 }
 
-unsigned int	color_for_z(int z/*, t_coords *line*/, t_window *window, t_coords *start)
+unsigned int	color_for_z(int z, t_window *window)
 {
 	double			percentage;
 	unsigned int	red;
 	unsigned int	green;
 	unsigned int	blue;
-	unsigned int	fixed_z0;
-	unsigned int	fixed_z1;
-////////ЕСЛИ ЕСТЬ ЦВЕТ ТОЧКИ ТО СЧИТАТЬ РГБ С НЕЙ А ЕСЛИ НЕТ ТО С ВИНДОУ0 ИЛИ ВИНДОУ ТАМ 1 НУ ПО СИТУАЦИИ КОРОЧЕ
 
-
-	if (z == window->map->z_min)
-		return (window->color[0]);
-	else if (z == window->map->z_max)
-		return (window->color[1]);
-	if (!start->color_flag_start)
-		fixed_z0 = window->color[0];
-	else
-		fixed_z0 = start->color_start;
-	if (!start->color_flag_finish)
-		fixed_z1 = window->color[1];
-	else
-		fixed_z1 = start->color_finish;
 	percentage = percent(window->map->z_min, window->map->z_max, z);
-/*	red = get_light((window->color[0] >> 16) & 0xFF, (window->color[1] >> 16)
+	red = get_light((window->color[0] >> 16) & 0xFF, (window->color[1] >> 16)
 													 & 0xFF, percentage);
 	green = get_light((window->color[0] >> 8) & 0xFF, (window->color[1] >> 8)
 													  & 0xFF, percentage);
 	blue = get_light(window->color[0] & 0xFF, window->color[1]
-											  & 0xFF, percentage);*/
-	red = get_light((fixed_z0 >> 16) & 0xFF, (fixed_z1 >> 16)
-													 & 0xFF, percentage);
-	green = get_light((fixed_z0 >> 8) & 0xFF, (fixed_z1 >> 8)
-													  & 0xFF, percentage);
-	blue = get_light(fixed_z0 & 0xFF, fixed_z1
 											  & 0xFF, percentage);
 	return ((red << 16) | (green << 8) | blue);
 }
