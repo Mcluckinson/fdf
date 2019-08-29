@@ -6,12 +6,12 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 15:44:13 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 17:47:20 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-/////////////ПРОСТО ПЕРЕМНОЖАЕТ ЗНАЧЕНИЯ НА ratio
+
 t_coords	*fix_orig(t_coords *start, float ratio)
 {
 	t_coords	*result;
@@ -31,7 +31,7 @@ t_coords	*fix_orig(t_coords *start, float ratio)
 	}
 	return (result);
 }
-/////ПРЕВРАЩАЕТ ОРИГИНАЛЬНЫЕ КООРДИНАТЫ В КООРДИНАТЫ ДЛЯ ИЗОМЕТРИЧЕСКОЙ ПРОЕКЦИИ, СОЗДАВАЯ НОВуЮ СТРУКТУРУ С ЭТИМИ ДАННЫМИ
+
 t_coords	*iso(t_coords *start, t_window *window)
 {
 	t_coords	*turned;
@@ -59,13 +59,13 @@ t_coords	*iso(t_coords *start, t_window *window)
 		turned->y1 = (start->z1) * -1 + ((start->x1 + start->y1)  * sin(0.523599));
 		turned->z0 = start->z0;
 		turned->z1 = start->z1;
-		find_max_min(turned, window->map);//////////СЕРВИСНАЯ ФУНКЦИЯ, ЧТОБЫ ПОТОМ МЕНЯТЬ РАЗМЕР
+		find_max_min(turned, window->map);
 		start = start->next;
 	}
-	result = resize_all(result, window);///////СОБСТВЕННО МЕНЯЮ РАЗМЕР ЕСЛИ КАРТА СЛИШКОМ БОЛЬШАЯ (НАПРИМЕР МАРС)
+	result = resize_all(result, window);
 	return (result);
 }
-////////////////ДЕЛАЕТ НОВЫЙ КООРДИНАТЫ С ПАРАЛЛЕЛЛЬНОЙ ПРОЕКЦИЕЙ ПО АНАЛОГИИ С ПРЕДЫДУЩЕЙ ФУНКЦИЕЙ
+
 t_coords	*parallel(t_coords *start, t_window *window)
 {
 	t_coords	*fixed;
@@ -101,7 +101,7 @@ t_coords	*parallel(t_coords *start, t_window *window)
 	result = resize_all(result, window);
 	return (result);
 }
-/////////ЗАПИСЫВАЕТ В  t_map *map макс мин значения
+
 void	find_max_min(t_coords *turned, t_map *map)
 {
 	if (turned->x0 > map->x_max)
@@ -121,7 +121,7 @@ void	find_max_min(t_coords *turned, t_map *map)
 	if (turned->y1 < map->y_min && turned->y1 < 0)
 		map->y_min = turned->y1;
 }
-////////////ДВИГАЕТ КАРТУ В ЦЕНТР, СОХРАНЯЯ ПЕРЕДВИЖЕНИЕ ПО СТРЕЛКАМ, ЕСЛИ ОНО БЫЛО
+
 t_coords	*move_position(t_coords *start, t_map *map)
 {
 	t_coords	*result;
@@ -141,7 +141,7 @@ t_coords	*move_position(t_coords *start, t_map *map)
 	}
 	return (result);
 }
-///////////////////МЕНЯЕТ РАЗМЕР КАРТЫ ПРИ НЕОБХОДИМОСТИ
+
 t_coords	*resize_all(t_coords *start, t_window *window)
 {
 	float 		ratio;
@@ -167,23 +167,3 @@ t_coords	*resize_all(t_coords *start, t_window *window)
 	return (start);
 }
 
-void	find_max_min_z(t_coords *lines, t_window *window)
-{
-	t_coords *go;
-
-	go = lines;
-	window->map->z_min = go->z0;
-	window->map->z_max = go->z0;
-	while (go != NULL)
-	{
-		if (go->z0 < window->map->z_min)
-			window->map->z_min = go->z0;
-		if (go->z1 < window->map->z_min)
-			window->map->z_min = go->z1;
-		if (go->z0 > window->map->z_max)
-			window->map->z_max = go->z0;
-		if (go->z1 > window->map->z_max)
-			window->map->z_max = go->z1;
-		go = go->next;
-	}
-}

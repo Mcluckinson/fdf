@@ -6,12 +6,12 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 19:34:49 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/25 19:20:30 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 17:41:02 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-//////////ПРОСТО МЕНЯЕТ КООРДИНАТЫ ПРИ НАЖАТИИ СТРЕЛКИ
+
 void 	move_right(t_window *window)
 {
 	t_coords *go;
@@ -112,29 +112,7 @@ void 	move_down(t_window *window)
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
-////////ЭТО СОБСТВЕННО ЗУМ
-void	zoom_in(t_window *window)
-{
-	window->cur_zoom += 0.1;
-//	redraw_altitude(window);
-	fix_current(window->turned, window->current, window->cur_zoom, window);
-	move_position(window->current, window->map);
-	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
-	draw_map(window->current, window);
-}
 
-void	zoom_out(t_window *window)
-{
-	if (window->cur_zoom > 0.5)
-		window->cur_zoom -= 0.1;
-	else
-		return ;
-//	redraw_altitude(window);
-	fix_current(window->turned, window->current, window->cur_zoom, window);
-	move_position(window->current, window->map);
-	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
-	draw_map(window->current, window);
-}
 /////////////ВОТ ПОСЛЕ ПЕРЕДЕЛКИ КООРДИНАТ ВСЕ ДОЛЖНО КЛЕВО РАБОТАТЬ, А СЕЙЧАС ЗУМ ОТНОСИТЕЛЬНО ВЕРХНЕГО ЛЕВОГО УГЛА
 void	fix_current(t_coords *start, t_coords *target, float ratio, t_window *window)
 {

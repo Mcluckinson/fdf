@@ -6,11 +6,21 @@
 /*   By: samymone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 15:31:50 by samymone          #+#    #+#             */
-/*   Updated: 2019/08/23 15:31:52 by samymone         ###   ########.fr       */
+/*   Updated: 2019/08/29 17:44:09 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	change_gradient(t_window *window)
+{
+	if (window->gradient_mod == 0)
+		window->gradient_mod = 1;
+	else
+		window->gradient_mod = 0;
+	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
+	draw_map(window->current, window);
+}
 
 void	gradient(t_window *window, int key)
 {
@@ -45,4 +55,19 @@ void	gradiend_distr(int key, t_window *window)
 		window->color[0] = 0xb0c4de;
 		window->color[1] = 0xc71585;
 	}
+}
+
+void	randomise_colors(t_window *window)
+{
+	t_coords *go;
+
+	go = window->current;
+	while (go != NULL)
+	{
+		go->color_finish = rand();
+		go->color_start = rand();
+		go = go->next;
+	}
+	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
+	draw_map(window->current, window);
 }

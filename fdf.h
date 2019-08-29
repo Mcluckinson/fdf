@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 15:46:03 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 16:56:45 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ void			gradiend_distr(int key, t_window *window);
 void			pre_draw_line(int coord[4], t_coords *line);
 void			inter_via_mass(int coord[4], int inter[4]);
 int 			check_shit(int ixy[3], int *steep);
-//void			draw_line(t_coords *line, t_window *window, t_coords *start);
 unsigned int	ft_atoi_base(char	*str);
 int				get_value(int a, int i);
 void	fuck_you(void);
@@ -185,15 +184,14 @@ double percent(int start, int end, int current);
 int get_light(unsigned int start, unsigned int end, double percentage);
 unsigned int get_color(int cur_x, t_coords *line, int *steep);
 void	randomise_colors(t_window *window);
-void	redraw_altitude(t_window *window);
+void	redraw_altitude(t_coords *lines, t_window *window);
 void	change_altitude(int key, t_window *window);
-
-///TRYINA ADD HEIGHT GRADIENT
 void	change_gradient(t_window *window);
 void	find_max_min_z(t_coords *lines, t_window *window);
 unsigned int	color_for_z(int z, t_window *window);
 void	recolor_line(t_coords *line, t_window *window, t_coords *start);
 void	recolor_back(t_coords *line, t_window *window, t_coords *start);
 void	recolor_map(t_coords *lines, t_window *window);
+void	fix_altitude(t_window *window);
 
 #endif

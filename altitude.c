@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 18:15:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 16:03:03 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 17:45:20 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,25 @@
 
 void	change_altitude(int key, t_window *window)
 {
-	t_coords	*go;
-
 	if (window->projection == 1)
 		return ;
-	go = window->lines;
 	if (key == 1)
-		window->height_mod -=10;
+		window->height_mod -= 10;
 	else if (key == 13)
-		window->height_mod +=10;
+		window->height_mod += 10;
+	fix_altitude(window);
+	redraw_altitude(window->current, window);
+	window->current = fix_orig(window->current, window->fix_ratio);
+	fix_current(window->current, window->current, window->cur_zoom, window);
+	move_position(window->current, window->map);
+	draw_map(window->current, window);
+}
+
+void	fix_altitude(t_window *window)
+{
+	t_coords	*go;
+
+	go = window->lines;
 	while (go != NULL)
 	{
 		if (go->z1orig != 0)
@@ -31,36 +41,15 @@ void	change_altitude(int key, t_window *window)
 			go->z0 = go->z0orig + window->height_mod;
 		go = go->next;
 	}
-	redraw_altitude(window);
-	window->current = fix_orig(window->current, window->fix_ratio);
-	fix_current(window->current, window->current, window->cur_zoom, window);
-	move_position(window->current, window->map);
-	draw_map(window->current, window);
 }
-////СМЕШНАЯ ФУНКЦИЯ КОТОРАЯ КИДАЕТ СЛУЧАЙНЫЕ ЦВЕТА
-void	randomise_colors(t_window *window)
-{
-	t_coords *go;
 
-	go = window->current;
-	while (go != NULL)
-	{
-		go->color_finish = rand();
-		go->color_start = rand();
-		go = go->next;
-	}
-	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
-	draw_map(window->current, window);
-}
-//////МЕНЯЕМ КООРДИНАТЫ Х и У для изометрии, т.к они зависят от высоты
-void	redraw_altitude(t_window *window)
+void	redraw_altitude(t_coords *lines, t_window *window)
 {
 	t_coords	*orig;
 	t_coords	*go;
 
 	orig = window->lines;
-	go = window->current;
-
+	go = lines;
 	while (orig != NULL)
 	{
 		//go->v1 = vector_upgrade(orig->v1)
@@ -72,6 +61,27 @@ void	redraw_altitude(t_window *window)
 		go->z0 = orig->z0;
 		go->z1 = orig->z1;
 		orig = orig->next;
+		go = go->next;
+	}
+}
+
+void	find_max_min_z(t_coords *lines, t_window *window)
+{
+	t_coords *go;
+
+	go = lines;
+	window->map->z_min = go->z0;
+	window->map->z_max = go->z0;
+	while (go != NULL)
+	{
+		if (go->z0 < window->map->z_min)
+			window->map->z_min = go->z0;
+		if (go->z1 < window->map->z_min)
+			window->map->z_min = go->z1;
+		if (go->z0 > window->map->z_max)
+			window->map->z_max = go->z0;
+		if (go->z1 > window->map->z_max)
+			window->map->z_max = go->z1;
 		go = go->next;
 	}
 }

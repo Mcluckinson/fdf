@@ -86,7 +86,9 @@ add_executable(fdf
         arrows.c
         altitude.c
         gradient.c
-        ft_atoi_base.c)
+        ft_atoi_base.c
+        zoom.c
+        errors.c)
 target_link_libraries(fdf
         "-framework AppKit"
         "-framework OpenGL"

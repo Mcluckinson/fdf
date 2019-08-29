@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/24 22:33:26 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 17:44:09 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int key_press(int key, t_window *window)
 	if (key == 23 || key == 22 || key == 26)
 		gradient(window, key);
 	return (0);
-
-
 }
 
 int close_window(t_window *window)
@@ -82,7 +80,7 @@ void 	draw_iso(t_window *window)
 	window->cur_x = 0;
 	window->cur_y = 0;
 }
-////////ДВИЖЕНИЕ ПО СТРЕЛКАМ
+
 void	move(int key, t_window *window)
 {
 	if (key == 124)
@@ -94,7 +92,7 @@ void	move(int key, t_window *window)
 	if (key == 125)
 		move_down(window);
 }
-////////МЫШЬ
+
 int mouse_buttons(int key, int x, int y, t_window *window)
 {
 	//////DONT FORGET THIS X=Y SHIT
@@ -104,14 +102,4 @@ int mouse_buttons(int key, int x, int y, t_window *window)
 	if (key == 5)
 		zoom_out(window);
 	return (0);
-}
-///////МЕНЯЕТ ТИП ГРАДЕНТА ПО КНОПКЕ 4 и ПЕРЕРИСОВЫВАЕТ КАРТУ
-void	change_gradient(t_window *window)
-{
-	if (window->gradient_mod == 0)
-		window->gradient_mod = 1;
-	else
-		window->gradient_mod = 0;
-	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
-	draw_map(window->current, window);
 }
