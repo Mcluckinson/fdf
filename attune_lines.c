@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 21:40:33 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 22:40:49 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,6 @@ t_coords	*iso(t_coords *start, t_window *window)
 	t_coords	*turned;
 	t_coords	*result;
 
-/*	window->map->x_min = 0;
-	window->map->x_max = 0;
-	window->map->y_max = 0;
-	window->map->y_min = 0;*/
 	turned = NULL;
 	result = turned;
 	while (start != NULL)
@@ -73,10 +69,6 @@ t_coords	*parallel(t_coords *start, t_window *window)
 
 	fixed = NULL;
 	result = fixed;
-	window->map->x_min = 0;
-	window->map->x_max = 0;
-	window->map->y_max = 0;
-	window->map->y_min = 0;
 	while (start != NULL)
 	{
 		if (!(fixed = new_coords(fixed)))
@@ -93,8 +85,6 @@ t_coords	*parallel(t_coords *start, t_window *window)
 		fixed->y1 = start->y1;
 		fixed->z0 = start->z0;
 		fixed->z1 = start->z1;
-		fixed->color_start = window->color[0];
-		fixed->color_finish = window->color[1];
 		find_max_min(fixed, window->map);
 		start = start->next;
 	}
