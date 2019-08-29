@@ -6,13 +6,15 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 19:34:49 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 17:41:02 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 17:54:18 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void 	move_right(t_window *window)
+
+
+static void 	move_right(t_window *window)
 {
 	t_coords *go;
 	int 	flag;
@@ -38,7 +40,7 @@ void 	move_right(t_window *window)
 	draw_map(window->current, window);
 }
 
-void 	move_left(t_window *window)
+static void 	move_left(t_window *window)
 {
 	t_coords *go;
 	int 	flag;
@@ -63,7 +65,7 @@ void 	move_left(t_window *window)
 	draw_map(window->current, window);
 }
 
-void 	move_up(t_window *window)
+static void 	move_up(t_window *window)
 {
 	t_coords *go;
 	int 	flag;
@@ -88,7 +90,7 @@ void 	move_up(t_window *window)
 	draw_map(window->current, window);
 }
 
-void 	move_down(t_window *window)
+static void 	move_down(t_window *window)
 {
 	t_coords *go;
 	int 	flag;
@@ -113,55 +115,14 @@ void 	move_down(t_window *window)
 	draw_map(window->current, window);
 }
 
-/////////////ВОТ ПОСЛЕ ПЕРЕДЕЛКИ КООРДИНАТ ВСЕ ДОЛЖНО КЛЕВО РАБОТАТЬ, А СЕЙЧАС ЗУМ ОТНОСИТЕЛЬНО ВЕРХНЕГО ЛЕВОГО УГЛА
-void	fix_current(t_coords *start, t_coords *target, float ratio, t_window *window)
+void	move(int key, t_window *window)
 {
-	if (start != NULL)
-	{
-		fix_current(start->next, target->next, ratio, window);
-		target->x0 = (start->x0 * ratio + (5 * window->cur_x)) ;
-		target->x1 = (start->x1 * ratio + (5 * window->cur_x));
-		target->y0 = (start->y0 * ratio + (5 * window->cur_y));
-		target->y1 = (start->y1 * ratio + (5 * window->cur_y));
-		target->z0 = start->z0 * ratio;
-		target->z1 = start->z1 * ratio;
-	}
-	return ;
-}
-////////////СОЗДАЕТ ПУСТОЙ t_coords *current
-t_coords	*init_current(t_window *window)
-{
-	t_coords	*result;
-	t_coords	*go;
-
-	go = window->turned;
-	result = window->current;
-	while (go != NULL)
-	{
-		result = new_coords_from_above(result);
-		go = go->next;
-	}
-	return (result);
-}
-////////////КОПИРУЕТ В НЕГО ДАННЫЕ ИЗ ВЫБРАННОГО t_coords
-void	copy_to_current(t_coords *origin, t_coords *target)
-{
-	t_coords *go;
-	t_coords *change;
-
-	go = origin;
-	change = target;
-	while (go != NULL)
-	{
-		change->x0 = go->x0;
-		change->x1 = go->x1;
-		change->y0 = go->y0;
-		change->y1 = go->y1;
-		change->z0 = go->z0;
-		change->z1 = go->z1;
-		change->color_start = go->color_start;
-		change->color_finish = go->color_finish;
-		go = go->next;
-		change = change->next;
-	}
+	if (key == 124)
+		move_right(window);
+	if (key == 123)
+		move_left(window);
+	if (key == 126)
+		move_up(window);
+	if (key == 125)
+		move_down(window);
 }

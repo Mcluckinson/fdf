@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/28 16:00:14 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 20:59:52 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,6 @@ void finish_count(int ixy[3], int incr[4])
 	}
 }
 
-/* coord[4] - координаты начала и конца линии */
-/* приращение по х - incr[0] и по у - incr[1];  */
-/* incr[2] - ошибка; incr[3] - шаг по y */
-
 void				draw_line(t_coords *line, t_window *window)
 {
 	int				coord[4];
@@ -81,12 +77,7 @@ void				draw_line(t_coords *line, t_window *window)
 	int				ixy[3];
 	unsigned int	final_color;
 	int				*steep;
-////////testing redraw map comment this
-/*	if (window->gradient_mod == 1)
-		recolor_line(line, window, window->l);
-	else
-		recolor_back(line, window, start);*/
-////////END OF REDRAW MAP tESTING
+
 	pre_draw_line(coord, line);
 	steep = steep_check(&coord[0], &coord[1], &coord[2], &coord[3]);
 	inter_via_mass(coord, incr);
@@ -133,10 +124,11 @@ double			percent(int start, int end, int current)
 	return ((distance == 0) ? 1.0 : (placement / distance));
 }
 
-int				get_light(unsigned int start, unsigned int end, double percent)
+int		get_light(unsigned int start, unsigned int end, double percent)
 {
 	return ((unsigned int)((1 - percent) * start + percent * end));
 }
+
 
 unsigned int	get_color(int cur_x, t_coords *line, int *steep)
 {

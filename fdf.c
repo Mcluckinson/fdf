@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 14:28:37 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 15:45:36 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 19:00:25 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static int		preparations(t_window *window, char *name)
 	}
 	if (set_up_window(window, name) == -1)
 		return (0);
+	close(window->fd);
 	return (1);
 }
 
@@ -75,11 +76,11 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
-		if (!(window = (t_window*)malloc(sizeof(t_window))))
-			return (0);
-		if (preparations(window, argv[1]) == 0)
-			return (1);
-		close(window->fd);
+		if (!(window = (t_window*)malloc(sizeof(t_window))) || !(preparations(window, argv[1])))
+			return (print_error(1));
+	//	if ( == 0)
+	//		return (1);
+	//	close(window->fd);
 		window->turned = iso(window->lines, window);
 		window->current = init_current(window);
 		copy_to_current(window->turned, window->current);
