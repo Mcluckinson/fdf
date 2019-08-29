@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-////СОЗДАЕТ НОВЫЙ ЭЛЕМЕНТ t_coords
+
 t_coords	*new_coords(t_coords *coords)
 {
 	t_coords	*new;
@@ -33,7 +33,7 @@ t_coords	*new_coords(t_coords *coords)
 	new->next = NULL;
 	return (new);
 }
-////НОВЫЙ ЭЛЕМЕНТ t_coords цепляющийся с другой стороны. Хуево и костыльно
+
 t_coords	*new_coords_from_above(t_coords *coords)
 {
 	t_coords	*new;
@@ -56,27 +56,27 @@ t_coords	*new_coords_from_above(t_coords *coords)
 		new->next = NULL;
 	return (new);
 }
-/////СОБИРАЕТ ПОЛОСКИ t_coords из данных в t_map *map.
+
 t_coords	*get_lines(t_map *map)
 {
 	t_coords	*line;
 	t_coords	*start;
 
 	line = NULL;
-	line = get_horisontal(line, map);///СНАЧАЛА ГОРИЗОНТАЛЬНЫЕ
+	line = get_horisontal(line, map);
 	start = line;
-	if (!(line = get_vertical(line, map)))/////ПОТОМ ВЕРТИКАЛЬНЫЕ
+	if (!(line = get_vertical(line, map)))
 		del_coords(start);
 	if (line)
-		line = fix_orig(line, 20);////УМНОЖАЕТ ВСЕ НА 20 (Я ПРОСТО ВЫБРАЛ ТАКОЕ ЗНАЧЕНИЕ ПО УМОЛЧАНИЮ, ИНАЧЕ ДЛИНЫ ПОЛОСОК БУДУТ РАВНЫ 1
+		line = fix_orig(line, 20);
 	return (line);
 }
 
 t_coords	*get_horisontal(t_coords *line, t_map *map)
 {
-	int			rows;////СЧЕТЧИК ПО У
-	int			cols;////СЧЕТЧИК ПО Х
-	//////ПРОБУЮ ЭТИ ДВЕ ПЕРЕМЕННЫЕ ВНИЗУ КЛАСТЬ В КООРДИНАТЫ
+	int			rows;
+	int			cols;
+
 	int 		rows_actual;
 	int 		cols_actual;
 	t_coords	*result;
@@ -89,7 +89,7 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 	{
 		cols = 0;
 		cols_actual = map->x * -1 / 2;
-		while (cols < map->x - 1) //// НЕ ЗАГЛЯНЕТ В ПОСЛЕДНИЙ ЭЛЕМЕНТ СТРОКИ ПОТОМУ ЧТО ДАЛЬШЕ В ЦИКЛЕ ОН СМОТРИТ НА ТЕКУЩИЙ И НА СЛЕДУЮЩИЙ
+		while (cols < map->x - 1)
 		{
 			if (!(line = new_coords(line)))
 			{
@@ -115,7 +115,7 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 			}
 			line->y0 = rows_actual;
 			line->y1 = rows_actual;
-			line->z0orig = line->z0;/////ОРИГИНАЛЬНЫЕ ВЫСОТЫ ПОНАДОБЯТСЯ ДЛЯ ИЗМЕНЕНИЯ ВЫСОТЫ ПО КНОПКАМ
+			line->z0orig = line->z0;
 			line->z1orig = line->z1;
 			cols++;
 			cols_actual++;
@@ -130,7 +130,7 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 {
 	int rows;
 	int cols;
-	//////ПРОБУЮ ЭТИ ДВЕ ПЕРЕМЕННЫЕ ВНИЗУ КЛАСТЬ В КООРДИНАТЫ
+
 	int 		rows_actual;
 	int 		cols_actual;
 	t_coords *prev;

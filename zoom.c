@@ -21,7 +21,7 @@ void	zoom_in(t_window *window)
 		redraw_altitude(window->current, window);
 		redraw_altitude(window->turned, window);
 	}
-	fix_current(window->turned, window->current, window->cur_zoom, window);
+	fix(window->turned, window->current, window->cur_zoom, window);
 	move_position(window->current, window->map);
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
@@ -39,7 +39,7 @@ void	zoom_out(t_window *window)
 		redraw_altitude(window->current, window);
 		redraw_altitude(window->turned, window);
 	}
-	fix_current(window->turned, window->current, window->cur_zoom, window);
+	fix(window->turned, window->current, window->cur_zoom, window);
 	move_position(window->current, window->map);
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);

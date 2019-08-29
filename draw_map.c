@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 15:37:42 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 16:35:48 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 22:28:18 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	recolor_map(t_coords *lines, t_window *window)
 	{
 		while (go != NULL)
 		{
-			recolor_line(go, window, start);
+			gr2(go, window, start);
 			go = go->next;
 			start = start->next;
 		}
@@ -51,14 +51,14 @@ void	recolor_map(t_coords *lines, t_window *window)
 	{
 		while (go != NULL)
 		{
-			recolor_back(go, window, start);
+			gr1(go, window, start);
 			go = go->next;
 			start = start->next;
 		}
 	}
 }
 
-void	recolor_line(t_coords *line, t_window *window, t_coords *start)
+void	gr2(t_coords *line, t_window *window, t_coords *start)
 {
 	if (!start->color_flag_start)
 		line->color_start = color_for_z(line->z0/*, line*/, window/*, start*/);
@@ -70,7 +70,7 @@ void	recolor_line(t_coords *line, t_window *window, t_coords *start)
 		line->color_finish = start->color_finish;
 }
 
-void	recolor_back(t_coords *line, t_window *window, t_coords *start)
+void	gr1(t_coords *line, t_window *window, t_coords *start)
 {
 	if (!start->color_flag_start)
 		line->color_start = window->color[0];
@@ -90,11 +90,11 @@ unsigned int	color_for_z(int z, t_window *window)
 	unsigned int	blue;
 
 	percentage = percent(window->map->z_min, window->map->z_max, z);
-	red = get_light((window->color[0] >> 16) & 0xFF, (window->color[1] >> 16)
+	red = light((window->color[0] >> 16) & 0xFF, (window->color[1] >> 16)
 													 & 0xFF, percentage);
-	green = get_light((window->color[0] >> 8) & 0xFF, (window->color[1] >> 8)
+	green = light((window->color[0] >> 8) & 0xFF, (window->color[1] >> 8)
 													  & 0xFF, percentage);
-	blue = get_light(window->color[0] & 0xFF, window->color[1]
+	blue = light(window->color[0] & 0xFF, window->color[1]
 											  & 0xFF, percentage);
 	return ((red << 16) | (green << 8) | blue);
 }

@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 20:59:52 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 22:27:36 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,10 @@ double			percent(int start, int end, int current)
 	return ((distance == 0) ? 1.0 : (placement / distance));
 }
 
-int		get_light(unsigned int start, unsigned int end, double percent)
+int		light(unsigned int c1, unsigned int c2, double percent)
 {
-	return ((unsigned int)((1 - percent) * start + percent * end));
+	return ((unsigned int)((1 - percent) * c1 + percent * c2));
 }
-
 
 unsigned int	get_color(int cur_x, t_coords *line, int *steep)
 {
@@ -143,11 +142,11 @@ unsigned int	get_color(int cur_x, t_coords *line, int *steep)
 		percentage = percent(line->x0, line->x1, cur_x);
 	else
 		percentage = percent(line->y0, line->y1, cur_x);
-	red = get_light((line->color_start >> 16) & 0xFF, (line->color_finish >> 16)
+	red = light((line->color_start >> 16) & 0xFF, (line->color_finish >> 16)
 	& 0xFF, percentage);
-	green = get_light((line->color_start >> 8) & 0xFF, (line->color_finish >> 8)
+	green = light((line->color_start >> 8) & 0xFF, (line->color_finish >> 8)
 	& 0xFF, percentage);
-	blue = get_light(line->color_start & 0xFF, line->color_finish
+	blue = light(line->color_start & 0xFF, line->color_finish
 	& 0xFF, percentage);
 	return ((red << 16) | (green << 8) | blue);
 }

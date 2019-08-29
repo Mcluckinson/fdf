@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 18:15:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 17:45:20 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 22:13:33 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	change_altitude(int key, t_window *window)
 	fix_altitude(window);
 	redraw_altitude(window->current, window);
 	window->current = fix_orig(window->current, window->fix_ratio);
-	fix_current(window->current, window->current, window->cur_zoom, window);
+	fix(window->current, window->current, window->cur_zoom, window);
 	move_position(window->current, window->map);
 	draw_map(window->current, window);
 }
@@ -52,12 +52,10 @@ void	redraw_altitude(t_coords *lines, t_window *window)
 	go = lines;
 	while (orig != NULL)
 	{
-		//go->v1 = vector_upgrade(orig->v1)
-		//go->v2 = vector_upgrade(orig->v2)
-		go->x0 = (orig->x0 - orig->y0)  * cos(0.523599);
-		go->x1 = (orig->x1 - orig->y1)  * cos(0.523599);
-		go->y0 = (orig->z0) * -1 + ((orig->x0 + orig->y0)  * sin(0.523599));
-		go->y1 = (orig->z1) * -1 + ((orig->x1 + orig->y1)  * sin(0.523599));
+		go->x0 = (orig->x0 - orig->y0) * cos(0.523599);
+		go->x1 = (orig->x1 - orig->y1) * cos(0.523599);
+		go->y0 = (orig->z0) * -1 + ((orig->x0 + orig->y0) * sin(0.523599));
+		go->y1 = (orig->z1) * -1 + ((orig->x1 + orig->y1) * sin(0.523599));
 		go->z0 = orig->z0;
 		go->z1 = orig->z1;
 		orig = orig->next;

@@ -31,25 +31,18 @@ int					get_value(int a, int i)
 	r = ft_atoi(ft_itoa(a));
 	return (r * hex);
 }
-///////////////ЭТО ЧТО ТАМ МАЛЛОК НЕЗАФРИШЕННЫЙ????
-///////////////NEW = STR?????
-//////////////НЕЛЬЗЯ СРАЗУ ПО STR ИДТИ, ЗАЧЕМ NEW????
-////////////Я НЕ ОРУ, У МЕНЯ ПРОСТО ЦВЕТ КОММЕНТОВ ХУЕВЫЙ, ТАК ВИДНО ЛУЧШЕ
+
 unsigned int		ft_atoi_base(char *str)
 {
 	unsigned int	res;
 	int				len;
 	int				i;
-//	char			*new;
 
 	res = 0;
 	i = 0;
 	while (diffspaces(str) == 1)
 		str++;
 	len = ft_strlen(str) - 1;
-//	if (!(new = (char*)malloc(sizeof(char) * i)))
-//		return (0);
-//	new = str;
 	while (len > -1)
 	{
 		if (str[len] >= '0' && str[len] <= '9')

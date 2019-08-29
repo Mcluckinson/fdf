@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 20:47:24 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 21:43:46 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 22:25:36 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void		copy_to_current(t_coords *origin, t_coords *target)
 	}
 }
 
-void		fix_current(t_coords *s1, t_coords *s2, float r, t_window *window)
+void		fix(t_coords *s1, t_coords *s2, float r, t_window *window)
 {
 	if (s1 != NULL)
 	{
-		fix_current(s1->next, s2->next, r, window);
+		fix(s1->next, s2->next, r, window);
 		s2->x0 = (s1->x0 * r + (5 * window->cur_x));
 		s2->x1 = (s1->x1 * r + (5 * window->cur_x));
 		s2->y0 = (s1->y0 * r + (5 * window->cur_y));
