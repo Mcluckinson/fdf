@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 14:28:37 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/26 21:57:48 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 15:45:36 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int				main(int argc, char **argv)
 		if (preparations(window, argv[1]) == 0)
 			return (1);
 		close(window->fd);
-		window->turned = iso(window->lines, window->map/*, window*/);
+		window->turned = iso(window->lines, window);
 		window->current = init_current(window);
 		copy_to_current(window->turned, window->current);
 		move_position(window->current, window->map);

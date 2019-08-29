@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/28 23:30:07 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 15:44:13 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ t_coords	*fix_orig(t_coords *start, float ratio)
 	return (result);
 }
 /////ПРЕВРАЩАЕТ ОРИГИНАЛЬНЫЕ КООРДИНАТЫ В КООРДИНАТЫ ДЛЯ ИЗОМЕТРИЧЕСКОЙ ПРОЕКЦИИ, СОЗДАВАЯ НОВуЮ СТРУКТУРУ С ЭТИМИ ДАННЫМИ
-t_coords	*iso(t_coords *start, t_map *map/*, t_window *window*/)
+t_coords	*iso(t_coords *start, t_window *window)
 {
 	t_coords	*turned;
 	t_coords	*result;
 
-	map->x_min = 0;
-	map->x_max = 0;
-	map->y_max = 0;
-	map->y_min = 0;
+	window->map->x_min = 0;
+	window->map->x_max = 0;
+	window->map->y_max = 0;
+	window->map->y_min = 0;
 	turned = NULL;
 	result = turned;
 	while (start != NULL)
@@ -59,33 +59,24 @@ t_coords	*iso(t_coords *start, t_map *map/*, t_window *window*/)
 		turned->y1 = (start->z1) * -1 + ((start->x1 + start->y1)  * sin(0.523599));
 		turned->z0 = start->z0;
 		turned->z1 = start->z1;
-/*		if (start->color_flag_start == 1)
-			turned->color_start = start->color_start;
-		else
-			turned->color_start = window->color[0];
-		if (start->color_flag_finish == 1)
-			turned->color_finish = start->color_finish;
-		else
-			turned->color_finish = window->color[1];*/
-
-		find_max_min(turned, map);//////////СЕРВИСНАЯ ФУНКЦИЯ, ЧТОБЫ ПОТОМ МЕНЯТЬ РАЗМЕР
+		find_max_min(turned, window->map);//////////СЕРВИСНАЯ ФУНКЦИЯ, ЧТОБЫ ПОТОМ МЕНЯТЬ РАЗМЕР
 		start = start->next;
 	}
-	result = resize_all(result, map);///////СОБСТВЕННО МЕНЯЮ РАЗМЕР ЕСЛИ КАРТА СЛИШКОМ БОЛЬШАЯ (НАПРИМЕР МАРС)
+	result = resize_all(result, window);///////СОБСТВЕННО МЕНЯЮ РАЗМЕР ЕСЛИ КАРТА СЛИШКОМ БОЛЬШАЯ (НАПРИМЕР МАРС)
 	return (result);
 }
 ////////////////ДЕЛАЕТ НОВЫЙ КООРДИНАТЫ С ПАРАЛЛЕЛЛЬНОЙ ПРОЕКЦИЕЙ ПО АНАЛОГИИ С ПРЕДЫДУЩЕЙ ФУНКЦИЕЙ
-t_coords	*parallel(t_coords *start, t_map *map, t_window *window)
+t_coords	*parallel(t_coords *start, t_window *window)
 {
 	t_coords	*fixed;
 	t_coords	*result;
 
 	fixed = NULL;
 	result = fixed;
-	map->x_min = 0;
-	map->x_max = 0;
-	map->y_max = 0;
-	map->y_min = 0;
+	window->map->x_min = 0;
+	window->map->x_max = 0;
+	window->map->y_max = 0;
+	window->map->y_min = 0;
 	while (start != NULL)
 	{
 		if (!(fixed = new_coords(fixed)))
@@ -104,10 +95,10 @@ t_coords	*parallel(t_coords *start, t_map *map, t_window *window)
 		fixed->z1 = start->z1;
 		fixed->color_start = window->color[0];
 		fixed->color_finish = window->color[1];
-		find_max_min(fixed, map);
+		find_max_min(fixed, window->map);
 		start = start->next;
 	}
-	result = resize_all(result, map);
+	result = resize_all(result, window);
 	return (result);
 }
 /////////ЗАПИСЫВАЕТ В  t_map *map макс мин значения
@@ -151,7 +142,7 @@ t_coords	*move_position(t_coords *start, t_map *map)
 	return (result);
 }
 ///////////////////МЕНЯЕТ РАЗМЕР КАРТЫ ПРИ НЕОБХОДИМОСТИ
-t_coords	*resize_all(t_coords *start, t_map *map)
+t_coords	*resize_all(t_coords *start, t_window *window)
 {
 	float 		ratio;
 	float 		ratiox;
@@ -159,18 +150,19 @@ t_coords	*resize_all(t_coords *start, t_map *map)
 
 	ratiox = 1;
 	ratioy = 1;
-	if (map->x_max - map->x_min > 2000)
-		ratiox = MAP_W / (float)(map->x_max - map->x_min);
-	if (map->y_max - map->y_min > 1000)
-		ratioy = (MAP_H - 300) / (float)(map->y_max - map->y_min);
+	if (window->map->x_max - window->map->x_min > 2000)
+		ratiox = MAP_W / (float)(window->map->x_max - window->map->x_min);
+	if (window->map->y_max - window->map->y_min > 1000)
+		ratioy = (MAP_H - 300) / (float)(window->map->y_max - window->map->y_min);
 	ratio = fminf(ratiox, ratioy);
 	if (ratio != 1)
 	{
 		start = fix_orig(start, ratio);
-		map->y_max *= ratio;
-		map->y_min *= ratio;
-		map->x_max *= ratio;
-		map->x_min *= ratio;
+		window->map->y_max *= ratio;
+		window->map->y_min *= ratio;
+		window->map->x_max *= ratio;
+		window->map->x_min *= ratio;
+		window->fix_ratio = ratio;
 	}
 	return (start);
 }

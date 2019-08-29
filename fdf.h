@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/28 23:28:15 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 15:46:03 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef	struct		s_window/////////СТРУКТУРА СО ВСЕМИ ССЫЛКА
 	int 		height_mod;
 	int 		gradient_mod;
 	unsigned int	color[2];
+	float 		fix_ratio;
 //	t_uint2		color;
 	int 		projection;
 }					t_window;
@@ -156,17 +157,17 @@ void put_color(char *img_data, int i, unsigned int color);
 int 	*steep_check(int *x0, int *x1, int *y0, int *y1);
 int	set_up_window(t_window *window, char *map_name);
 int 	find_i(int x, int y, t_window *window ,int *steep);
-t_coords	*iso(t_coords *start, t_map *map/*, t_window *window*/);
+t_coords	*iso(t_coords *start, t_window *window);
 void	find_max_min(t_coords *turned, t_map *map);
 t_coords	*move_position(t_coords *start, t_map *map);
-t_coords	*resize_all(t_coords *start, t_map *map);
+t_coords	*resize_all(t_coords *start, t_window *window);
 void	del_coords(t_coords *lines);
 t_coords	*new_coords_from_above(t_coords *coords);
 int close_window(t_window *window);
 int key_press(int key, t_window *window);
 void	del_win(t_window *window);
 void	draw_parallel(t_window *window);
-t_coords	*parallel(t_coords *start, t_map *map, t_window *window);
+t_coords	*parallel(t_coords *start, t_window *window);
 void 	draw_iso(t_window *window);
 void	print_controls(t_window *window);
 void 	move_right(t_window *window);
