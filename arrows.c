@@ -6,31 +6,28 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 19:34:49 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 17:54:18 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 21:22:20 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-
-
-static void 	move_right(t_window *window)
+static void		move_right(t_window *window)
 {
-	t_coords *go;
-	int 	flag;
+	t_coords	*go;
+	int			flag;
 
-	flag = 0;/////////////ЭТОТ ФЛАГ ОПРЕДЕЛЯЕТ, ВЫЛЕЗЛО ЛИ ИЗОБРАЖЕНИЕ ЗА ПРЕДЕЛЫ ЭКРАНА
+	flag = 0;
 	window->cur_x++;
 	go = window->current;
 	while (go != NULL)
 	{
-		go->x0+=5;
-		go->x1+=5;
+		go->x0 += 5;
+		go->x1 += 5;
 		if (go->x0 >= MAP_W || go->x1 >= MAP_W)
 			flag = 1;
 		go = go->next;
 	}
-	////////ДАЛЕЕ В КОММЕНТАХ ШТУКА, КОТОРАЯ ОТКАТЫВАЕТ ИЗМЕНЕНИЯ, ЕСЛИ ИЗОБРАЖЕНИЕ ВЫЛЕЗЛО ЗА ПРЕДЕЛЫ ЭКРАНА. ПОКА ЧТО УБРАНО ПОТОМУ ЧТО ПРИ ЗУМЕ ИНОГДА СЕГАЕТСЯ ИЛИ УХОДИТ В БЕСКОНЕЧНЫЙ ЦИКЛ
 /*	if (flag == 1)
 	{
 		move_left(window);
@@ -40,18 +37,18 @@ static void 	move_right(t_window *window)
 	draw_map(window->current, window);
 }
 
-static void 	move_left(t_window *window)
+static void		move_left(t_window *window)
 {
-	t_coords *go;
-	int 	flag;
+	t_coords	*go;
+	int			flag;
 
 	flag = 0;
 	window->cur_x--;
 	go = window->current;
 	while (go != NULL)
 	{
-		go->x0-=5;
-		go->x1-=5;
+		go->x0 -= 5;
+		go->x1 -= 5;
 		if (go->x0 <= 0 || go->x1 <= 0)
 			flag = 1;
 		go = go->next;
@@ -65,18 +62,18 @@ static void 	move_left(t_window *window)
 	draw_map(window->current, window);
 }
 
-static void 	move_up(t_window *window)
+static void		move_up(t_window *window)
 {
-	t_coords *go;
-	int 	flag;
+	t_coords	*go;
+	int			flag;
 
 	flag = 0;
 	go = window->current;
 	window->cur_y--;
 	while (go != NULL)
 	{
-		go->y0-=5;
-		go->y1-=5;
+		go->y0 -= 5;
+		go->y1 -= 5;
 		if (go->y0 < 0 || go->y1 < 0)
 			flag = 1;
 		go = go->next;
@@ -90,18 +87,18 @@ static void 	move_up(t_window *window)
 	draw_map(window->current, window);
 }
 
-static void 	move_down(t_window *window)
+static void		move_down(t_window *window)
 {
-	t_coords *go;
-	int 	flag;
+	t_coords	*go;
+	int			flag;
 
 	flag = 0;
 	go = window->current;
 	window->cur_y++;
 	while (go != NULL)
 	{
-		go->y0+=5;
-		go->y1+=5;
+		go->y0 += 5;
+		go->y1 += 5;
 		if (go->y0 > MAP_H - 300 || go->y1 > MAP_H - 300)
 			flag = 1;
 		go = go->next;
@@ -115,7 +112,7 @@ static void 	move_down(t_window *window)
 	draw_map(window->current, window);
 }
 
-void	move(int key, t_window *window)
+void			move(int key, t_window *window)
 {
 	if (key == 124)
 		move_right(window);

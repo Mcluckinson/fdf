@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 20:59:52 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 21:00:27 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void			print_controls(t_window *window);
 void			zoom_in(t_window *window);
 void			zoom_out(t_window *window);
 void			copy_to_current(t_coords *origin, t_coords *target);
-void			fix_current(t_coords *start, t_coords *target, float ratio, t_window *window);
+void			fix_current(t_coords *s1, t_coords *s2, float r, t_window *window);
 t_coords		*init_current(t_window *window);
 void			move(int key, t_window *window);
 int				mouse_buttons(int key, int x, int y, t_window *window);

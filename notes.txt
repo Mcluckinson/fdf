@@ -4,4 +4,4 @@ gcc draw_line.c  -lmlx -framework OpenGL -framework AppKit minilibx_macos/libmlx
 
 https://code.woboq.org/qt5/include/X11/X.h.html   - коды из X.h
 
-ФИКСИМ ЗУМ: ДЕЛАЕМ ФИКС АЛТИТУДЕ НЕ ТОЛЬКО КАРРЕНТУ НО И ТЕРНЕДУ
+ПРИ ПЕРЕРИСОВЫВАНИИ В ПАРАЛЛЕЛ ИЛИ ИЗО СБРАСЫВАТЬ ВЫСОТЫ К ОРИГИНАЛЬНЫМ

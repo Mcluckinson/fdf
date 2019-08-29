@@ -175,8 +175,3 @@ t_map	*read_map(t_lines *start)
 	}
 	return (map);
 }
-
-void	fuck_you(void)
-{
-	printf("azazaza");
-}

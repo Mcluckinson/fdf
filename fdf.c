@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 14:28:37 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 19:00:25 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 21:26:21 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,9 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
-		if (!(window = (t_window*)malloc(sizeof(t_window))) || !(preparations(window, argv[1])))
+		if (!(window = (t_window*)malloc(sizeof(t_window)))
+		|| !(preparations(window, argv[1])))
 			return (print_error(1));
-	//	if ( == 0)
-	//		return (1);
-	//	close(window->fd);
 		window->turned = iso(window->lines, window);
 		window->current = init_current(window);
 		copy_to_current(window->turned, window->current);

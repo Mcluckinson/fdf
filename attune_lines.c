@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 14:14:53 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/29 17:47:20 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/29 21:40:33 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_coords	*fix_orig(t_coords *start, float ratio)
 	t_coords	*result;
 
 	result = start;
-	while (start!= NULL)
+	while (start != NULL)
 	{
 		start->x0 = start->x0 * ratio;
 		start->x1 = start->x1 * ratio;
@@ -37,10 +37,10 @@ t_coords	*iso(t_coords *start, t_window *window)
 	t_coords	*turned;
 	t_coords	*result;
 
-	window->map->x_min = 0;
+/*	window->map->x_min = 0;
 	window->map->x_max = 0;
 	window->map->y_max = 0;
-	window->map->y_min = 0;
+	window->map->y_min = 0;*/
 	turned = NULL;
 	result = turned;
 	while (start != NULL)
@@ -53,10 +53,10 @@ t_coords	*iso(t_coords *start, t_window *window)
 		}
 		if (result == NULL)
 			result = turned;
-		turned->x0 = (start->x0 - start->y0)  * cos(0.523599);
-		turned->x1 = (start->x1 - start->y1)  * cos(0.523599);
-		turned->y0 = (start->z0) * -1 + ((start->x0 + start->y0)  * sin(0.523599));
-		turned->y1 = (start->z1) * -1 + ((start->x1 + start->y1)  * sin(0.523599));
+		turned->x0 = (start->x0 - start->y0) * cos(0.523599);
+		turned->x1 = (start->x1 - start->y1) * cos(0.523599);
+		turned->y0 = start->z0 * -1 + ((start->x0 + start->y0) * sin(0.523599));
+		turned->y1 = start->z1 * -1 + ((start->x1 + start->y1) * sin(0.523599));
 		turned->z0 = start->z0;
 		turned->z1 = start->z1;
 		find_max_min(turned, window->map);
@@ -102,33 +102,13 @@ t_coords	*parallel(t_coords *start, t_window *window)
 	return (result);
 }
 
-void	find_max_min(t_coords *turned, t_map *map)
-{
-	if (turned->x0 > map->x_max)
-		map->x_max = turned->x0;
-	if (turned->x1 > map->x_max)
-		map->x_max = turned->x1;
-	if (turned->y0 > map->y_max)
-		map->y_max = turned->y0;
-	if (turned->y1 > map->y_max)
-		map->y_max = turned->y1;
-	if (turned->x0 < map->x_min && turned->x0 < 0)
-		map->x_min = turned->x0;
-	if (turned->x1 < map->x_min && turned->x1 < 0)
-		map->x_min = turned->x1;
-	if (turned->y0 < map->y_min && turned->y0 < 0)
-		map->y_min = turned->y0;
-	if (turned->y1 < map->y_min && turned->y1 < 0)
-		map->y_min = turned->y1;
-}
-
 t_coords	*move_position(t_coords *start, t_map *map)
 {
 	t_coords	*result;
-	result = start;
-	int width_mod;
-	int height_mod;
+	int			width_mod;
+	int			height_mod;
 
+	result = start;
 	width_mod = (MAP_W - (map->x_max - map->x_min)) / 2;
 	height_mod = (MAP_H - 300 - (map->y_max - map->y_min)) / 2;
 	while (start != NULL)
@@ -144,9 +124,9 @@ t_coords	*move_position(t_coords *start, t_map *map)
 
 t_coords	*resize_all(t_coords *start, t_window *window)
 {
-	float 		ratio;
-	float 		ratiox;
-	float 		ratioy;
+	float	ratio;
+	float	ratiox;
+	float	ratioy;
 
 	ratiox = 1;
 	ratioy = 1;
@@ -166,4 +146,3 @@ t_coords	*resize_all(t_coords *start, t_window *window)
 	}
 	return (start);
 }
-
