@@ -89,7 +89,8 @@ add_executable(fdf
         ft_atoi_base.c
         zoom.c
         errors.c
-        colors.c)
+        colors.c
+        service.c)
 target_link_libraries(fdf
         "-framework AppKit"
         "-framework OpenGL"
