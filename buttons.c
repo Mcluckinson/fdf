@@ -51,6 +51,8 @@ void	draw_parallel(t_window *window)
 	window->map->x_min = 0;
 	window->map->y_max = 0;
 	window->map->y_min = 0;
+	window->height_mod = 0;
+	fix_altitude(window);
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	del_coords(window->turned);
 	del_coords(window->current);
@@ -71,6 +73,8 @@ void	draw_iso(t_window *window)
 	window->map->y_max = 0;
 	window->map->y_min = 0;
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
+	window->height_mod = 0;
+	fix_altitude(window);
 	del_coords(window->turned);
 	del_coords(window->current);
 	window->current = iso(window->lines, window);
