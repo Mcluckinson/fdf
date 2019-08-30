@@ -91,11 +91,11 @@ void				inter_via_mass(int coord[4], int inter[4]);
 int					check_shit(int ixy[3], int *steep);
 unsigned int		ft_atoi_base(char	*str);
 int					get_value(int a, int i);
-void				one_pixel(void);
-int					print_error(int error);
+void				one_pixel(t_window *window);
+void				print_error(int error, t_window *window);
 t_lines				*read_lines(int fd);
 void				del_lines(t_lines *start);
-t_map				*read_map(t_lines *start);
+t_map				*read_map(t_lines *start, t_window *window);
 int					check_errors(t_map *map);
 void				del_map(t_map *map);
 void				find_z(t_lines *start, t_map *map);
@@ -148,5 +148,6 @@ void				fix_altitude(t_window *window);
 void				different_gradients(t_window *window, char *ist);
 int					check_set_up(t_window *window);
 void				finish_count(int ixy[3], int incr[4]);
+int					check_split(char *split);
 
 #endif

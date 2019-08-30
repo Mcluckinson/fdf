@@ -48,4 +48,3 @@ int					find_i(int x, int y, t_window *window, int *steep)
 		i = (y * (*window->depth / 8)) + (x * (*window->linesize));
 	return (i);
 }
-

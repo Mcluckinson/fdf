@@ -37,93 +37,9 @@ void		del_lines(t_lines *start)
 		del_lines(start->next);
 		start->next = NULL;
 	}
-	free(start->line);
+	if (start->line)
+		free(start->line);
 	free(start);
-}
-
-int			find_y(t_lines *start)
-{
-	int		y;
-	t_lines	*temp;
-
-	temp = start;
-	y = 0;
-	while (temp->next)
-	{
-		y++;
-		temp = temp->next;
-	}
-	return (y);
-}
-
-int 	find_x(t_lines *start)
-{
-	int		x;
-	int		x_max;
-	t_lines	*temp;
-	char	**split;
-
-	x = 0;
-	x_max = 0;
-	temp = start;
-	while (temp->next)
-	{
-		x = 0;
-		split = ft_strsplit(temp->line, ' ');
-		while (split[x])
-		{
-			free(split[x]);
-			x++;
-		}
-		free(split);
-		if (!x_max)
-			x_max = x;
-		else if (x != x_max)
-			return (0);
-		temp = temp->next;
-	}
-	return (x);
-}
-
-void	find_z(t_lines *start, t_map *map)
-{
-	int		yy;
-	int		i;
-	char	**split;
-	t_lines	*temp;
-
-	temp = start;
-	yy = 0;
-	if (!(map->z = (int**)malloc(sizeof(int*) * (map->y + 1))))
-		return ;
-	if (!(map->color = (unsigned int**)malloc(sizeof(unsigned int**)
-			* (map->y + 1))))
-		return ;
-	while (yy < map->y)
-	{
-		i = 0;
-		split = ft_strsplit(temp->line, ' ');
-		map->z[yy] = (int*)malloc(sizeof(int) * map->x);
-		map->color[yy] = (unsigned int*)malloc(sizeof(unsigned int*) * map->x);
-		while (i < map->x)
-		{
-			if (strchr(split[i], ','))
-			{
-				map->z[yy][i] = ft_atoi(split[i]);
-				map->color[yy][i] = ft_atoi_base(ft_strchr(split[i], ','));
-			}
-			else
-			{
-				map->z[yy][i] = ft_atoi(split[i]);
-				map->color[yy][i] = 0;
-			}
-			free(split[i]);
-			i++;
-		}
-		free(split);
-		yy++;
-		temp = temp->next;
-	}
 }
 
 void	del_map(t_map *map)
@@ -150,7 +66,7 @@ int		check_errors(t_map *map)
 	return (1);
 }
 
-t_map	*read_map(t_lines *start)
+t_map	*read_map(t_lines *start, t_window *window)
 {
 	t_map	*map;
 
@@ -161,10 +77,14 @@ t_map	*read_map(t_lines *start)
 	map->x_min = 0;
 	map->y_min = 0;
 	map->y = find_y(start);
+	if (map->y < 1)
+		return (NULL);
 	map->x = find_x(start);
-	find_z(start, map);
+	if (map->x < 1)
+		return (NULL);
 	if (map->x == 1 && map->y == 1)
-		one_pixel();
+		one_pixel(window);
+	find_z(start, map);
 	if (!check_errors(map))
 	{
 		del_lines(start);

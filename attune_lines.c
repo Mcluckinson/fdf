@@ -124,14 +124,11 @@ t_coords	*resize_all(t_coords *start, t_window *window)
 		ratioy = (MAP_H - 300) / (float)(window->map->y_max
 				- window->map->y_min);
 	ratio = fminf(ratiox, ratioy);
-	if (ratio != 1)
-	{
-		start = fix_orig(start, ratio);
-		window->map->y_max *= ratio;
-		window->map->y_min *= ratio;
-		window->map->x_max *= ratio;
-		window->map->x_min *= ratio;
-		window->fix_ratio = ratio;
-	}
+	start = fix_orig(start, ratio);
+	window->map->y_max *= ratio;
+	window->map->y_min *= ratio;
+	window->map->x_max *= ratio;
+	window->map->x_min *= ratio;
+	window->fix_ratio = ratio;
 	return (start);
 }

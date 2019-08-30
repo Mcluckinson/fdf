@@ -59,13 +59,11 @@ void		print_controls(t_window *window)
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 50, 1100, 0xffffff, ist);
 	ist = "press ESC or red X to exit";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 50, 1150, 0xffffff, ist);
-	ist = "arrows to move, LMB + mouse move to turn around";
+	ist = "arrows to move";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 50, 1200, 0xffffff, ist);
 	ist = "NUM +/-  or MOUSE WHEEL for zoom";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 50, 1250, 0xffffff, ist);
 	ist = "W & S to change altitude";
-	mlx_string_put(window->mlx_ptr, window->win_ptr, 800, 1100, 0xffffff, ist);
-	ist = "NUM 1-9 for turning";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 800, 1150, 0xffffff, ist);
 	ist = "SPACE blocks movement";
 	different_gradients(window, ist);

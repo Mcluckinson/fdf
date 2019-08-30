@@ -91,7 +91,8 @@ add_executable(fdf
         errors.c
         colors.c
         service.c
-        draw_line_addition.c)
+        draw_line_addition.c
+        find_dimention.c)
 target_link_libraries(fdf
         "-framework AppKit"
         "-framework OpenGL"

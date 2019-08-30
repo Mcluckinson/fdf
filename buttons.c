@@ -16,24 +16,27 @@ int		key_press(int key, t_window *window)
 {
 	if (key == 53)
 		close_window(window);
-	if (key == 18)
-		draw_parallel(window);
-	if (key == 19)
-		draw_iso(window);
-	if (key >= 123 && key <= 126)
-		move(key, window);
-	if (key == 69)
-		zoom_in(window);
-	if (key == 78)
-		zoom_out(window);
-	if (key == 29)
-		randomise_colors(window);
-	if (key == 13 || key == 1)
-		change_altitude(key, window);
-	if (key == 21)
-		change_gradient(window);
-	if (key == 23 || key == 22 || key == 26)
-		gradient(window, key);
+	if (window->map != NULL)
+	{
+		if (key == 18)
+			draw_parallel(window);
+		if (key == 19)
+			draw_iso(window);
+		if (key >= 123 && key <= 126)
+			move(key, window);
+		if (key == 69)
+			zoom_in(window);
+		if (key == 78)
+			zoom_out(window);
+		if (key == 29)
+			randomise_colors(window);
+		if (key == 13 || key == 1)
+			change_altitude(key, window);
+		if (key == 21)
+			change_gradient(window);
+		if (key == 23 || key == 22 || key == 26)
+			gradient(window, key);
+	}
 	return (0);
 }
 
