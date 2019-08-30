@@ -76,13 +76,11 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 {
 	int			rows;
 	int			cols;
-
 	int 		rows_actual;
 	int 		cols_actual;
 	t_coords	*result;
 
 	rows_actual = map->y * -1 / 2;
-
 	result = NULL;
 	rows = 0;
 	while (rows < map->y)
@@ -130,11 +128,9 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 {
 	int rows;
 	int cols;
-
 	int 		rows_actual;
 	int 		cols_actual;
 	t_coords *prev;
-
 
 	cols_actual = map->x * -1 / 2;
 	cols = 0;
