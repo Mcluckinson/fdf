@@ -63,10 +63,14 @@ t_coords	*get_lines(t_map *map)
 	t_coords	*start;
 
 	line = NULL;
-	line = get_horisontal(line, map);
+	if (map->x > 1)
+		line = get_horisontal(line, map);
 	start = line;
-	if (!(line = get_vertical(line, map)))
-		del_coords(start);
+	if (map->y > 1)
+	{
+		if (!(line = get_vertical(line, map)))
+			del_coords(start);
+	}
 	if (line)
 		line = fix_orig(line, 20);
 	return (line);

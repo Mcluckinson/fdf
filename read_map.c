@@ -163,10 +163,8 @@ t_map	*read_map(t_lines *start)
 	map->y = find_y(start);
 	map->x = find_x(start);
 	find_z(start, map);
-//	if (map->x == 1 && map->y == 1)
-//	{
-//		fuck_you();
-//	}
+	if (map->x == 1 && map->y == 1)
+		one_pixel();
 	if (!check_errors(map))
 	{
 		del_lines(start);
