@@ -145,5 +145,8 @@ void				gr2(t_coords *line, t_window *window, t_coords *start);
 void				gr1(t_coords *line, t_window *window, t_coords *start);
 void				recolor_map(t_coords *lines, t_window *window);
 void				fix_altitude(t_window *window);
+void				different_gradients(t_window *window, char *ist);
+int					check_set_up(t_window *window);
+void				finish_count(int ixy[3], int incr[4]);
 
 #endif

@@ -58,8 +58,7 @@ t_coords	*iso(t_coords *start, t_window *window)
 		find_max_min(turned, window->map);
 		start = start->next;
 	}
-	result = resize_all(result, window);
-	return (result);
+	return (resize_all(result, window));
 }
 
 t_coords	*parallel(t_coords *start, t_window *window)
@@ -88,8 +87,7 @@ t_coords	*parallel(t_coords *start, t_window *window)
 		find_max_min(fixed, window->map);
 		start = start->next;
 	}
-	result = resize_all(result, window);
-	return (result);
+	return (resize_all(result, window));
 }
 
 t_coords	*move_position(t_coords *start, t_map *map)
@@ -123,7 +121,8 @@ t_coords	*resize_all(t_coords *start, t_window *window)
 	if (window->map->x_max - window->map->x_min > 2000)
 		ratiox = MAP_W / (float)(window->map->x_max - window->map->x_min);
 	if (window->map->y_max - window->map->y_min > 1000)
-		ratioy = (MAP_H - 300) / (float)(window->map->y_max - window->map->y_min);
+		ratioy = (MAP_H - 300) / (float)(window->map->y_max
+				- window->map->y_min);
 	ratio = fminf(ratiox, ratioy);
 	if (ratio != 1)
 	{

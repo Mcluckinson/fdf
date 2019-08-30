@@ -28,11 +28,6 @@ static void		move_right(t_window *window)
 			flag = 1;
 		go = go->next;
 	}
-/*	if (flag == 1)
-	{
-		move_left(window);
-		return ;
-	}*/
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
@@ -53,11 +48,6 @@ static void		move_left(t_window *window)
 			flag = 1;
 		go = go->next;
 	}
-/*	if (flag == 1)
-	{
-		move_right(window);
-		return;
-	}*/
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
@@ -78,11 +68,6 @@ static void		move_up(t_window *window)
 			flag = 1;
 		go = go->next;
 	}
-/*	if (flag == 1)
-	{
-		move_down(window);
-		return;
-	}*/
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
@@ -103,11 +88,6 @@ static void		move_down(t_window *window)
 			flag = 1;
 		go = go->next;
 	}
-/*	if (flag == 1)
-	{
-		move_up(window);
-		return;
-	}*/
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }

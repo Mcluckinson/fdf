@@ -90,7 +90,8 @@ add_executable(fdf
         zoom.c
         errors.c
         colors.c
-        service.c)
+        service.c
+        draw_line_addition.c)
 target_link_libraries(fdf
         "-framework AppKit"
         "-framework OpenGL"
