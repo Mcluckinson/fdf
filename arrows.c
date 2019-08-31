@@ -6,19 +6,20 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 19:34:49 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/31 19:24:20 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/31 19:26:00 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void		move_right(t_window *window)
+static void		move_right(t_window *window, int key)
 {
 	t_coords	*go;
 
-	if (check_mov)
-	window->cur_x++;
 	go = window->current;
+	if (check_movement(window, go, key) == 1)
+		return ;
+	window->cur_x++;
 	while (go != NULL)
 	{
 		go->x0 += 5;
@@ -29,12 +30,14 @@ static void		move_right(t_window *window)
 	draw_map(window->current, window);
 }
 
-static void		move_left(t_window *window)
+static void		move_left(t_window *window, int key)
 {
 	t_coords	*go;
 
-	window->cur_x--;
 	go = window->current;
+	if (check_movement(window, go, key) == 1)
+		return ;
+	window->cur_x--;
 	while (go != NULL)
 	{
 		go->x0 -= 5;
@@ -45,11 +48,13 @@ static void		move_left(t_window *window)
 	draw_map(window->current, window);
 }
 
-static void		move_up(t_window *window)
+static void		move_up(t_window *window, int key)
 {
 	t_coords	*go;
 
 	go = window->current;
+	if (check_movement(window, go, key) == 1)
+		return ;
 	window->cur_y--;
 	while (go != NULL)
 	{
@@ -61,11 +66,13 @@ static void		move_up(t_window *window)
 	draw_map(window->current, window);
 }
 
-static void		move_down(t_window *window)
+static void		move_down(t_window *window, int key)
 {
 	t_coords	*go;
 
 	go = window->current;
+	if (check_movement(window, go, key) == 1)
+		return ;
 	window->cur_y++;
 	while (go != NULL)
 	{
@@ -80,11 +87,11 @@ static void		move_down(t_window *window)
 void			move(int key, t_window *window)
 {
 	if (key == 124)
-		move_right(window);
+		move_right(window, key);
 	if (key == 123)
-		move_left(window);
+		move_left(window, key);
 	if (key == 126)
-		move_up(window);
+		move_up(window, key);
 	if (key == 125)
-		move_down(window);
+		move_down(window, key);
 }
