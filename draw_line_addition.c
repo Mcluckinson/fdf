@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void				draw_line(t_coords *line, t_window *window)
+void		draw_line(t_coords *line, t_window *window)
 {
 	int				coord[4];
 	int				incr[4];
@@ -38,7 +38,7 @@ void				draw_line(t_coords *line, t_window *window)
 	free(steep);
 }
 
-int					find_i(int x, int y, t_window *window, int *steep)
+int			find_i(int x, int y, t_window *window, int *steep)
 {
 	int				i;
 
@@ -47,4 +47,14 @@ int					find_i(int x, int y, t_window *window, int *steep)
 	else
 		i = (y * (*window->depth / 8)) + (x * (*window->linesize));
 	return (i);
+}
+
+void		recol_map(t_coords *go, t_window *window, t_coords *start)
+{
+	while (go != NULL)
+	{
+		gr1(go, window, start);
+		go = go->next;
+		start = start->next;
+	}
 }

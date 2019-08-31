@@ -84,6 +84,17 @@ typedef	struct		s_window
 	int				projection;
 }					t_window;
 
+typedef struct		s_extra
+{
+	int				rows;
+	int				cols;
+	int				rows_actual;
+	int				cols_actual;
+}					t_extra;
+
+void				add_horosontal(t_extra *setka, t_coords *line, t_map *map);
+void				add_vertical(t_extra *setka, t_coords *line, t_map *map);
+int					freeshing_x(char **split, int i);
 void				z_filling(t_map *map, int i, int yy, char **split);
 int					map_allocation(t_map *map);
 void				gradient(t_window *window, int key);
@@ -106,8 +117,8 @@ int					find_y(t_lines *start);
 void				draw_line(t_coords *line, t_window *window);
 t_coords			*get_lines(t_map *map);
 t_coords			*new_coords(t_coords *coords);
-t_coords			*get_horisontal(t_coords *line, t_map *map);
-t_coords			*get_vertical(t_coords *line, t_map *map);
+t_coords			*get_horisontal(t_coords *line, t_map *map, t_extra *setka);
+t_coords			*get_vertical(t_coords *line, t_map *map, t_extra *setka);
 t_coords			*fix_orig(t_coords *start, float ratio);
 int					draw_map(t_coords *lines, t_window *window);
 void				put_color(char *img_data, int i, unsigned int color);
@@ -153,4 +164,6 @@ void				finish_count(int ixy[3], int incr[4]);
 int					check_split(char *split);
 void				block_movement(t_window *window);
 int					check_movement(t_window *window, t_coords *lines, int key);
+void				recol_map(t_coords *go, t_window *window, t_coords *start);
+
 #endif

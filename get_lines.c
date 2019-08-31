@@ -59,39 +59,39 @@ t_coords		*new_coords_from_above(t_coords *coords)
 
 t_coords		*get_lines(t_map *map)
 {
+	t_extra		*setka;
 	t_coords	*line;
 	t_coords	*start;
 
+	if (!(setka = (t_extra*)malloc(sizeof(t_extra))))
+		return (NULL);
 	line = NULL;
 	if (map->x > 1)
-		line = get_horisontal(line, map);
+		line = get_horisontal(line, map, setka);
 	start = line;
 	if (map->y > 1)
 	{
-		if (!(line = get_vertical(line, map)))
+		if (!(line = get_vertical(line, map, setka)))
 			del_coords(start);
 	}
 	if (line)
 		line = fix_orig(line, 20);
+	free(setka);
 	return (line);
 }
 
-t_coords		*get_horisontal(t_coords *line, t_map *map)
+t_coords		*get_horisontal(t_coords *line, t_map *map, t_extra *setka)
 {
-	int			rows;
-	int			cols;
-	int			rows_actual;
-	int			cols_actual;
 	t_coords	*result;
 
-	rows_actual = map->y * -1 / 2;
+	setka->rows_actual = map->y * -1 / 2;
 	result = NULL;
-	rows = 0;
-	while (rows < map->y)
+	setka->rows = 0;
+	while (setka->rows < map->y)
 	{
-		cols = 0;
-		cols_actual = map->x * -1 / 2;
-		while (cols < map->x - 1)
+		setka->cols = 0;
+		setka->cols_actual = map->x * -1 / 2;
+		while (setka->cols < map->x - 1)
 		{
 			if (!(line = new_coords(line)))
 			{
@@ -99,50 +99,27 @@ t_coords		*get_horisontal(t_coords *line, t_map *map)
 					del_coords(result);
 				return (NULL);
 			}
-			if (cols == 0 && rows == 0)
+			if (setka->cols == 0 && setka->rows == 0)
 				result = line;
-			line->x0 = cols_actual;
-			line->x1 = cols_actual + 1;
-			line->z0 = map->z[rows][cols];
-			line->z1 = map->z[rows][cols + 1];
-			if (map->color[rows][cols])
-			{
-				line->color_start = map->color[rows][cols];
-				line->color_flag_start = 1;
-			}
-			if (map->color[rows][cols + 1])
-			{
-				line->color_finish = map->color[rows][cols + 1];
-				line->color_flag_finish = 1;
-			}
-			line->y0 = rows_actual;
-			line->y1 = rows_actual;
-			line->z0orig = line->z0;
-			line->z1orig = line->z1;
-			cols++;
-			cols_actual++;
+			add_horosontal(setka, line, map);
 		}
-		rows++;
-		rows_actual++;
+		setka->rows++;
+		setka->rows_actual++;
 	}
 	return (result);
 }
 
-t_coords		*get_vertical(t_coords *line, t_map *map)
+t_coords		*get_vertical(t_coords *line, t_map *map, t_extra *setka)
 {
-	int			rows;
-	int			cols;
-	int			rows_actual;
-	int			cols_actual;
 	t_coords	*prev;
 
-	cols_actual = map->x * -1 / 2;
-	cols = 0;
-	while (cols < map->x)
+	setka->cols_actual = map->x * -1 / 2;
+	setka->cols = 0;
+	while (setka->cols < map->x)
 	{
-		rows = 0;
-		rows_actual = map->y * -1 / 2;
-		while (rows < map->y - 1)
+		setka->rows = 0;
+		setka->rows_actual = map->y * -1 / 2;
+		while (setka->rows < map->y - 1)
 		{
 			if (line)
 				prev = line;
@@ -152,39 +129,10 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 					del_coords(prev);
 				return (NULL);
 			}
-			line->y0 = rows_actual;
-			line->y1 = rows_actual + 1;
-			line->x0 = cols_actual;
-			line->x1 = cols_actual;
-			line->z0 = map->z[rows][cols];
-			line->z0orig = line->z0;
-			line->z1 = map->z[rows + 1][cols];
-			line->z1orig = line->z1;
-			if (map->color[rows][cols])
-			{
-				line->color_start = map->color[rows][cols];
-				line->color_flag_start = 1;
-			}
-			if (map->color[rows + 1][cols])
-			{
-				line->color_finish = map->color[rows + 1][cols];
-				line->color_flag_finish = 1;
-			}
-			rows++;
-			rows_actual++;
+			add_vertical(setka, line, map);
 		}
-		cols++;
-		cols_actual++;
+		setka->cols++;
+		setka->cols_actual++;
 	}
 	return (line);
-}
-
-void			del_coords(t_coords *lines)
-{
-	while (lines->next != NULL)
-	{
-		del_coords(lines->next);
-		lines->next = NULL;
-	}
-	free(lines);
 }

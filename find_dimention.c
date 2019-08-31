@@ -31,40 +31,32 @@ int			find_y(t_lines *start)
 
 int			find_x(t_lines *start)
 {
-	int		x;
-	int		x_max;
+	int		x_xm[2];
 	t_lines	*temp;
 	char	**split;
 
-	x = 0;
-	x_max = 0;
+	x_xm[1] = 0;
 	temp = start;
 	while (temp->next)
 	{
-		x = 0;
+		x_xm[0] = 0;
 		split = ft_strsplit(temp->line, ' ');
-		while (split[x])
+		while (split[x_xm[0]])
 		{
-			if (check_split(split[x]) == -1)
-			{
-				free(split[x]);
-				free(split);
-				return (-1);
-			}
-			free(split[x]);
-			x++;
+			if (check_split(split[x_xm[0]]) == -1)
+				return (freeshing_x(split, x_xm[0]));
+			free(split[x_xm[0]++]);
 		}
 		free(split);
-		if (!x_max)
-			x_max = x;
-		else if (x != x_max)
+		x_xm[1] ? x_xm[1] : (x_xm[1] = x_xm[0]);
+		if (x_xm[0] != x_xm[1])
 			return (0);
 		temp = temp->next;
 	}
-	return (x);
+	return (x_xm[0]);
 }
 
-int		map_allocation(t_map *map)
+int			map_allocation(t_map *map)
 {
 	if (!(map->z = (int**)malloc(sizeof(int*) * (map->y + 1))))
 		return (-1);
@@ -74,7 +66,7 @@ int		map_allocation(t_map *map)
 	return (1);
 }
 
-void	z_filling(t_map *map, int i, int yy, char **split)
+void		z_filling(t_map *map, int i, int yy, char **split)
 {
 	if (ft_strchr(split[i], ','))
 	{
@@ -89,7 +81,7 @@ void	z_filling(t_map *map, int i, int yy, char **split)
 	free(split[i]);
 }
 
-void	find_z(t_lines *start, t_map *map)
+void		find_z(t_lines *start, t_map *map)
 {
 	int		yy;
 	int		i;

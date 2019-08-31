@@ -21,7 +21,7 @@ void	zoom_in(t_window *window)
 		redraw_altitude(window->current, window);
 		redraw_altitude(window->turned, window);
 	}
-	if (window->fix_ratio != 1)
+	if (window->fix_ratio != 1 && window->projection != 1)
 	{
 		window->turned = fix_orig(window->turned, window->fix_ratio);
 		window->current = fix_orig(window->current, window->fix_ratio);
@@ -44,7 +44,7 @@ void	zoom_out(t_window *window)
 		redraw_altitude(window->current, window);
 		redraw_altitude(window->turned, window);
 	}
-	if (window->fix_ratio != 1)
+	if (window->fix_ratio != 1 && window->projection != 1)
 	{
 		window->turned = fix_orig(window->turned, window->fix_ratio);
 		window->current = fix_orig(window->current, window->fix_ratio);

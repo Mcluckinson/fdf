@@ -14,8 +14,7 @@
 
 int		key_press(int key, t_window *window)
 {
-	if (key == 53)
-		close_window(window);
+	(key == 53) ? close_window(window) : 0;
 	if (window->map != NULL)
 	{
 		if (key == 18)

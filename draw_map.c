@@ -39,32 +39,21 @@ void			recolor_map(t_coords *lines, t_window *window)
 	start = window->lines;
 	go = lines;
 	if (window->gradient_mod == 3)
-	{
 		while (go != NULL)
 		{
 			go->color_finish = rand();
 			go->color_start = rand();
 			go = go->next;
 		}
-	}
 	else if (window->gradient_mod == 1)
-	{
 		while (go != NULL)
 		{
 			gr2(go, window, start);
 			go = go->next;
 			start = start->next;
 		}
-	}
 	else
-	{
-		while (go != NULL)
-		{
-			gr1(go, window, start);
-			go = go->next;
-			start = start->next;
-		}
-	}
+		recol_map(go, window, start);
 }
 
 void			gr2(t_coords *line, t_window *window, t_coords *start)

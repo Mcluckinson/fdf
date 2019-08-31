@@ -12,6 +12,13 @@
 
 #include "fdf.h"
 
+int		freeshing_x(char **split, int i)
+{
+	free(split[i]);
+	free(split);
+	return (-1);
+}
+
 void	one_pixel(t_window *window)
 {
 	char	*str;
@@ -51,7 +58,7 @@ int		check_split(char *split)
 	int ijg[3];
 
 	ijg[0] = 0;
-	while (ft_isdigit(split[ijg[0]]))
+	while (ft_isdigit(split[ijg[0]]) || (split[ijg[0]] == '-'))
 		ijg[0]++;
 	if (split[ijg[0]] == '\0')
 		return (1);
