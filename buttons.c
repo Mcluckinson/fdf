@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 15:06:09 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/30 14:11:32 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/31 18:19:34 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		key_press(int key, t_window *window)
 			change_gradient(window);
 		if (key == 23 || key == 22 || key == 26 || key == 28)
 			gradient(window, key);
+		if (key == 49)
+			block_movement(window);
 	}
 	return (0);
 }

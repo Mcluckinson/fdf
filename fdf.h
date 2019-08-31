@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/30 14:11:32 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/31 18:19:34 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,6 @@ void				different_gradients(t_window *window, char *ist);
 int					check_set_up(t_window *window);
 void				finish_count(int ixy[3], int incr[4]);
 int					check_split(char *split);
+void				block_movement(t_window *window);
 
 #endif

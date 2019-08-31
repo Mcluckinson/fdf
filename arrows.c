@@ -15,17 +15,13 @@
 static void		move_right(t_window *window)
 {
 	t_coords	*go;
-	int			flag;
 
-	flag = 0;
 	window->cur_x++;
 	go = window->current;
 	while (go != NULL)
 	{
 		go->x0 += 5;
 		go->x1 += 5;
-		if (go->x0 >= MAP_W || go->x1 >= MAP_W)
-			flag = 1;
 		go = go->next;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
@@ -35,17 +31,13 @@ static void		move_right(t_window *window)
 static void		move_left(t_window *window)
 {
 	t_coords	*go;
-	int			flag;
 
-	flag = 0;
 	window->cur_x--;
 	go = window->current;
 	while (go != NULL)
 	{
 		go->x0 -= 5;
 		go->x1 -= 5;
-		if (go->x0 <= 0 || go->x1 <= 0)
-			flag = 1;
 		go = go->next;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
@@ -55,9 +47,7 @@ static void		move_left(t_window *window)
 static void		move_up(t_window *window)
 {
 	t_coords	*go;
-	int			flag;
 
-	flag = 0;
 	go = window->current;
 	window->cur_y--;
 	while (go != NULL)
