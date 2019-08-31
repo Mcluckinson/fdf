@@ -34,7 +34,7 @@ int		key_press(int key, t_window *window)
 			change_altitude(key, window);
 		if (key == 21)
 			change_gradient(window);
-		if (key == 23 || key == 22 || key == 26)
+		if (key == 23 || key == 22 || key == 26 || key == 28)
 			gradient(window, key);
 	}
 	return (0);

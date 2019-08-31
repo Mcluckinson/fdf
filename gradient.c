@@ -6,7 +6,7 @@
 /*   By: samymone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 15:31:50 by samymone          #+#    #+#             */
-/*   Updated: 2019/08/31 17:49:59 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/31 18:08:08 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ void	gradiend_distr(int key, t_window *window)
 	{
 		window->color[0] = 0xb0c4de;
 		window->color[1] = 0xc71585;
+	}
+	if (key == 28)
+	{
+		window->color[0] = 0x0011A953;
+		window->color[1] = 0x00ff00ff;
 	}
 }
 

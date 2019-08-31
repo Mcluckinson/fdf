@@ -82,4 +82,6 @@ void		different_gradients(t_window *window, char *ist)
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 1300, 1200, 0xffffff, ist);
 	ist = "press 7 for vodka with cranberry";
 	mlx_string_put(window->mlx_ptr, window->win_ptr, 1300, 1250, 0xffffff, ist);
+	ist = "press 8 for original beauty";
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 800, 1100, 0xffffff, ist);
 }
