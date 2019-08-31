@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 19:34:49 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/30 14:11:32 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/31 19:24:20 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void		move_right(t_window *window)
 {
 	t_coords	*go;
 
+	if (check_mov)
 	window->cur_x++;
 	go = window->current;
 	while (go != NULL)
@@ -54,8 +55,6 @@ static void		move_up(t_window *window)
 	{
 		go->y0 -= 5;
 		go->y1 -= 5;
-		if (go->y0 < 0 || go->y1 < 0)
-			flag = 1;
 		go = go->next;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
@@ -65,17 +64,13 @@ static void		move_up(t_window *window)
 static void		move_down(t_window *window)
 {
 	t_coords	*go;
-	int			flag;
 
-	flag = 0;
 	go = window->current;
 	window->cur_y++;
 	while (go != NULL)
 	{
 		go->y0 += 5;
 		go->y1 += 5;
-		if (go->y0 > MAP_H - 300 || go->y1 > MAP_H - 300)
-			flag = 1;
 		go = go->next;
 	}
 	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
