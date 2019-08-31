@@ -61,6 +61,7 @@ void	randomise_colors(t_window *window)
 {
 	t_coords *go;
 
+	window->gradient_mod = 3;
 	go = window->current;
 	while (go != NULL)
 	{

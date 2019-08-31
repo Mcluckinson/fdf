@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 15:37:42 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/30 15:19:07 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/31 16:37:39 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void			recolor_map(t_coords *lines, t_window *window)
 
 	start = window->lines;
 	go = lines;
-	if (window->gradient_mod == 1)
+	if (window->gradient_mod == 3)
+		return ;
+	else if (window->gradient_mod == 1)
 	{
 		while (go != NULL)
 		{
