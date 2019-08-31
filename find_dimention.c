@@ -29,7 +29,7 @@ int			find_y(t_lines *start)
 	return (y);
 }
 
-int 	find_x(t_lines *start)
+int			find_x(t_lines *start)
 {
 	int		x;
 	int		x_max;
@@ -64,6 +64,31 @@ int 	find_x(t_lines *start)
 	return (x);
 }
 
+int		map_allocation(t_map *map)
+{
+	if (!(map->z = (int**)malloc(sizeof(int*) * (map->y + 1))))
+		return (-1);
+	if (!(map->color = (unsigned int**)malloc(sizeof(unsigned int**)
+			* (map->y + 1))))
+		return (-1);
+	return (1);
+}
+
+void	z_filling(t_map *map, int i, int yy, char **split)
+{
+	if (ft_strchr(split[i], ','))
+	{
+		map->z[yy][i] = ft_atoi(split[i]);
+		map->color[yy][i] = ft_atoi_base(ft_strchr(split[i], ','));
+	}
+	else
+	{
+		map->z[yy][i] = ft_atoi(split[i]);
+		map->color[yy][i] = 0;
+	}
+	free(split[i]);
+}
+
 void	find_z(t_lines *start, t_map *map)
 {
 	int		yy;
@@ -73,10 +98,7 @@ void	find_z(t_lines *start, t_map *map)
 
 	temp = start;
 	yy = 0;
-	if (!(map->z = (int**)malloc(sizeof(int*) * (map->y + 1))))
-		return ;
-	if (!(map->color = (unsigned int**)malloc(sizeof(unsigned int**)
-											  * (map->y + 1))))
+	if (map_allocation(map) == -1)
 		return ;
 	while (yy < map->y)
 	{
@@ -86,17 +108,7 @@ void	find_z(t_lines *start, t_map *map)
 		map->color[yy] = (unsigned int*)malloc(sizeof(unsigned int*) * map->x);
 		while (i < map->x)
 		{
-			if (strchr(split[i], ','))
-			{
-				map->z[yy][i] = ft_atoi(split[i]);
-				map->color[yy][i] = ft_atoi_base(ft_strchr(split[i], ','));
-			}
-			else
-			{
-				map->z[yy][i] = ft_atoi(split[i]);
-				map->color[yy][i] = 0;
-			}
-			free(split[i]);
+			z_filling(map, i, yy, split);
 			i++;
 		}
 		free(split);

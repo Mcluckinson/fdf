@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-t_coords	*new_coords(t_coords *coords)
+t_coords		*new_coords(t_coords *coords)
 {
 	t_coords	*new;
 
@@ -34,7 +34,7 @@ t_coords	*new_coords(t_coords *coords)
 	return (new);
 }
 
-t_coords	*new_coords_from_above(t_coords *coords)
+t_coords		*new_coords_from_above(t_coords *coords)
 {
 	t_coords	*new;
 
@@ -57,7 +57,7 @@ t_coords	*new_coords_from_above(t_coords *coords)
 	return (new);
 }
 
-t_coords	*get_lines(t_map *map)
+t_coords		*get_lines(t_map *map)
 {
 	t_coords	*line;
 	t_coords	*start;
@@ -76,12 +76,12 @@ t_coords	*get_lines(t_map *map)
 	return (line);
 }
 
-t_coords	*get_horisontal(t_coords *line, t_map *map)
+t_coords		*get_horisontal(t_coords *line, t_map *map)
 {
 	int			rows;
 	int			cols;
-	int 		rows_actual;
-	int 		cols_actual;
+	int			rows_actual;
+	int			cols_actual;
 	t_coords	*result;
 
 	rows_actual = map->y * -1 / 2;
@@ -130,11 +130,11 @@ t_coords	*get_horisontal(t_coords *line, t_map *map)
 
 t_coords		*get_vertical(t_coords *line, t_map *map)
 {
-	int rows;
-	int cols;
-	int 		rows_actual;
-	int 		cols_actual;
-	t_coords *prev;
+	int			rows;
+	int			cols;
+	int			rows_actual;
+	int			cols_actual;
+	t_coords	*prev;
 
 	cols_actual = map->x * -1 / 2;
 	cols = 0;
@@ -179,7 +179,7 @@ t_coords		*get_vertical(t_coords *line, t_map *map)
 	return (line);
 }
 
-void	del_coords(t_coords *lines)
+void			del_coords(t_coords *lines)
 {
 	while (lines->next != NULL)
 	{

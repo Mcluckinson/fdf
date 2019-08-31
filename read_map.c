@@ -42,7 +42,7 @@ void		del_lines(t_lines *start)
 	free(start);
 }
 
-void	del_map(t_map *map)
+void		del_map(t_map *map)
 {
 	int i;
 
@@ -59,14 +59,14 @@ void	del_map(t_map *map)
 	free(map);
 }
 
-int		check_errors(t_map *map)
+int			check_errors(t_map *map)
 {
 	if (!map->x || !map->y || !map->z)
 		return (0);
 	return (1);
 }
 
-t_map	*read_map(t_lines *start, t_window *window)
+t_map		*read_map(t_lines *start, t_window *window)
 {
 	t_map	*map;
 

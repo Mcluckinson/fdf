@@ -84,6 +84,8 @@ typedef	struct		s_window
 	int				projection;
 }					t_window;
 
+void				z_filling(t_map *map, int i, int yy, char **split);
+int					map_allocation(t_map *map);
 void				gradient(t_window *window, int key);
 void				gradiend_distr(int key, t_window *window);
 void				pre_draw_line(int coord[4], t_coords *line);
