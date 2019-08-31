@@ -6,7 +6,7 @@
 /*   By: samymone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 15:31:50 by samymone          #+#    #+#             */
-/*   Updated: 2019/08/30 14:11:32 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/08/31 17:49:59 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	change_gradient(t_window *window)
 {
-	if (window->gradient_mod == 0)
+	if (window->gradient_mod != 1)
 		window->gradient_mod = 1;
 	else
 		window->gradient_mod = 0;
@@ -26,6 +26,8 @@ void	gradient(t_window *window, int key)
 {
 	t_coords *go;
 
+	if (window->gradient_mod == 3)
+		window->gradient_mod = 1;
 	go = window->current;
 	gradiend_distr(key, window);
 	while (go != NULL)
@@ -69,6 +71,5 @@ void	randomise_colors(t_window *window)
 		go->color_start = rand();
 		go = go->next;
 	}
-	ft_bzero(window->img_data, MAP_W * UNIQ_BPP * (MAP_H - 300));
 	draw_map(window->current, window);
 }
