@@ -74,6 +74,7 @@ add_executable(fdf
         libft/get_next_line.c
         libft/ft_swap.c
         libft/libft.h
+        libft/get_next_line.h
         attune_lines.c
         draw_line.c
         draw_map.c
