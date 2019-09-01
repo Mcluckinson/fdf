@@ -16,12 +16,20 @@ t_lines		*read_lines(int fd)
 {
 	t_lines		*start;
 	t_lines		*another;
+	int			gnl;
 
+	gnl = -1;
 	if (!(start = (t_lines*)malloc(sizeof(t_lines))))
 		return (NULL);
 	another = start;
-	while (get_next_line(fd, &another->line) != 0)
+	while (gnl != 0)
 	{
+		gnl = get_next_line(fd, &another->line);
+		if (gnl == -1)
+		{
+			free(start);
+			return (NULL);
+		}
 		if (!(another->next = (t_lines*)malloc(sizeof(t_lines))))
 			del_lines(start);
 		another = another->next;

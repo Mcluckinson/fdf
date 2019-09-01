@@ -41,15 +41,15 @@ void	print_error(int error, t_window *window)
 {
 	del_win(window);
 	if (error == 1)
-		write(2, "failed to create window", 23);
+		ft_putstr_fd("failed to create window\n", 2);
 	else if (error == 2)
-		write(2, "empty or invalid file", 21);
+		ft_putstr_fd("empty or invalid file\n", 2);
 	else if (error == 3)
-		write(2, "failed to read from fd", 22);
+		ft_putstr_fd("failed to read from fd\n", 2);
 	else if (error == 4)
-		write(2, "incorrect input", 15);
+		ft_putstr_fd("incorrect input\n", 2);
 	else if (error == 5)
-		write(2, "failed to create map", 20);
+		ft_putstr_fd("failed to create map\n", 2);
 	exit(0);
 }
 
