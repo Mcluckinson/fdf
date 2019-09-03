@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 17:38:21 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/09/03 13:09:09 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/09/03 15:47:08 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void				inter_via_mass(int coord[4], int incr[4])
 int					check_shit(int ixy[3], int *steep)
 {
 	return (
-	(((ixy[1] >= 0 && ixy[1] <= MAP_W && ixy[2] > 0
-	&& ixy[2] <= MAP_H - 300 && steep[0] == 0)
-	|| (ixy[2] >= 0 && ixy[2] <= MAP_W && ixy[1] > 0
-	&& ixy[1] <= MAP_H - 300 && steep[0] == 1))) ? 0 : 1);
+	(((ixy[1] > 0 && ixy[1] < MAP_W && ixy[2] > 0
+	&& ixy[2] < MAP_H - 300 && steep[0] == 0)
+	|| (ixy[2] > 0 && ixy[2] < MAP_W && ixy[1] > 0
+	&& ixy[1] < MAP_H - 300 && steep[0] == 1))) ? 0 : 1);
 }
 
 void				finish_count(int ixy[3], int incr[4])

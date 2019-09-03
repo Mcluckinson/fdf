@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 20:47:24 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/09/03 13:09:09 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/09/03 16:41:48 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		copy_to_current(t_coords *origin, t_coords *target)
 
 void		fix(t_coords *s1, t_coords *s2, float r, t_window *window)
 {
-	if (s1 != NULL)
+	if (s1 != NULL && s2 != NULL)
 	{
 		fix(s1->next, s2->next, r, window);
 		s2->x0 = (s1->x0 * r + (5 * window->cur_x));

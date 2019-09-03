@@ -62,10 +62,7 @@ void		add_vertical(t_extra *setka, t_coords *line, t_map *map)
 
 void		del_coords(t_coords *lines)
 {
-	while (lines->next != NULL)
-	{
+	if (lines != NULL)
 		del_coords(lines->next);
-		lines->next = NULL;
-	}
 	free(lines);
 }

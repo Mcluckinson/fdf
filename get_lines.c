@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:17:22 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/09/03 13:09:09 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/09/03 16:07:34 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_coords		*new_coords(t_coords *coords)
 
 	if (!(new = (t_coords*)malloc(sizeof(t_coords))))
 		return (NULL);
-	new->x0 = 0;
+	/*new->x0 = 0;
 	new->x1 = 0;
 	new->y0 = 0;
 	new->y1 = 0;
@@ -27,10 +27,11 @@ t_coords		*new_coords(t_coords *coords)
 	new->z0orig = 0;
 	new->z1orig = 0;
 	new->color_flag_finish = 0;
-	new->color_flag_start = 0;
+	new->color_flag_start = 0;*/
+	ft_bzero(new, sizeof(t_coords));
 	if (coords != NULL)
 		coords->next = new;
-	new->next = NULL;
+//	new->next = NULL;
 	return (new);
 }
 
@@ -40,7 +41,7 @@ t_coords		*new_coords_from_above(t_coords *coords)
 
 	if (!(new = (t_coords*)malloc(sizeof(t_coords))))
 		return (NULL);
-	new->x0 = 0;
+/*	new->x0 = 0;
 	new->x1 = 0;
 	new->y0 = 0;
 	new->y1 = 0;
@@ -49,7 +50,8 @@ t_coords		*new_coords_from_above(t_coords *coords)
 	new->z0orig = 0;
 	new->z1orig = 0;
 	new->color_flag_start = 0;
-	new->color_flag_finish = 0;
+	new->color_flag_finish = 0;*/
+	ft_bzero(new, sizeof(t_coords));
 	if (coords != NULL)
 		new->next = coords;
 	else
