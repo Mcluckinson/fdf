@@ -27,9 +27,11 @@ $(NAME): $(OBJ)
 clean:
 	/bin/rm -f $(SOURCE:.c=.o)
 	make -C ./libft clean
+	make -C ./minilibx_macos clean
 
 fclean: clean
 	/bin/rm -f $(NAME)
 	make -C ./libft fclean
+	make -C ./minilibx_macos clean
 
 re: fclean all
