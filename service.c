@@ -51,15 +51,24 @@ void		copy_to_current(t_coords *origin, t_coords *target)
 
 void		fix(t_coords *s1, t_coords *s2, float r, t_window *window)
 {
-	if (s1 != NULL && s2 != NULL)
+//	if (s1 != NULL && s2 != NULL)
+//	{
+	t_coords	*go1;
+	t_coords	*go2;
+
+	go1 = s1;
+	go2 = s2;
+	while (go1 != NULL)
 	{
-		fix(s1->next, s2->next, r, window);
-		s2->x0 = (s1->x0 * r + (5 * window->cur_x));
-		s2->x1 = (s1->x1 * r + (5 * window->cur_x));
-		s2->y0 = (s1->y0 * r + (5 * window->cur_y));
-		s2->y1 = (s1->y1 * r + (5 * window->cur_y));
-		s2->z0 = s1->z0 * r;
-		s2->z1 = s1->z1 * r;
+	//	fix(s1->next, s2->next, r, window);
+		go2->x0 = (go1->x0 * r + (5 * window->cur_x));
+		go2->x1 = (go1->x1 * r + (5 * window->cur_x));
+		go2->y0 = (go1->y0 * r + (5 * window->cur_y));
+		go2->y1 = (go1->y1 * r + (5 * window->cur_y));
+		go2->z0 = go1->z0 * r;
+		go2->z1 = go1->z1 * r;
+		go1 = go1->next;
+		go2 = go2->next;
 	}
 	return ;
 }
