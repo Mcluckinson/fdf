@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 13:59:02 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/09/03 14:18:17 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/09/03 14:24:19 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ t_lines		*add_lines(t_lines *line)
 
 void		del_lines(t_lines *start)
 {
-	while (start->next != NULL)
+	while (start != NULL)
 	{
 		del_lines(start->next);
-		start->next = NULL;
+//		start->next = NULL;
 	}
-	if (start->line != NULL)
+	if (start != NULL && start->line != NULL)
 		free(start->line);
 	free(start);
 }
