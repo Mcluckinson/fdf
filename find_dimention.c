@@ -6,7 +6,7 @@
 /*   By: samymone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 22:55:49 by samymone          #+#    #+#             */
-/*   Updated: 2019/08/30 22:58:22 by samymone         ###   ########.fr       */
+/*   Updated: 2019/09/03 13:09:04 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			find_y(t_lines *start)
 		return (0);
 	temp = start;
 	y = 0;
-	while (temp->next)
+	while (temp)
 	{
 		y++;
 		temp = temp->next;
@@ -37,7 +37,7 @@ int			find_x(t_lines *start)
 
 	x_xm[1] = 0;
 	temp = start;
-	while (temp->next)
+	while (temp != NULL/*->next*/)
 	{
 		x_xm[0] = 0;
 		split = ft_strsplit(temp->line, ' ');

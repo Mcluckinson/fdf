@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 14:15:36 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/31 18:31:43 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/09/03 13:09:09 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,6 @@ int					check_split(char *split);
 void				block_movement(t_window *window);
 int					check_movement(t_window *window, t_coords *lines, int key);
 void				recol_map(t_coords *go, t_window *window, t_coords *start);
+t_lines				*add_lines(t_lines *line);
 
 #endif

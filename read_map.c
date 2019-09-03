@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 13:59:02 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/08/30 14:11:32 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/09/03 14:18:17 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,80 @@ t_lines		*read_lines(int fd)
 {
 	t_lines		*start;
 	t_lines		*another;
-	int			gnl;
+	int 		gnl;
+	char 		*temp;
 
-	gnl = -1;
-	if (!(start = (t_lines*)malloc(sizeof(t_lines))))
-		return (NULL);
-	another = start;
-	while (gnl != 0)
+	gnl = 1;
+	start = NULL;
+	another = NULL;
+	while (gnl == 1)
 	{
-		gnl = get_next_line(fd, &another->line);
-		if (gnl == -1)
+		gnl = get_next_line(fd, &temp);
+		if (gnl == 1)
 		{
-			free(start);
-			return (NULL);
+			if (!(another = add_lines(another)))
+				return (NULL);
+			if (start == NULL)
+				start = another;
+			another->line = ft_strdup(temp);
+			free (temp);
 		}
-		if (!(another->next = (t_lines*)malloc(sizeof(t_lines))))
+		else if (gnl == 0)
+			break;
+		else
 			del_lines(start);
-		another = another->next;
 	}
-	another->next = NULL;
 	return (start);
 }
+
+t_lines		*add_lines(t_lines *line)
+{
+	t_lines *start;
+
+	if (!(start = (t_lines*)malloc(sizeof(t_lines))))
+		return (NULL);
+//	if (line == NULL)
+		start->next = NULL;
+	if (line != NULL)
+		line->next = start;
+	return (start);
+}
+//	if (!(start = (t_lines*)malloc(sizeof(t_lines))))
+//		return (NULL);
+//	start->next = NULL;
+//	another = start;
+//	while (get_next_line(fd, &another->line) /*&& another->next*/)/* && gnl != 0 && gnl != -1*/
+/*	while (gnl == 1)
+	{
+		gnl = get_next_line(fd, &temp);
+		if (gnl == 1)
+		{
+			another->line = ft_strdup(temp);
+			free(temp);
+		}
+
+		if (!(another->next = (t_lines *) malloc(sizeof(t_lines))))
+				del_lines(start);
+		if (another->next)
+		{
+			another = another->next;
+			another->next = NULL;
+		}
+	}
+	if (get_next_line(fd, &another->line) == 0)
+	{
+		free (another->next);
+		free (another);
+
+		another = NULL;
+	}
+	else if (get_next_line(fd, &another->line) == -1)
+	{
+		del_lines(start);
+		return (NULL);
+	}
+	return (start);
+}*/
 
 void		del_lines(t_lines *start)
 {
@@ -45,7 +98,7 @@ void		del_lines(t_lines *start)
 		del_lines(start->next);
 		start->next = NULL;
 	}
-	if (start->line)
+	if (start->line != NULL)
 		free(start->line);
 	free(start);
 }

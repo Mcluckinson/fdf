@@ -4,4 +4,8 @@ gcc draw_line.c  -lmlx -framework OpenGL -framework AppKit minilibx_macos/libmlx
 
 https://code.woboq.org/qt5/include/X11/X.h.html   - коды из X.h
 
-ПРОВЕРИТЬ ЧТОБЫ МЕЙКФАЙЛ КОМПИЛИЛИ МЛХ А НЕ ИСПОЛЬЗОВАЛ ГОТОВУЮ!!!!!
+
+мейкфайл клин минилиб и фклин
+а все ли фришит фришинг?
+Открытие папки
+Сега при открытии о файла
