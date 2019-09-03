@@ -37,7 +37,7 @@ int			find_x(t_lines *start)
 
 	x_xm[1] = 0;
 	temp = start;
-	while (temp != NULL/*->next*/)
+	while (temp != NULL)
 	{
 		x_xm[0] = 0;
 		split = ft_strsplit(temp->line, ' ');

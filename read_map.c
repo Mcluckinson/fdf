@@ -6,7 +6,7 @@
 /*   By: cyuriko <cyuriko@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 13:59:02 by cyuriko           #+#    #+#             */
-/*   Updated: 2019/09/03 15:47:08 by cyuriko          ###   ########.fr       */
+/*   Updated: 2019/09/03 18:25:03 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_lines		*read_lines(int fd)
 {
 	t_lines		*start;
 	t_lines		*another;
-	int 		gnl;
-	char 		*temp;
+	int			gnl;
+	char		*temp;
 
 	gnl = 1;
 	start = NULL;
@@ -27,69 +27,18 @@ t_lines		*read_lines(int fd)
 		gnl = get_next_line(fd, &temp);
 		if (gnl == 1)
 		{
-			if (!(another = add_lines(another)))
+			if (!(another = add_lines(another)) || gnl == -1)
 				return (NULL);
 			if (start == NULL)
 				start = another;
 			another->line = ft_strdup(temp);
-			free (temp);
-		}
-		else if (gnl == 0)
-			break;
-		else
-			del_lines(start);
-	}
-	return (start);
-}
-
-t_lines		*add_lines(t_lines *line)
-{
-	t_lines *start;
-
-	if (!(start = (t_lines*)malloc(sizeof(t_lines))))
-		return (NULL);
-//	if (line == NULL)
-		start->next = NULL;
-	if (line != NULL)
-		line->next = start;
-	return (start);
-}
-//	if (!(start = (t_lines*)malloc(sizeof(t_lines))))
-//		return (NULL);
-//	start->next = NULL;
-//	another = start;
-//	while (get_next_line(fd, &another->line) /*&& another->next*/)/* && gnl != 0 && gnl != -1*/
-/*	while (gnl == 1)
-	{
-		gnl = get_next_line(fd, &temp);
-		if (gnl == 1)
-		{
-			another->line = ft_strdup(temp);
 			free(temp);
 		}
-
-		if (!(another->next = (t_lines *) malloc(sizeof(t_lines))))
-				del_lines(start);
-		if (another->next)
-		{
-			another = another->next;
-			another->next = NULL;
-		}
-	}
-	if (get_next_line(fd, &another->line) == 0)
-	{
-		free (another->next);
-		free (another);
-
-		another = NULL;
-	}
-	else if (get_next_line(fd, &another->line) == -1)
-	{
-		del_lines(start);
-		return (NULL);
+		else if (gnl == 0)
+			break ;
 	}
 	return (start);
-}*/
+}
 
 void		del_lines(t_lines *start)
 {

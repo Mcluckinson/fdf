@@ -6,7 +6,7 @@
 /*   By: samymone <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 19:36:48 by samymone          #+#    #+#             */
-/*   Updated: 2019/08/31 19:36:50 by samymone         ###   ########.fr       */
+/*   Updated: 2019/09/03 18:09:38 by cyuriko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,24 @@ void		add_vertical(t_extra *setka, t_coords *line, t_map *map)
 
 void		del_coords(t_coords *lines)
 {
-//	if (lines != NULL)
-//		del_coords(lines->next);
-//	free(lines);
 	t_coords	*to_del;
+
 	while (lines != NULL)
 	{
 		to_del = lines;
 		lines = lines->next;
 		free(to_del);
 	}
+}
+
+t_lines		*add_lines(t_lines *line)
+{
+	t_lines *start;
+
+	if (!(start = (t_lines*)malloc(sizeof(t_lines))))
+		return (NULL);
+	start->next = NULL;
+	if (line != NULL)
+		line->next = start;
+	return (start);
 }

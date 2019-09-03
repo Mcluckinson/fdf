@@ -18,20 +18,9 @@ t_coords		*new_coords(t_coords *coords)
 
 	if (!(new = (t_coords*)malloc(sizeof(t_coords))))
 		return (NULL);
-	/*new->x0 = 0;
-	new->x1 = 0;
-	new->y0 = 0;
-	new->y1 = 0;
-	new->z0 = 0;
-	new->z1 = 0;
-	new->z0orig = 0;
-	new->z1orig = 0;
-	new->color_flag_finish = 0;
-	new->color_flag_start = 0;*/
 	ft_bzero(new, sizeof(t_coords));
 	if (coords != NULL)
 		coords->next = new;
-//	new->next = NULL;
 	return (new);
 }
 
@@ -41,16 +30,6 @@ t_coords		*new_coords_from_above(t_coords *coords)
 
 	if (!(new = (t_coords*)malloc(sizeof(t_coords))))
 		return (NULL);
-/*	new->x0 = 0;
-	new->x1 = 0;
-	new->y0 = 0;
-	new->y1 = 0;
-	new->z0 = 0;
-	new->z1 = 0;
-	new->z0orig = 0;
-	new->z1orig = 0;
-	new->color_flag_start = 0;
-	new->color_flag_finish = 0;*/
 	ft_bzero(new, sizeof(t_coords));
 	if (coords != NULL)
 		new->next = coords;
